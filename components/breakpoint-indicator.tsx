@@ -1,4 +1,9 @@
-export function TailwindIndicator() {
+/*
+ * A small indicator to show the current breakpoint.
+ * It only shows on development environment.
+ *
+ */
+export function BreakpointIndicator() {
   if (process.env.NODE_ENV === "production") return null
 
   return (
