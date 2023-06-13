@@ -1,11 +1,28 @@
-export default function AboutPage() {
+import { notFound } from "next/navigation"
+import { db } from "@/db/client"
+
+export const revalidate = 3600
+
+async function getProfile() {
+  return await db.query.profiles.findFirst()
+}
+
+export default async function AboutPage() {
+  const profile = await getProfile()
+
+  if (!profile) {
+    notFound()
+  }
+
   return (
-    <div className="mx-auto min-h-screen max-w-screen-2xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
+    <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
       <div className="min-h-screen lg:flex lg:justify-between lg:gap-4">
         <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:py-24">
           <div className="flex-1">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              <a href="/">Jasper Concepcion</a>
+              <a href="/">
+                {profile.firstName} {profile.lastName}
+              </a>
             </h1>
             <h2 className="mt-3 text-lg font-medium tracking-tight text-foreground sm:text-xl">
               Sr. <strong>Software Engineer</strong> at{" "}
@@ -13,10 +30,7 @@ export default function AboutPage() {
                 AcadArena
               </a>
             </h2>
-            <p className="mb-10 mt-3">
-              Lorem ipsum dolor sit amet, qui minim labore adipisicing minim
-              sint cillum sint consectetur cupidatat.
-            </p>
+            <p className="mb-10 mt-3">{profile.shortDescription}</p>
             <nav>
               <ul>
                 <li>About</li>

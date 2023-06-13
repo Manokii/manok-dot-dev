@@ -1,6 +1,8 @@
 import { NextAuthOptions } from "next-auth"
+import DiscordProvider from "next-auth/providers/discord"
 
 import { drizzleAdapter } from "./drizzle-adapter"
+import { env } from "@/env.mjs"
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
@@ -8,16 +10,18 @@ export const authOptions: NextAuthOptions = {
       ...session,
       user: {
         ...session.user,
-        id: user.id,
+        id: user?.id,
       },
     }),
+    redirect: ({ url }) => url,
   },
   adapter: drizzleAdapter(),
+
   providers: [
-    // DiscordProvider({
-    //   clientId: env.DISCORD_CLIENT_ID,
-    //   clientSecret: env.DISCORD_CLIENT_SECRET,
-    // }),
+    DiscordProvider({
+      clientId: env.DISCORD_CLIENT_ID,
+      clientSecret: env.DISCORD_CLIENT_SECRET,
+    }),
     /**
      * ...add more providers here.
      *
