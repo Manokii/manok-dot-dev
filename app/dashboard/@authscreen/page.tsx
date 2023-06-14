@@ -1,8 +1,11 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Github } from "lucide-react"
 import { signIn } from "next-auth/react"
+import {
+  IconBrandDiscordFilled,
+  IconBrandGithubFilled,
+} from "@tabler/icons-react"
 
 export default function AuthScreen() {
   return (
@@ -12,10 +15,16 @@ export default function AuthScreen() {
           <CardTitle>Login</CardTitle>
         </CardHeader>
         <CardContent>
-          <Button onClick={() => signIn("discord")}>
-            <Github className="mr-2 h-4 w-4" />
-            Login with Discord
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button onClick={() => signIn("discord")}>
+              <IconBrandDiscordFilled className="mr-2 h-4 w-4" />
+              Login with Discord
+            </Button>
+            <Button onClick={() => signIn("github")}>
+              <IconBrandGithubFilled className="mr-2 h-4 w-4" />
+              Login with Github
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

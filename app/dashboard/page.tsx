@@ -17,7 +17,10 @@ export default async function DashboardPage() {
       user: true,
       experience: true,
     },
-    where: eq(profiles.userId, session.user.id),
+    where:
+      session.user.role === "admin"
+        ? undefined
+        : eq(profiles.userId, session.user.id),
   })
 
   return (
