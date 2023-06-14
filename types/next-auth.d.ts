@@ -8,7 +8,10 @@ declare module "next-auth" {
     } & DefaultSession["user"]
   }
 
-  interface User {}
+  interface User {
+    id: string
+    role: "admin" | "default"
+  }
 
   /**
    * Usually contains information about the provider being used
