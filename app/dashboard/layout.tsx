@@ -2,6 +2,7 @@
 import { Button, buttonVariants } from "@/components/ui/button"
 import { SessionProvider, signOut, useSession } from "next-auth/react"
 import { ReactNode } from "react"
+import Loading from "./loading"
 
 interface Props {
   children: ReactNode
@@ -20,7 +21,7 @@ function Layout({ children, authscreen }: Props) {
   return (
     <div className="container py-8">
       {status === "loading" ? (
-        "Loading..."
+        <Loading />
       ) : status === "unauthenticated" ? (
         authscreen
       ) : (
