@@ -1,0 +1,1 @@
+ALTER TABLE `accounts` ADD `refresh_token_expires_in` int;

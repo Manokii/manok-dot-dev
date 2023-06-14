@@ -39,6 +39,7 @@ export const accounts = mysqlTable(
     scope: varchar("scope", { length: 255 }),
     id_token: varchar("id_token", { length: 255 }),
     session_state: varchar("session_state", { length: 255 }),
+    refresh_token_expires_in: int("refresh_token_expires_in"), // required for GitHub provider
   },
   (account) => ({
     compoundKey: primaryKey(account.provider, account.providerAccountId),
