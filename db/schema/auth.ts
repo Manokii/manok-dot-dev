@@ -1,4 +1,5 @@
 // TODO - Refactor this! Currently, drizzle doesn't support unique and composite unique constraint
+import { relations } from "drizzle-orm"
 import {
   int,
   mysqlTable,
@@ -7,6 +8,7 @@ import {
   varchar,
 } from "drizzle-orm/mysql-core"
 import { ProviderType } from "next-auth/providers"
+import { profiles } from "./profile"
 
 export const users = mysqlTable("users", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
@@ -15,6 +17,12 @@ export const users = mysqlTable("users", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: varchar("image", { length: 255 }),
 })
+
+export const usersRelations = relations(users, ({ many }) => ({
+  profiles: many(profiles),
+}))
+
+// --- Next Auth Tables ---
 export const accounts = mysqlTable(
   "accounts",
   {
@@ -34,11 +42,13 @@ export const accounts = mysqlTable(
     compoundKey: primaryKey(account.provider, account.providerAccountId),
   })
 )
+
 export const sessions = mysqlTable("sessions", {
   sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
   userId: varchar("userId", { length: 255 }).notNull(),
   expires: timestamp("expires", { mode: "date" }).notNull(),
 })
+
 export const verificationTokens = mysqlTable(
   "verificationToken",
   {
