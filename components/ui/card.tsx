@@ -9,7 +9,7 @@ export const cardVariant = cva("", {
       default:
         "-inset-4 z-0 rounded-md bg-slate-800/50 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] drop-shadow-lg transition motion-reduce:transition-none lg:-inset-x-6",
       ghost:
-        "-inset-4 z-0 rounded-md transition motion-reduce:transition-none lg:-inset-x-6 bg-transparent hover:bg-slate-800/50 hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] hover:drop-shadow-lg",
+        "-inset-4 z-0 rounded-md transition motion-reduce:transition-none lg:-inset-x-6 bg-transparent hover:bg-card/50 hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] hover:drop-shadow-lg",
     },
   },
   defaultVariants: {

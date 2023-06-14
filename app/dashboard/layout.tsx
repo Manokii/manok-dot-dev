@@ -1,8 +1,8 @@
 "use client"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { SessionProvider, signOut, useSession } from "next-auth/react"
+import { SessionProvider, useSession } from "next-auth/react"
 import { ReactNode } from "react"
 import Loading from "./loading"
+import { AuthMenu } from "@/components/auth-menu"
 
 interface Props {
   children: ReactNode
@@ -28,12 +28,7 @@ function Layout({ children, authscreen }: Props) {
         <div className="flex flex-col gap-4">
           {session?.user && (
             <div className="self-end">
-              <Button
-                className={buttonVariants({ variant: "ghost", size: "sm" })}
-                onClick={() => signOut()}
-              >
-                Sign Out
-              </Button>
+              <AuthMenu user={session.user} />
             </div>
           )}
           {children}
