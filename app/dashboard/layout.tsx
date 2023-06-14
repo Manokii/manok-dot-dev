@@ -19,7 +19,7 @@ export default function DashboardLayout(props: Props) {
 function Layout({ children, authscreen }: Props) {
   const { status, data: session } = useSession()
   return (
-    <div className="container py-8">
+    <div className="container p-8 lg:px-0">
       {status === "loading" ? (
         <Loading />
       ) : status === "unauthenticated" ? (

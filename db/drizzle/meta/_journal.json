@@ -15,6 +15,13 @@
       "when": 1686736430536,
       "tag": "0001_red_swarm",
       "breakpoints": false
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1686748892210,
+      "tag": "0002_cold_bloodstorm",
+      "breakpoints": false
     }
   ]
 }

@@ -6,7 +6,6 @@ import type { Metadata } from "next"
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
-import { BreakpointIndicator } from "@/components/breakpoint-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
@@ -43,7 +42,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
-            <BreakpointIndicator />
           </ThemeProvider>
         </body>
       </html>

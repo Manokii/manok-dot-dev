@@ -52,13 +52,14 @@ export const TypographyH3 = forwardRef<
 export const TypographyH4 = forwardRef<
   HTMLHeadingElement,
   HTMLAttributes<HTMLHeadingElement>
->(function TypographyH4({ className, ...props }) {
+>(function TypographyH4({ className, ...props }, ref) {
   return (
     <h4
       className={cn(
         "scroll-m-20 text-xl font-semibold tracking-tight text-foreground",
         className
       )}
+      ref={ref}
       {...props}
     />
   )

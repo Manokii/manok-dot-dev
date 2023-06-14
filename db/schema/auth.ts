@@ -2,6 +2,7 @@
 import { relations } from "drizzle-orm"
 import {
   int,
+  mysqlEnum,
   mysqlTable,
   primaryKey,
   timestamp,
@@ -16,6 +17,7 @@ export const users = mysqlTable("users", {
   email: varchar("email", { length: 255 }).notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: varchar("image", { length: 255 }),
+  role: mysqlEnum("role", ["admin", "default"]).notNull().default("default"),
 })
 
 export const usersRelations = relations(users, ({ many }) => ({

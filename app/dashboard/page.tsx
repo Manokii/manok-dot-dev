@@ -1,22 +1,35 @@
-"use client"
+import { TypographyH3 } from "@/components/ui/typography"
+import { db } from "@/db/client"
+import { profiles } from "@/db/schema"
+import { authOptions } from "@/server/auth-options"
+import { eq } from "drizzle-orm"
+import { getServerSession } from "next-auth"
 
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { signIn, useSession } from "next-auth/react"
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions)
 
-export default function DashboardPage() {
+  if (!session?.user) {
+    throw new Error("No session")
+  }
+
+  const profileData = await db.query.profiles.findMany({
+    with: {
+      user: true,
+      experience: true,
+    },
+    where: eq(profiles.userId, session.user.id),
+  })
+
   return (
     <div className="flex flex-col">
-      <Tabs defaultValue="about">
-        <TabsList>
-          <TabsTrigger value="about">About</TabsTrigger>
-          <TabsTrigger value="experience">Experience</TabsTrigger>
-        </TabsList>
-        <div className="pt-2">
-          <TabsContent value="about">qweqwe</TabsContent>
-          <TabsContent value="experience">experience</TabsContent>
-        </div>
-      </Tabs>
+      <TypographyH3>Profiles</TypographyH3>
+      <div className="whitespace-pre">
+        {JSON.stringify(session.user, null, 4)}
+      </div>
+      profiles
+      <div className="whitespace-pre">
+        {JSON.stringify(profileData, null, 4)}
+      </div>
     </div>
   )
 }
