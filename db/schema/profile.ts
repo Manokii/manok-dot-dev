@@ -15,7 +15,7 @@ export const profiles = mysqlTable("profiles", {
 export const profilesRelations = relations(profiles, ({ one, many }) => ({
   experience: many(experience),
   user: one(users, {
-    fields: [profiles.id],
+    fields: [profiles.userId],
     references: [users.id],
   }),
 }))
