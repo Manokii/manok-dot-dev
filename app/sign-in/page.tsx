@@ -1,7 +1,8 @@
 import { authOptions } from "@/server/auth-options"
-import AuthScreen from "../@authscreen/page"
+import AuthScreen from "../dashboard/@authscreen/page"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
+
 export default async function SignInPage() {
   const session = await getServerSession(authOptions)
 
@@ -9,5 +10,9 @@ export default async function SignInPage() {
     redirect("/dashboard")
   }
 
-  return <AuthScreen />
+  return (
+    <div className="container p-8 lg:px-0">
+      <AuthScreen />
+    </div>
+  )
 }

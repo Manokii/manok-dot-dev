@@ -1,1 +1,0 @@
-ALTER TABLE `profiles` ADD `user_id;` varchar(255) NOT NULL;

@@ -4,7 +4,7 @@ import { db } from "@/db/client"
 export const revalidate = 3600
 
 async function getProfile() {
-  return await db.query.profiles.findFirst()
+  return await db.query.portfolios.findFirst()
 }
 
 export default async function AboutPage() {

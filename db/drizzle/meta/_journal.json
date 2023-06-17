@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1686572736900,
-      "tag": "0000_nosy_reaper",
-      "breakpoints": false
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1686736430536,
-      "tag": "0001_red_swarm",
-      "breakpoints": false
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1686748892210,
-      "tag": "0002_cold_bloodstorm",
-      "breakpoints": false
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1686758135326,
-      "tag": "0003_greedy_glorian",
+      "when": 1687040494611,
+      "tag": "0000_silky_captain_stacy",
       "breakpoints": false
     }
   ]
