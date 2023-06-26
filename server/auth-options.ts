@@ -6,6 +6,7 @@ import { drizzleAdapter } from "./next-auth-adapter/drizzle-adapter"
 import { env } from "@/env.mjs"
 
 export const authOptions: NextAuthOptions = {
+  secret: env.NEXTAUTH_SECRET,
   callbacks: {
     session: ({ session, user }) => ({
       ...session,

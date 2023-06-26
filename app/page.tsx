@@ -20,9 +20,7 @@ export default async function AboutPage() {
         <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:py-24">
           <div className="flex-1">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              <a href="/">
-                {profile.firstName} {profile.lastName}
-              </a>
+              <a href="/">{profile.name}</a>
             </h1>
             <h2 className="mt-3 text-lg font-medium tracking-tight text-foreground sm:text-xl">
               Sr. <strong>Software Engineer</strong> at{" "}
@@ -30,7 +28,7 @@ export default async function AboutPage() {
                 AcadArena
               </a>
             </h2>
-            <p className="mb-10 mt-3">{profile.shortDescription}</p>
+            <p className="mb-10 mt-3">{profile.subheading}</p>
             <nav>
               <ul>
                 <li>About</li>

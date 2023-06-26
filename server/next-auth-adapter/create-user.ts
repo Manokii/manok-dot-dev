@@ -12,7 +12,7 @@ export const createUser: Adapter["createUser"] = async (payload) => {
     await tx.insert(portfolios).values({
       userId: id,
       name,
-      slug: name.replaceAll(" ", "-").toLowerCase().concat(id.slice(0, 8)),
+      slug: name.replaceAll(" ", "-").toLowerCase().concat("-", id.slice(0, 8)),
       about: "",
       headline: "",
       subheading: "",

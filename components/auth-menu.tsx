@@ -1,3 +1,4 @@
+"use client"
 import { User } from "next-auth"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import {
