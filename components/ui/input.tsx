@@ -25,22 +25,36 @@ InputRaw.displayName = "Input"
 export interface InputProps extends Omit<InputRawProps, "id"> {
   label?: string
   text?: string
+  error?: string
   id?: string
   rootProps?: ComponentProps<"div">
 }
 const Input = forwardRef<HTMLDivElement, InputProps>(function Input(
-  { rootProps, label, id, text, className, ...props },
+  { rootProps, label, id, text, className, error, ...props },
   ref
 ) {
   return (
     <div
       ref={ref}
-      className={cn("grid w-full gap-1.5", className)}
+      className={cn("flex w-full flex-col gap-1.5", rootProps?.className)}
       {...rootProps}
     >
-      {label && <Label htmlFor={id}>{label}</Label>}
-      <InputRaw id={id} {...props} />
-      {text && <p className="text-sm text-muted-foreground">{text}</p>}
+      {label && (
+        <Label htmlFor={id} className="text-white">
+          {label}
+        </Label>
+      )}
+      <InputRaw id={id} {...props} className={cn("text-gray-300", className)} />
+      {(text || error) && (
+        <p
+          className={cn(
+            "mt-1 text-sm",
+            error ? "text-red-200" : "text-muted-foreground"
+          )}
+        >
+          {error || text}
+        </p>
+      )}
     </div>
   )
 })

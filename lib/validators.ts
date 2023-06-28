@@ -2,11 +2,19 @@ import { portfolios } from "@/db/schema"
 import { createInsertSchema } from "drizzle-zod"
 import { z } from "zod"
 
+const emptyString = z.literal("")
+const prependedUrl = (url: string) =>
+  z
+    .string()
+    .url()
+    .startsWith(`https://${url}`)
+    .or(z.string().url().startsWith(`https://www.${url}`))
+
 const socialLinksSchema = z.object({
-  github: z.string().url().optional(),
-  linkedin: z.string().url().optional(),
-  twitter: z.string().url().optional(),
-  website: z.string().url().optional(),
+  github: prependedUrl("github.com").or(emptyString).optional(),
+  linkedin: prependedUrl("linkedin.com").or(emptyString).optional(),
+  twitter: prependedUrl("twitter.com").or(emptyString).optional(),
+  website: z.string().url().optional().or(emptyString).optional(),
 })
 
 export const updatePortfolioSchema = createInsertSchema(portfolios, {
