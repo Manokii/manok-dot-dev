@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "b0bd8a3e-8525-4854-96bc-530827b9509a",
+  "id": "2ab00e49-bbaf-40a5-a340-608a58d44abf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -248,8 +248,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "role": {
-          "name": "role",
+        "status": {
+          "name": "status",
           "type": "enum('pending','approved')",
           "primaryKey": false,
           "notNull": true,

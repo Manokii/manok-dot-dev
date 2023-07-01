@@ -14,7 +14,7 @@ export const technologies = mysqlTable("technologies", {
   name: varchar("name", { length: 255 }).notNull(),
   icon: varchar("icon", { length: 2048 }),
   slug: varchar("slug", { length: 255 }).notNull(),
-  status: mysqlEnum("role", ["pending", "approved"])
+  status: mysqlEnum("status", ["pending", "approved"])
     .notNull()
     .default("pending"),
   description: varchar("description", { length: 2048 }),
