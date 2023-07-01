@@ -38,6 +38,7 @@ CREATE TABLE `technologies` (
 	`name` varchar(255) NOT NULL,
 	`icon` varchar(2048),
 	`slug` varchar(255) NOT NULL,
+	`role` enum('pending','approved') NOT NULL DEFAULT 'pending',
 	`description` varchar(2048),
 	`created_at` timestamp NOT NULL DEFAULT (now()),
 	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP);
