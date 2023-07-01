@@ -4,7 +4,7 @@
  */
 import { InferModel, relations } from "drizzle-orm"
 import { json, mysqlTable, serial, text, varchar } from "drizzle-orm/mysql-core"
-import { accomplishments } from "./accomplishment"
+import { experiences } from "./experience"
 import { users } from "./user"
 import { projects } from "./project"
 
@@ -28,7 +28,7 @@ export const portfolios = mysqlTable("portfolios", {
 })
 
 export const portfoliosRelations = relations(portfolios, ({ one, many }) => ({
-  accomplishments: many(accomplishments),
+  experiences: many(experiences),
   projects: many(projects),
   user: one(users, {
     fields: [portfolios.userId],

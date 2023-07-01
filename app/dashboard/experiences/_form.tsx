@@ -1,7 +1,7 @@
 "use client"
-import { insertAccomplishmentSchema } from "@/lib/validators"
+import { insertExperienceSchema } from "@/lib/validators"
 import type { GetPortfolio } from "@/server/queries"
-import { upsertAccomplishment } from "@/server/server-actions"
+import { upsertExperience } from "@/server/server-actions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
@@ -9,15 +9,15 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 
 interface Props {
-  accomplishment?: GetPortfolio["accomplishments"][number]
+  experience?: GetPortfolio["experiences"][number]
   portfolioId: number
   onCancel?: () => void
 }
 
-export function AccomplishmentForm({ portfolioId, accomplishment }: Props) {
+export function ExperienceForm({ portfolioId, experience }: Props) {
   const { handleSubmit, register } = useForm({
-    resolver: zodResolver(insertAccomplishmentSchema),
-    defaultValues: accomplishment ?? {
+    resolver: zodResolver(insertExperienceSchema),
+    defaultValues: experience ?? {
       portfolioId: portfolioId,
       companyName: "",
       jobTitle: "",
@@ -27,7 +27,7 @@ export function AccomplishmentForm({ portfolioId, accomplishment }: Props) {
   })
 
   const submit = handleSubmit(async (data) => {
-    await upsertAccomplishment(data)
+    await upsertExperience(data)
   })
 
   return (
@@ -55,7 +55,7 @@ export function AccomplishmentForm({ portfolioId, accomplishment }: Props) {
         />
 
         <Button className="self-end" type="submit">
-          {accomplishment ? "Update" : "Add"}
+          {experience ? "Update" : "Add"}
         </Button>
       </div>
     </form>

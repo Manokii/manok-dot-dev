@@ -18,11 +18,11 @@ export default function DashboardTabs() {
         Portfolio
       </LinkButton>
       <LinkButton
-        variant={getProps("/dashboard/accomplishments")}
-        href="/dashboard/accomplishments"
+        variant={getProps("/dashboard/experiences")}
+        href="/dashboard/experiences"
         size="sm"
       >
-        Accomplishments
+        Experiences
       </LinkButton>
       <LinkButton
         variant={getProps("/dashboard/projects")}

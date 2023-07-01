@@ -1,4 +1,6 @@
-export * from "./accomplishment"
+export * from "./experience"
+export * from "./experience-technologies"
+export * from "./technologies"
 export * from "./account"
 export * from "./portfolio"
 export * from "./project"

@@ -1,14 +1,18 @@
 "use client"
+import { ExperienceForm } from "@/app/dashboard/experiences/_form"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { InputSkeleton } from "@/components/ui/skeleton"
 import { useRouter } from "next/navigation"
 
-export default function AccomplishmentAddLoading() {
+interface Props {
+  portfolioId: number
+}
+
+export default function ExperienceAddDialog({ portfolioId }: Props) {
   const router = useRouter()
   return (
     <Dialog
@@ -17,15 +21,11 @@ export default function AccomplishmentAddLoading() {
         if (!open) router.back()
       }}
     >
-      <DialogContent>
+      <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Add Accomplishment</DialogTitle>
+          <DialogTitle>Add Experience</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 mt-4">
-          {new Array(3).fill(null).map((_, i) => (
-            <InputSkeleton key={i} />
-          ))}
-        </div>
+        <ExperienceForm portfolioId={portfolioId} />
       </DialogContent>
     </Dialog>
   )

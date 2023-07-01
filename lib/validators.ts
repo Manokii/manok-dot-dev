@@ -1,4 +1,4 @@
-import { accomplishments, portfolios } from "@/db/schema"
+import { experiences, portfolios, technologies } from "@/db/schema"
 import { createInsertSchema } from "drizzle-zod"
 import { z } from "zod"
 
@@ -27,7 +27,13 @@ export const updatePortfolioSchema = createInsertSchema(portfolios, {
   socialLinks: socialLinksSchema,
 })
 
-export const insertAccomplishmentSchema = createInsertSchema(accomplishments, {
+export const insertExperienceSchema = createInsertSchema(experiences, {
   portfolioId: (schema) => schema.portfolioId.positive(),
   companyWebsite: (schema) => schema.companyWebsite.url().or(z.literal("")),
+})
+
+export const insertTechnologiesSchema = createInsertSchema(technologies, {
+  name: (schema) => schema.name.max(255),
+  description: (schema) => schema.description.max(2048),
+  icon: (schema) => schema.icon.url().or(z.literal("")),
 })

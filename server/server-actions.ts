@@ -2,12 +2,9 @@
 import { db } from "@/db/client"
 import { and, eq } from "drizzle-orm"
 import { getServerActionUser } from "@/server/get-server-action-user"
-import {
-  insertAccomplishmentSchema,
-  updatePortfolioSchema,
-} from "@/lib/validators"
+import { insertExperienceSchema, updatePortfolioSchema } from "@/lib/validators"
 import { z } from "zod"
-import { accomplishments, portfolios } from "@/db/schema"
+import { experiences, portfolios } from "@/db/schema"
 
 /**
  * Updates a portfolio
@@ -32,18 +29,18 @@ export async function updatePortfolio(
 }
 
 /**
- * Upserts an accomplishment
+ * Upserts an experience
  * @param formData
  */
-export async function upsertAccomplishment(
-  formData: z.infer<typeof insertAccomplishmentSchema>
+export async function upsertExperience(
+  formData: z.infer<typeof insertExperienceSchema>
 ) {
   const session = await getServerActionUser()
   if (!session?.user) {
     throw new Error("Unauthenticated")
   }
 
-  const data = await insertAccomplishmentSchema.parseAsync(formData)
+  const data = await insertExperienceSchema.parseAsync(formData)
   const portfolio = await db.query.portfolios.findFirst({
     where: and(
       eq(portfolios.userId, session.user.id),
@@ -55,7 +52,9 @@ export async function upsertAccomplishment(
     throw new Error("Portfolio not found")
   }
 
-  await db.insert(accomplishments).values(data).onDuplicateKeyUpdate({
+  await db.insert(experiences).values(data).onDuplicateKeyUpdate({
     set: data,
   })
 }
+
+export async function insertTechnologies(technologies: string[]) {}

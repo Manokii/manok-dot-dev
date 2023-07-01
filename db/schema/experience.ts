@@ -9,9 +9,9 @@ import {
   varchar,
 } from "drizzle-orm/mysql-core"
 import { portfolios } from "./portfolio"
-import { accomplishmentTech } from "./accomplishment-technologies"
+import { experienceTech } from "./experience-technologies"
 
-export const accomplishments = mysqlTable("accomplishments", {
+export const experiences = mysqlTable("experiences", {
   id: serial("id").primaryKey().notNull(),
   companyName: varchar("company_name", { length: 255 }).notNull(),
   companyWebsite: varchar("company_website", { length: 255 }),
@@ -27,16 +27,13 @@ export const accomplishments = mysqlTable("accomplishments", {
     .notNull(),
 })
 
-export const accomplishmentsRelations = relations(
-  accomplishments,
-  ({ one, many }) => ({
-    portfolio: one(portfolios, {
-      fields: [accomplishments.id],
-      references: [portfolios.id],
-    }),
-    stack: many(accomplishmentTech),
-  })
-)
+export const experienceRelations = relations(experiences, ({ one, many }) => ({
+  portfolio: one(portfolios, {
+    fields: [experiences.id],
+    references: [portfolios.id],
+  }),
+  stack: many(experienceTech),
+}))
 
-export type Accomplishment = InferModel<typeof accomplishments>
-export type NewAccomplishment = InferModel<typeof accomplishments, "insert">
+export type Experience = InferModel<typeof experiences>
+export type NewExperience = InferModel<typeof experiences, "insert">
