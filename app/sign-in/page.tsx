@@ -1,5 +1,5 @@
 import { authOptions } from "@/server/auth-options"
-import AuthScreen from "../dashboard/@authscreen/page"
+import { AuthScreen } from "./_auth-screen"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
 

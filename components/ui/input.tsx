@@ -2,8 +2,7 @@ import { Label } from "@/components/ui/label"
 import { type ComponentProps, forwardRef } from "react"
 import { cn } from "@/lib/utils"
 
-export interface InputRawProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export type InputRawProps = React.InputHTMLAttributes<HTMLInputElement>
 
 const InputRaw = forwardRef<HTMLInputElement, InputRawProps>(
   ({ className, type, ...props }, ref) => {
@@ -30,7 +29,7 @@ export interface InputProps extends Omit<InputRawProps, "id"> {
   rootProps?: ComponentProps<"div">
 }
 const Input = forwardRef<HTMLDivElement, InputProps>(function Input(
-  { rootProps, label, id, text, className, error, ...props },
+  { rootProps, label, id, text, error, ...props },
   ref
 ) {
   return (
@@ -40,16 +39,16 @@ const Input = forwardRef<HTMLDivElement, InputProps>(function Input(
       {...rootProps}
     >
       {label && (
-        <Label htmlFor={id} className="text-white">
+        <Label htmlFor={id} className="text-muted-foreground">
           {label}
         </Label>
       )}
-      <InputRaw id={id} {...props} className={cn("text-gray-300", className)} />
+      <InputRaw id={id} {...props} />
       {(text || error) && (
         <p
           className={cn(
             "mt-1 text-sm",
-            error ? "text-red-200" : "text-muted-foreground"
+            error ? "text-red-200" : "text-muted-foreground/50"
           )}
         >
           {error || text}

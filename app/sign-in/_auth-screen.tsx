@@ -7,7 +7,7 @@ import {
   IconBrandGithubFilled,
 } from "@tabler/icons-react"
 
-export default function AuthScreen() {
+export function AuthScreen() {
   return (
     <div className="flex items-center justify-center">
       <Card>

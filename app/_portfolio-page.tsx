@@ -10,15 +10,15 @@ import {
   IconWorldWww,
 } from "@tabler/icons-react"
 import NextLink from "next/link"
-import { GetPorfolio } from "@/server/queries"
+import { GetPortfolio } from "@/server/queries"
 
 interface PortfolioPageProps {
-  portfolio: GetPorfolio
+  portfolio: GetPortfolio
 }
 
 export function PortfolioPage({ portfolio }: PortfolioPageProps) {
   return (
-    <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
+    <div className="mx-auto min-h-screen max-w-screen-lg px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
       <div className="min-h-screen lg:flex lg:justify-between lg:gap-4">
         <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:py-24">
           <div className="flex-1">

@@ -25,11 +25,7 @@ export const metadata: Metadata = {
   },
 }
 
-interface RootLayoutProps {
-  children: ReactNode
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout(props: { children: ReactNode }) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -41,7 +37,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
+            {props.children}
           </ThemeProvider>
         </body>
       </html>

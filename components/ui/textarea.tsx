@@ -4,8 +4,7 @@ import { cn } from "@/lib/utils"
 import { ComponentProps, forwardRef } from "react"
 import { Label } from "./label"
 
-export interface TextareaRawProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+export type TextareaRawProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
 
 const TextareaRaw = forwardRef<HTMLTextAreaElement, TextareaRawProps>(
   ({ className, ...props }, ref) => {
@@ -41,15 +40,11 @@ const Textarea = forwardRef<HTMLDivElement, TextareaProps>(function Textarea(
       {...rootProps}
     >
       {label && (
-        <Label className="text-white" htmlFor={id}>
+        <Label className="text-muted-foreground" htmlFor={id}>
           {label}
         </Label>
       )}
-      <TextareaRaw
-        id={id}
-        {...props}
-        className={cn("text-gray-300", props.className)}
-      />
+      <TextareaRaw id={id} {...props} />
       {(text || error) && (
         <p
           className={cn(

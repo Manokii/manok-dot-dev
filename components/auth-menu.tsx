@@ -11,8 +11,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
 import { Button } from "./ui/button"
-import { IconLogout } from "@tabler/icons-react"
+import { IconBrandTabler, IconLogout } from "@tabler/icons-react"
 import { signOut } from "next-auth/react"
+import NextLink from "next/link"
 
 interface Props {
   user: User
@@ -41,6 +42,12 @@ export function AuthMenu({ user }: Props) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          <NextLink href="/dashboard">
+            <DropdownMenuItem>
+              <IconBrandTabler className="mr-2 h-4 w-4" />
+              <span>Dashboard</span>
+            </DropdownMenuItem>
+          </NextLink>
           <DropdownMenuItem onClick={() => signOut()}>
             <IconLogout className="mr-2 h-4 w-4" />
             <span>Logout</span>

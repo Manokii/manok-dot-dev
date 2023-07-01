@@ -1,4 +1,4 @@
-import { PortfolioPage } from "@/components/page-components/portfolio-page"
+import { PortfolioPage } from "../_portfolio-page"
 import { getPortfolio } from "@/server/queries/get-portfolio"
 import { notFound } from "next/navigation"
 
@@ -15,5 +15,6 @@ export default async function PortfolioIndividualPage({
   if (!portfolio) {
     notFound()
   }
+
   return <PortfolioPage portfolio={portfolio} />
 }

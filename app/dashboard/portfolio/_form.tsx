@@ -1,22 +1,20 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import type { GetPorfolio } from "@/server/queries"
+import type { GetPortfolio } from "@/server/queries"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { updatePortfolio } from "./server-actions"
+import { updatePortfolio } from "@/server/server-actions"
 import { updatePortfolioSchema } from "@/lib/validators"
-import { useTransition } from "react"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { IconDeviceFloppy } from "@tabler/icons-react"
 
-interface PortfolioFormProps {
-  portfolio: NonNullable<GetPorfolio>
+export interface PortfolioFormProps {
+  portfolio: NonNullable<GetPortfolio>
 }
 
 export async function PortfolioForm({ portfolio }: PortfolioFormProps) {
-  const [_, startTransition] = useTransition()
   const {
     register,
     handleSubmit,
@@ -39,10 +37,8 @@ export async function PortfolioForm({ portfolio }: PortfolioFormProps) {
     },
   })
 
-  const submit = handleSubmit((data) => {
-    startTransition(() => {
-      updatePortfolio(data)
-    })
+  const submit = handleSubmit(async (data) => {
+    await updatePortfolio(data)
   }, console.error)
 
   return (
@@ -123,8 +119,8 @@ export async function PortfolioForm({ portfolio }: PortfolioFormProps) {
             </div>
           </CardContent>
         </Card>
-        <Button className="self-end" type="submit">
-          <IconDeviceFloppy className="mr-2" />
+        <Button size="sm" className="self-end" type="submit">
+          <IconDeviceFloppy className="mr-2 h-5 w-5" />
           Save
         </Button>
       </div>

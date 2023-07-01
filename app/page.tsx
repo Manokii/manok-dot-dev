@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { getPortfolio } from "@/server/queries"
-import { PortfolioPage } from "@/components/page-components/portfolio-page"
+import { PortfolioPage } from "./_portfolio-page"
 
 export const revalidate = 3600
 
@@ -11,5 +11,9 @@ export default async function AboutPage() {
     notFound()
   }
 
-  return <PortfolioPage portfolio={portfolio} />
+  return (
+    <div>
+      <PortfolioPage portfolio={portfolio} />
+    </div>
+  )
 }

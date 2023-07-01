@@ -1,8 +1,15 @@
 import { db } from "@/db/client"
 import { portfolios } from "@/db/schema"
 import { eq, or } from "drizzle-orm"
+import { cache } from "react"
 
-export async function getPortfolio(idOrSlug?: string) {
+export const preloadPortfolio = (idOrSlug?: string) => {
+  void getPortfolio(idOrSlug)
+}
+
+export const getPortfolio = cache(async (idOrSlug?: string) => {
+  // defaults to the first profile if idOrSlug is empty
+  // which is highly likely the owner of the website
   const portfolio = await db.query.portfolios.findFirst({
     with: {
       user: true,
@@ -16,9 +23,9 @@ export async function getPortfolio(idOrSlug?: string) {
             eq(portfolios.slug, idOrSlug)
           ),
         }
-      : {}), // defaults to the first profile which is highly likely the owner of the website
+      : {}),
   })
   return portfolio
-}
+})
 
-export type GetPorfolio = NonNullable<Awaited<ReturnType<typeof getPortfolio>>>
+export type GetPortfolio = NonNullable<Awaited<ReturnType<typeof getPortfolio>>>
