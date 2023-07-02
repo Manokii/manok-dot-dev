@@ -21,7 +21,25 @@ export function Markdown({ content, ...props }: MarkdownProps) {
         h2: ({ node, ...props }) => <TypographyH2 {...props} />,
         h3: ({ node, ...props }) => <TypographyH3 {...props} />,
         h4: ({ node, ...props }) => <TypographyH4 {...props} />,
-        p: ({ node, ...props }) => <p {...props} />,
+        ...props.components,
+      }}
+    >
+      {content}
+    </ReactMarkdown>
+  )
+}
+
+export function MarkdownNoHeadings({ content, ...props }: MarkdownProps) {
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm, ...(props.remarkPlugins ?? [])]}
+      components={{
+        h1: "p",
+        h2: "p",
+        h3: "p",
+        h4: "p",
+        h5: "p",
+        h6: "p",
         ...props.components,
       }}
     >

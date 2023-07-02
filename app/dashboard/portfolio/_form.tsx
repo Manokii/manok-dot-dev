@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import type { GetPortfolio } from "@/server/queries"
+import type { GetPortfolio } from "@/queries"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { updatePortfolio } from "@/server/server-actions"

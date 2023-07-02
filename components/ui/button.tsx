@@ -62,7 +62,10 @@ const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(
   function LinkButton({ className, variant, size, ...props }, ref) {
     return (
       <NextLink
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          "cursor-pointer"
+        )}
         ref={ref}
         {...props}
       />

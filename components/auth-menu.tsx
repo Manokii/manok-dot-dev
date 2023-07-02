@@ -10,7 +10,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
-import { Button } from "./ui/button"
 import { IconBrandTabler, IconLogout } from "@tabler/icons-react"
 import { signOut } from "next-auth/react"
 import NextLink from "next/link"
@@ -22,12 +21,14 @@ export function AuthMenu({ user }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar>
-            <AvatarImage src={user.image ?? ""} alt={user.name ?? ""} />
-            <AvatarFallback>{(user.name ?? "")[0] ?? ""}</AvatarFallback>
-          </Avatar>
-        </Button>
+        <Avatar className="cursor-pointer">
+          <AvatarImage
+            className="m-0"
+            src={user.image ?? ""}
+            alt={user.name ?? ""}
+          />
+          <AvatarFallback>{(user.name ?? "")[0] ?? ""}</AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>

@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card"
 import { TypographyH3 } from "@/components/ui/typography"
 import { authOptions } from "@/server/auth-options"
-import { getPortfolio } from "@/server/queries"
+import { getPortfolio } from "@/queries"
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 import NextLink from "next/link"

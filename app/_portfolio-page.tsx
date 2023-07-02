@@ -1,5 +1,5 @@
 "use client"
-import { Markdown } from "@/components/ui/md"
+import { Markdown, MarkdownNoHeadings } from "@/components/ui/md"
 import { TypographyH1, TypographyH4 } from "@/components/ui/typography"
 import { buttonVariants } from "@/components/ui/button"
 import {
@@ -10,7 +10,7 @@ import {
   IconWorldWww,
 } from "@tabler/icons-react"
 import NextLink from "next/link"
-import { GetPortfolio } from "@/server/queries"
+import { GetPortfolio } from "@/queries"
 
 interface PortfolioPageProps {
   portfolio: GetPortfolio
@@ -27,10 +27,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             </TypographyH1>
             {portfolio.headline && (
               <TypographyH4 className="mt-3 font-medium tracking-tight text-foreground">
-                <Markdown
-                  components={{ h1: "p", h2: "p", h3: "p", h4: "p" }}
-                  content={portfolio.headline}
-                />
+                <MarkdownNoHeadings content={portfolio.headline} />
               </TypographyH4>
             )}
             <Markdown content={portfolio.subheading} />

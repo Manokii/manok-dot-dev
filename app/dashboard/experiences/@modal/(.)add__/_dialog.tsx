@@ -6,13 +6,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import type { GetTechnologies } from "@/queries/get-technologies"
 import { useRouter } from "next/navigation"
 
 interface Props {
   portfolioId: number
+  technologies: GetTechnologies
 }
 
-export default function ExperienceAddDialog({ portfolioId }: Props) {
+export default function ExperienceAddDialog({
+  portfolioId,
+  technologies,
+}: Props) {
   const router = useRouter()
   return (
     <Dialog
@@ -25,7 +30,7 @@ export default function ExperienceAddDialog({ portfolioId }: Props) {
         <DialogHeader>
           <DialogTitle>Add Experience</DialogTitle>
         </DialogHeader>
-        <ExperienceForm portfolioId={portfolioId} />
+        <ExperienceForm technologies={technologies} portfolioId={portfolioId} />
       </DialogContent>
     </Dialog>
   )

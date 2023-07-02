@@ -3,7 +3,7 @@ import { AuthMenu } from "@/components/auth-menu"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/server/auth-options"
 import { redirect } from "next/navigation"
-import { preloadPortfolio } from "@/server/queries"
+import { preloadPortfolio } from "@/queries"
 import DashboardTabs from "./_tabs"
 
 interface Props {
@@ -19,7 +19,7 @@ export default async function DashboardLayout({ children }: Props) {
   preloadPortfolio(session.user.id)
 
   return (
-    <div className="container p-8 lg:px-0">
+    <div className="container p-4 md:p-8">
       <div className="flex flex-col gap-4">
         <div className="self-end">
           <AuthMenu user={session.user} />

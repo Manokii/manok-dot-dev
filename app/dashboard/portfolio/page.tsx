@@ -1,6 +1,6 @@
 import { PortfolioForm } from "./_form"
 import { authOptions } from "@/server/auth-options"
-import { getPortfolio } from "@/server/queries"
+import { getPortfolio } from "@/queries"
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 

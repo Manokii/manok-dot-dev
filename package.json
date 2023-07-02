@@ -16,6 +16,7 @@
     "db:generate": "drizzle-kit generate:mysql",
     "db:pull": "drizzle-kit introspect:mysql",
     "db:push": "drizzle-kit push:mysql",
+    "db:seed": "pnpm dlx tsx ./db/seed",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -25,12 +26,16 @@
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "2.0.5",
     "@radix-ui/react-label": "2.0.2",
+    "@radix-ui/react-popover": "^1.0.6",
     "@radix-ui/react-slot": "1.0.2",
     "@radix-ui/react-tabs": "1.0.4",
+    "@radix-ui/react-tooltip": "^1.0.6",
     "@t3-oss/env-nextjs": "0.6.0",
     "@tabler/icons-react": "2.23.0",
+    "@uploadthing/react": "5.1.0",
     "class-variance-authority": "0.6.1",
     "clsx": "1.2.1",
+    "cmdk": "^0.2.0",
     "dotenv": "16.3.1",
     "drizzle-orm": "0.27.0",
     "drizzle-zod": "0.4.4",
@@ -40,6 +45,7 @@
     "next-themes": "0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "14.2.3",
     "react-hook-form": "7.45.1",
     "react-markdown": "8.0.7",
     "remark-gfm": "3.0.1",
@@ -47,6 +53,7 @@
     "sharp": "0.32.1",
     "tailwind-merge": "1.13.2",
     "tailwindcss-animate": "1.0.6",
+    "uploadthing": "5.1.0",
     "zod": "3.21.4"
   },
   "devDependencies": {

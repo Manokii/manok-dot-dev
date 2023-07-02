@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { getPortfolio } from "@/server/queries"
+import { getPortfolio } from "@/queries"
 import { PortfolioPage } from "./_portfolio-page"
 
 export const revalidate = 3600

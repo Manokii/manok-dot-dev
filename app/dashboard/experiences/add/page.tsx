@@ -2,7 +2,8 @@ import { getServerSession } from "next-auth"
 import { ExperienceForm } from "../_form"
 import { authOptions } from "@/server/auth-options"
 import { redirect } from "next/navigation"
-import { getPortfolio } from "@/server/queries"
+import { getPortfolio } from "@/queries"
+import { getTechnologies } from "@/queries/get-technologies"
 
 export default async function ExperienceAddPage() {
   const session = await getServerSession(authOptions)
@@ -14,9 +15,12 @@ export default async function ExperienceAddPage() {
   if (!portfolio) {
     redirect("/")
   }
+
+  const technologies = await getTechnologies()
+
   return (
     <div className="flex flex-col">
-      <ExperienceForm portfolioId={portfolio.id} />
+      <ExperienceForm technologies={technologies} portfolioId={portfolio.id} />
     </div>
   )
 }

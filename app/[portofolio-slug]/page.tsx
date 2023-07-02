@@ -1,5 +1,5 @@
 import { PortfolioPage } from "../_portfolio-page"
-import { getPortfolio } from "@/server/queries/get-portfolio"
+import { getPortfolio } from "@/queries/get-portfolio"
 import { notFound } from "next/navigation"
 
 interface Props {
