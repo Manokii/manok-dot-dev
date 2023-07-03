@@ -56,5 +56,3 @@ export async function upsertExperience(
     set: data,
   })
 }
-
-export async function insertTechnologies(technologies: string[]) {}

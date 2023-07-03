@@ -10,6 +10,15 @@ import { Button } from "@/components/ui/button"
 import { TypographyH4 } from "@/components/ui/typography"
 import { TechnologyAdd } from "@/components/add-tech-button"
 import type { GetTechnologies } from "@/queries/get-technologies"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface Props {
   experience?: GetPortfolio["experiences"][number]
@@ -22,56 +31,107 @@ export function ExperienceForm({
   experience,
   technologies,
 }: Props) {
-  const { handleSubmit, register } = useForm({
+  const form = useForm({
     resolver: zodResolver(insertExperienceSchema),
-    defaultValues: experience ?? {
+    defaultValues: {
+      id: experience?.id,
       portfolioId: portfolioId,
-      companyName: "",
-      jobTitle: "",
-      companyWebsite: "",
-      jobDescription: "",
+      companyName: experience?.companyName ?? "",
+      jobTitle: experience?.jobTitle ?? "",
+      companyWebsite: experience?.companyWebsite ?? "",
+      jobDescription: experience?.jobDescription ?? "",
+      startedAt: experience?.startedAt ?? new Date(),
+      endedAt: experience?.endedAt,
+      stack: [],
     },
   })
 
-  const submit = handleSubmit(async (data) => {
+  const submit = form.handleSubmit(async (data) => {
     await upsertExperience(data)
   })
 
   return (
-    <form onSubmit={submit}>
-      <div className="grid grid-cols-1 gap-4">
-        <Input
-          placeholder="Linux Merch Gurus (LMG)..."
-          label="Company Name"
-          {...register("companyName")}
-        />
-        <Input
-          placeholder="ttlstore.com..."
-          label="Company Website"
-          {...register("companyWebsite")}
-        />
-        <Input
-          placeholder="Software Engineer..."
-          label="Job Title"
-          {...register("jobTitle")}
-        />
-        <Textarea
-          placeholder="I code..."
-          label="Job Description"
-          {...register("jobDescription")}
-        />
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          {experience ? "Update Experience" : "Add Experience"}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={submit}>
+            <div className="grid grid-cols-1 gap-4">
+              <FormField
+                control={form.control}
+                name="companyName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Company Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Linux Merch Gurus (LMG)..."
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="companyWebsite"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Company Website</FormLabel>
+                    <FormControl>
+                      <Input placeholder="ttlstore.com..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="jobTitle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Job Title</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Software Engineer..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        <div className="flex flex-col gap-2 mt-4">
-          <TypographyH4>Tech Stack</TypographyH4>
-          <div className="flex flex-row gap-2">
-            <TechnologyAdd selectedMap={{}} technologies={technologies} />
-          </div>
-        </div>
+              <FormField
+                control={form.control}
+                name="jobDescription"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Job Description</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="I code..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        <Button className="self-end" type="submit">
-          {experience ? "Update" : "Add"}
-        </Button>
-      </div>
-    </form>
+              <div className="flex flex-col gap-2 mt-4">
+                <TypographyH4>Tech Stack</TypographyH4>
+                <div className="flex flex-row gap-2">
+                  <TechnologyAdd selectedMap={{}} technologies={technologies} />
+                </div>
+              </div>
+
+              <Button className="self-end" type="submit">
+                {experience ? "Update" : "Save"}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }

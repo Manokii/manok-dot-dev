@@ -13,7 +13,15 @@ export const getPortfolio = cache(async (idOrSlug?: string) => {
   const portfolio = await db.query.portfolios.findFirst({
     with: {
       user: true,
-      experiences: true,
+      experiences: {
+        with: {
+          stack: {
+            with: {
+              tech: true,
+            },
+          },
+        },
+      },
       projects: true,
     },
     ...(idOrSlug

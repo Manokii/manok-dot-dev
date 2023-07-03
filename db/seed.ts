@@ -367,11 +367,22 @@ async function seed() {
     },
   ]
 
-  const result = await db
-    .insert(technologies)
-    .values(insertData)
-    .onDuplicateKeyUpdate({})
-  return result
+  try {
+    await db.transaction(async (tx) => {
+      for (const data of insertData) {
+        tx.insert(technologies).values(data).onDuplicateKeyUpdate({
+          set: data,
+        })
+      }
+    })
+  } catch (e) {
+    return {
+      message: (e as { message: string })?.message,
+      success: false,
+    }
+  }
+
+  return { success: true }
 }
 
 seed().then(console.log)

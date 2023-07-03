@@ -27,13 +27,17 @@ export const updatePortfolioSchema = createInsertSchema(portfolios, {
   socialLinks: socialLinksSchema,
 })
 
-export const insertExperienceSchema = createInsertSchema(experiences, {
-  portfolioId: (schema) => schema.portfolioId.positive(),
-  companyWebsite: (schema) => schema.companyWebsite.url().or(z.literal("")),
-})
-
 export const insertTechnologiesSchema = createInsertSchema(technologies, {
   name: (schema) => schema.name.max(255),
   description: (schema) => schema.description.max(2048),
   icon: (schema) => schema.icon.url().or(z.literal("")),
+  createdAt: (schema) => schema.createdAt.optional(),
+})
+
+export const insertExperienceSchema = createInsertSchema(experiences, {
+  portfolioId: (schema) => schema.portfolioId.positive(),
+  companyWebsite: (schema) => schema.companyWebsite.url().or(z.literal("")),
+  createdAt: (schema) => schema.createdAt.optional(),
+}).extend({
+  stack: z.array(insertTechnologiesSchema),
 })

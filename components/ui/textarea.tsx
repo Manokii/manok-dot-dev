@@ -1,12 +1,11 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-import { ComponentProps, forwardRef } from "react"
-import { Label } from "./label"
+import { forwardRef } from "react"
 
 export type TextareaRawProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
 
-const TextareaRaw = forwardRef<HTMLTextAreaElement, TextareaRawProps>(
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaRawProps>(
   ({ className, ...props }, ref) => {
     return (
       <textarea
@@ -20,43 +19,6 @@ const TextareaRaw = forwardRef<HTMLTextAreaElement, TextareaRawProps>(
     )
   }
 )
-TextareaRaw.displayName = "Textarea"
-
-export interface TextareaProps extends Omit<TextareaRawProps, "id"> {
-  label?: string
-  text?: string
-  error?: string
-  id?: string
-  rootProps?: ComponentProps<"div">
-}
-const Textarea = forwardRef<HTMLDivElement, TextareaProps>(function Textarea(
-  { rootProps, label, id, text, error, ...props },
-  ref
-) {
-  return (
-    <div
-      ref={ref}
-      className={cn("flex w-full flex-col gap-1.5", rootProps?.className)}
-      {...rootProps}
-    >
-      {label && (
-        <Label className="text-muted-foreground" htmlFor={id}>
-          {label}
-        </Label>
-      )}
-      <TextareaRaw id={id} {...props} />
-      {(text || error) && (
-        <p
-          className={cn(
-            "mt-1 text-sm",
-            error ? "text-red-400" : "text-muted-foreground"
-          )}
-        >
-          {error || text}
-        </p>
-      )}
-    </div>
-  )
-})
+Textarea.displayName = "Textarea"
 
 export { Textarea }

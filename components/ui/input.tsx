@@ -1,10 +1,9 @@
-import { Label } from "@/components/ui/label"
-import { type ComponentProps, forwardRef } from "react"
+import { forwardRef } from "react"
 import { cn } from "@/lib/utils"
 
-export type InputRawProps = React.InputHTMLAttributes<HTMLInputElement>
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
-const InputRaw = forwardRef<HTMLInputElement, InputRawProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
       <input
@@ -19,43 +18,6 @@ const InputRaw = forwardRef<HTMLInputElement, InputRawProps>(
     )
   }
 )
-InputRaw.displayName = "Input"
+Input.displayName = "Input"
 
-export interface InputProps extends Omit<InputRawProps, "id"> {
-  label?: string
-  text?: string
-  error?: string
-  id?: string
-  rootProps?: ComponentProps<"div">
-}
-const Input = forwardRef<HTMLDivElement, InputProps>(function Input(
-  { rootProps, label, id, text, error, ...props },
-  ref
-) {
-  return (
-    <div
-      ref={ref}
-      className={cn("flex w-full flex-col gap-1.5", rootProps?.className)}
-      {...rootProps}
-    >
-      {label && (
-        <Label htmlFor={id} className="text-muted-foreground">
-          {label}
-        </Label>
-      )}
-      <InputRaw id={id} {...props} />
-      {(text || error) && (
-        <p
-          className={cn(
-            "mt-1 text-sm",
-            error ? "text-red-200" : "text-muted-foreground/50"
-          )}
-        >
-          {error || text}
-        </p>
-      )}
-    </div>
-  )
-})
-
-export { InputRaw, Input }
+export { Input }

@@ -29,11 +29,7 @@ interface Props {
   selectedMap: Record<number, boolean>
 }
 
-export async function TechnologyAdd({
-  onSelect,
-  technologies,
-  selectedMap,
-}: Props) {
+export function TechnologyAdd({ onSelect, technologies, selectedMap }: Props) {
   const [formOpen, setFormOpen] = useState(false)
   return (
     <>
