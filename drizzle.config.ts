@@ -1,12 +1,17 @@
 import type { Config } from "drizzle-kit"
 
 import "dotenv/config"
+import { env } from "./env.mjs"
 
 export default {
   schema: "./db/schema/*",
   out: "./db/drizzle",
   dbCredentials: {
-    connectionString: process.env.DATABASE_URL || "",
+    host: env.POSTGRES_HOST,
+    user: env.POSTGRES_USER,
+    password: env.POSTGRES_PASSWORD,
+    database: env.POSTGRES_DATABASE,
+    ssl: true,
   },
-  driver: "mysql2",
+  driver: "pg",
 } satisfies Config

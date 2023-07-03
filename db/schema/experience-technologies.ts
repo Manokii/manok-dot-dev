@@ -1,16 +1,20 @@
-import { InferModel, relations } from "drizzle-orm"
-import { int, mysqlTable, primaryKey, timestamp } from "drizzle-orm/mysql-core"
+import { type InferModel, relations } from "drizzle-orm"
 import { technologies } from "./technologies"
 import { experiences } from "./experience"
+import { integer, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core"
 
 /**
  * This is a join table for "experience" and "technologies" (Many to Many)
  */
-export const experienceTech = mysqlTable(
+export const experienceTech = pgTable(
   "experience_technologies",
   {
-    experiencetId: int("experience_id").notNull(),
-    techId: int("technology_id").notNull(),
+    experiencetId: integer("experience_id")
+      .notNull()
+      .references(() => experiences.id, { onDelete: "cascade" }),
+    techId: integer("technology_id")
+      .notNull()
+      .references(() => technologies.id, { onDelete: "cascade" }),
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   },
   (schema) => ({

@@ -8,20 +8,11 @@ export const updateUser: Adapter["updateUser"] = async (payload) => {
     throw new Error("No user id.")
   }
 
-  const res = await db.transaction(async (tx) => {
-    await tx.update(users).set(payload).where(eq(users.id, payload.id))
+  const [data] = await db
+    .update(users)
+    .set(payload)
+    .where(eq(users.id, payload.id))
+    .returning()
 
-    const data = await tx.query.users.findFirst({
-      where: eq(users.id, payload.id),
-    })
-
-    if (!data) {
-      tx.rollback()
-      throw new Error("Failed to update user")
-    }
-
-    return data
-  })
-
-  return res
+  return data
 }

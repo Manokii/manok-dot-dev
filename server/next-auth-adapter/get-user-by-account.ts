@@ -6,7 +6,7 @@ import type { Adapter } from "next-auth/adapters"
 export const getUserByAccount: Adapter["getUserByAccount"] = async (
   payload
 ) => {
-  const dbAccount = await db
+  const [dbAccount] = await db
     .select()
     .from(accounts)
     .where(
@@ -16,7 +16,6 @@ export const getUserByAccount: Adapter["getUserByAccount"] = async (
       )
     )
     .leftJoin(users, eq(accounts.userId, users.id))
-    .then((res) => res.at(0))
 
   return dbAccount?.users ?? null
 }

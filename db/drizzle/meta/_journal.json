@@ -1,12 +1,12 @@
 {
   "version": "5",
-  "dialect": "mysql",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1688236386086,
-      "tag": "0000_dazzling_iron_fist",
+      "when": 1688403524566,
+      "tag": "0000_polite_butterfly",
       "breakpoints": true
     }
   ]

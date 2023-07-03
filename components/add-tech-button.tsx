@@ -60,7 +60,7 @@ export function TechnologyAdd({ onSelect, technologies, selectedMap }: Props) {
                   <CommandItem
                     value={technology.name}
                     key={technology.id}
-                    onClick={onSelect}
+                    onSelect={onSelect}
                   >
                     <IconCheck
                       className={cn(

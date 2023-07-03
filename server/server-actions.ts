@@ -4,7 +4,7 @@ import { and, eq } from "drizzle-orm"
 import { getServerActionUser } from "@/server/get-server-action-user"
 import { insertExperienceSchema, updatePortfolioSchema } from "@/lib/validators"
 import { z } from "zod"
-import { experiences, portfolios } from "@/db/schema"
+import { portfolios } from "@/db/schema"
 
 /**
  * Updates a portfolio
@@ -18,13 +18,11 @@ export async function updatePortfolio(
     throw new Error("Unauthenticated")
   }
   const data = await updatePortfolioSchema.parseAsync(formData)
-  await db
+  const updatedPortfolio = await db
     .update(portfolios)
     .set(data)
     .where(eq(portfolios.userId, session.user.id))
-  const updatedPortfolio = await db.query.portfolios.findFirst({
-    where: eq(portfolios.userId, session.user.id),
-  })
+    .returning()
   return updatedPortfolio
 }
 
@@ -52,7 +50,7 @@ export async function upsertExperience(
     throw new Error("Portfolio not found")
   }
 
-  await db.insert(experiences).values(data).onDuplicateKeyUpdate({
-    set: data,
-  })
+  // await db.insert(experiences).values(data).onDuplicateKeyUpdate({
+  //   set: data,
+  // })
 }

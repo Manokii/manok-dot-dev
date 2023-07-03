@@ -1,17 +1,12 @@
-import { InferModel } from "drizzle-orm"
-import {
-  mysqlTable,
-  primaryKey,
-  timestamp,
-  varchar,
-} from "drizzle-orm/mysql-core"
+import type { InferModel } from "drizzle-orm"
+import { pgTable, primaryKey, timestamp, varchar } from "drizzle-orm/pg-core"
 
 // --- Next Auth Table ---
-export const verificationTokens = mysqlTable(
+export const verificationTokens = pgTable(
   "verificationTokens",
   {
     identifier: varchar("identifier", { length: 255 }).notNull(),
-    token: varchar("token", { length: 255 }).notNull(), // TODO: convert to unique column
+    token: varchar("token", { length: 255 }).notNull(),
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
   (vt) => ({
