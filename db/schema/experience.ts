@@ -17,8 +17,8 @@ export const experiences = pgTable("experiences", {
   companyWebsite: varchar("company_website", { length: 255 }),
   jobTitle: varchar("job_title", { length: 255 }).notNull(),
   jobDescription: text("job_description").notNull(),
-  startedAt: date("start_date").notNull(),
-  endedAt: date("end_date"),
+  startedAt: date("start_date", { mode: "date" }).notNull(),
+  endedAt: date("end_date", { mode: "date" }),
   portfolioId: integer("portfolio_id")
     .notNull()
     .references(() => portfolios.id, { onDelete: "cascade" }),
