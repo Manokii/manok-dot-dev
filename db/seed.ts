@@ -1,5 +1,7 @@
 import { db } from "./client"
 import { NewTechnologies, technologies } from "./schema"
+import dotenv from "dotenv"
+dotenv.config({ path: ".env" })
 
 /**
  * Seed the database with initial data
@@ -368,13 +370,10 @@ async function seed() {
   ]
 
   try {
-    await db.transaction(async (tx) => {
-      for (const data of insertData) {
-        tx.insert(technologies).values(data).onDuplicateKeyUpdate({
-          set: data,
-        })
-      }
+    const data: NewTechnologies[] = insertData.map((data) => {
+      return Object.assign(data, { status: "approved" })
     })
+    await db.insert(technologies).values(data).onConflictDoNothing()
   } catch (e) {
     return {
       message: (e as { message: string })?.message,
