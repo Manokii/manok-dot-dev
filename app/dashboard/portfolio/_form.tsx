@@ -150,7 +150,7 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
                   name="socialLinks.github"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Twitter</FormLabel>
+                      <FormLabel>Github</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -163,7 +163,7 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
                   name="socialLinks.linkedin"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Twitter</FormLabel>
+                      <FormLabel>LinkedIn</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -189,7 +189,7 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
                   name="socialLinks.website"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Twitter</FormLabel>
+                      <FormLabel>Website</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
