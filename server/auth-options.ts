@@ -14,6 +14,8 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         id: user?.id,
         role: user?.role,
+        portfolioId: user?.portfolioId,
+        portfolioSlug: user?.portfolioSlug,
       },
     }),
     redirect: ({ url }) => url,

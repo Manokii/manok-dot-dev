@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
-import { IconBrandTabler, IconLogout } from "@tabler/icons-react"
+import { IconBrandTabler, IconLogout, IconUser } from "@tabler/icons-react"
 import { signOut } from "next-auth/react"
 import NextLink from "next/link"
 
@@ -43,6 +43,12 @@ export function AuthMenu({ user }: Props) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          <NextLink href={`/${user.portfolioSlug}`}>
+            <DropdownMenuItem>
+              <IconUser className="mr-2 h-4 w-4" />
+              <span>Portfolio Page</span>
+            </DropdownMenuItem>
+          </NextLink>
           <NextLink href="/dashboard">
             <DropdownMenuItem>
               <IconBrandTabler className="mr-2 h-4 w-4" />

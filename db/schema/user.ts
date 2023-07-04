@@ -1,6 +1,12 @@
 import { type InferModel, relations } from "drizzle-orm"
 import { portfolios } from "./portfolio"
-import { pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core"
+import {
+  integer,
+  pgEnum,
+  pgTable,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core"
 
 // --- Next Auth Table ---
 export const userRole = pgEnum("user_role", ["admin", "default"])
@@ -13,7 +19,7 @@ export const users = pgTable("users", {
   role: userRole("role").default("default").notNull(),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
-  portfolioId: varchar("portfolio_id", { length: 255 }),
+  portfolioId: integer("portfolio_id"),
 })
 
 export const usersRelations = relations(users, ({ one }) => ({
