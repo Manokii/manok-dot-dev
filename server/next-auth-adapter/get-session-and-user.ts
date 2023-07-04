@@ -6,7 +6,7 @@ import type { Adapter, AdapterSession, AdapterUser } from "next-auth/adapters"
 export const getSessionAndUser: Adapter["getSessionAndUser"] = async (
   sessionToken
 ) => {
-  const [data] = await db
+  const data = await db
     .select({
       session: sessions,
       user: users,
@@ -16,8 +16,12 @@ export const getSessionAndUser: Adapter["getSessionAndUser"] = async (
     .where(eq(sessions.sessionToken, sessionToken))
     .innerJoin(users, eq(users.id, sessions.userId))
     .innerJoin(portfolios, eq(portfolios.userId, sessions.userId))
+    .then((data) => data.at(0))
 
-  console.log({ data })
+  if (!data) {
+    return null
+  }
+
   const session: { session: AdapterSession; user: AdapterUser } = {
     session: data.session,
     user: {
@@ -27,5 +31,5 @@ export const getSessionAndUser: Adapter["getSessionAndUser"] = async (
     },
   }
 
-  return session ?? null
+  return session
 }
