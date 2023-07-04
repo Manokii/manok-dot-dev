@@ -9,7 +9,13 @@ export const preloadTechnologies = () => {
 
 export const getTechnologies = cache(async () => {
   const results = await db.query.technologies.findMany()
-  return results
+  return results.reduce<Record<number, (typeof results)[number]>>(
+    (acc, curr) => {
+      Object.assign(acc, { [curr.id]: curr })
+      return acc
+    },
+    {}
+  )
 })
 
 export const getTechnologyById = cache(async (id: number) => {

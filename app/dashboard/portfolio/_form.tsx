@@ -8,7 +8,7 @@ import { updatePortfolio } from "@/server/server-actions"
 import { updatePortfolioSchema } from "@/lib/validators"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { IconDeviceFloppy } from "@tabler/icons-react"
+import { IconDeviceFloppy, IconLoader2 } from "@tabler/icons-react"
 import {
   Form,
   FormControl,
@@ -17,12 +17,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { useTransition } from "react"
 
 export interface PortfolioFormProps {
   portfolio: NonNullable<GetPortfolio>
 }
 
 export function PortfolioForm({ portfolio }: PortfolioFormProps) {
+  const [pending, startTransition] = useTransition()
   const form = useForm({
     resolver: zodResolver(updatePortfolioSchema),
     defaultValues: {
@@ -42,7 +44,9 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
   })
 
   const submit = form.handleSubmit(async (data) => {
-    await updatePortfolio(data)
+    startTransition(async () => {
+      await updatePortfolio(data)
+    })
   }, console.error)
 
   return (
@@ -200,8 +204,17 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
               </div>
             </CardContent>
           </Card>
-          <Button size="sm" className="self-end" type="submit">
-            <IconDeviceFloppy className="mr-2 h-5 w-5" />
+          <Button
+            size="sm"
+            className="self-end"
+            type="submit"
+            disabled={pending}
+          >
+            {pending ? (
+              <IconLoader2 className="animate-spin mr-2 h-5 w-5" />
+            ) : (
+              <IconDeviceFloppy className="mr-2 h-5 w-5" />
+            )}
             Save
           </Button>
         </div>

@@ -9,7 +9,7 @@ import { integer, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core"
 export const experienceTech = pgTable(
   "experience_technologies",
   {
-    experiencetId: integer("experience_id")
+    experienceId: integer("experience_id")
       .notNull()
       .references(() => experiences.id, { onDelete: "cascade" }),
     techId: integer("technology_id")
@@ -18,7 +18,7 @@ export const experienceTech = pgTable(
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   },
   (schema) => ({
-    id: primaryKey(schema.experiencetId, schema.techId),
+    id: primaryKey(schema.experienceId, schema.techId),
   })
 )
 
@@ -28,7 +28,7 @@ export const experienceTechRelations = relations(experienceTech, ({ one }) => ({
     references: [technologies.id],
   }),
   experience: one(experiences, {
-    fields: [experienceTech.experiencetId],
+    fields: [experienceTech.experienceId],
     references: [experiences.id],
   }),
 }))

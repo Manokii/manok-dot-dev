@@ -28,7 +28,7 @@ export const experiences = pgTable("experiences", {
 
 export const experienceRelations = relations(experiences, ({ one, many }) => ({
   portfolio: one(portfolios, {
-    fields: [experiences.id],
+    fields: [experiences.portfolioId],
     references: [portfolios.id],
   }),
   stack: many(experienceTech),

@@ -5,7 +5,6 @@ import { cva, type VariantProps } from "class-variance-authority"
 import NextLink from "next/link"
 
 import { cn } from "@/lib/utils"
-import { redirect, useRouter } from "next/navigation"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
@@ -73,11 +72,4 @@ const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(
   }
 )
 
-const BackButton = forwardRef<HTMLButtonElement, ButtonProps>(
-  function BackButton(props, ref) {
-    const router = useRouter()
-    return <Button onClick={router.back} ref={ref} {...props} />
-  }
-)
-
-export { Button, buttonVariants, LinkButton, BackButton }
+export { Button, buttonVariants, LinkButton }
