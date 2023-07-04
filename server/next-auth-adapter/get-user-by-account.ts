@@ -1,12 +1,12 @@
 import { db } from "@/db/client"
-import { accounts, users } from "@/db/schema"
+import { accounts, portfolios, users } from "@/db/schema"
 import { and, eq } from "drizzle-orm"
 import type { Adapter } from "next-auth/adapters"
 
 export const getUserByAccount: Adapter["getUserByAccount"] = async (
   payload
 ) => {
-  const [dbAccount] = await db
+  const dbAccount = await db
     .select()
     .from(accounts)
     .where(
@@ -16,6 +16,20 @@ export const getUserByAccount: Adapter["getUserByAccount"] = async (
       )
     )
     .leftJoin(users, eq(accounts.userId, users.id))
+    .leftJoin(portfolios, eq(portfolios.userId, users.id))
+    .then((data) => data.at(0))
 
-  return dbAccount?.users ?? null
+  if (!dbAccount?.users || !dbAccount?.portfolios) {
+    return null
+  }
+  return {
+    id: dbAccount.users.id,
+    name: dbAccount.users.name,
+    email: dbAccount.users.email,
+    image: dbAccount.users.image,
+    role: dbAccount.users.role,
+    emailVerified: dbAccount.users.emailVerified,
+    portfolioId: dbAccount.portfolios.id,
+    portfolioSlug: dbAccount.portfolios.slug,
+  }
 }
