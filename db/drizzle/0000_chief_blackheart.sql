@@ -56,7 +56,9 @@ CREATE TABLE IF NOT EXISTS "technologies" (
 	"status" "technologies_status" DEFAULT 'pending' NOT NULL,
 	"description" varchar(2048),
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"created_by" varchar(255) NOT NULL,
+	"updated_by" varchar(255) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "portfolios" (
@@ -95,7 +97,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"role" "user_role" DEFAULT 'default' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"portfolio_id" varchar(255)
+	"portfolio_id" integer
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationTokens" (

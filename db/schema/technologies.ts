@@ -22,6 +22,8 @@ export const technologies = pgTable("technologies", {
   description: varchar("description", { length: 2048 }),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+  createdBy: varchar("created_by", { length: 255 }).notNull(),
+  updatedBy: varchar("updated_by", { length: 255 }).notNull(),
 })
 
 export const technologiesRelations = relations(technologies, ({ many }) => ({
