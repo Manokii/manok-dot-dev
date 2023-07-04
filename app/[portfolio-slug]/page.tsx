@@ -1,25 +1,32 @@
+import { getPortfolios } from "@/queries"
 import { PortfolioPage } from "../_portfolio-page"
 import { getPortfolio } from "@/queries/get-portfolio"
-import type { Metadata, ResolvingMetadata } from "next"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const revalidate = 3600
 
 type Props = {
   params: {
-    "portofolio-slug": string
+    "portfolio-slug": string
   }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata(
-  _: Props,
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
-  const portfolio = await getPortfolio()
-  const resolvedParent = await parent
-  const previousImages = resolvedParent?.openGraph?.images || []
+export async function generateStaticParams() {
+  const portfolios = await getPortfolios()
 
+  return portfolios.map((portfolio) => {
+    return {
+      "portfolio-slug": portfolio.slug,
+    }
+  })
+}
+
+export async function generateMetadata({
+  params: { "portfolio-slug": portfolioSlug = "" },
+}: Props): Promise<Metadata> {
+  const portfolio = await getPortfolio(portfolioSlug)
   const title = `${portfolio?.name || "Portfolio"} - Manok.dev`
   const description = portfolio?.headline || "A portfolio website"
 
@@ -27,7 +34,7 @@ export async function generateMetadata(
     title,
     description,
     openGraph: {
-      images: previousImages,
+      images: [],
       title,
       description,
       url: "https://manok.dev",
@@ -37,7 +44,7 @@ export async function generateMetadata(
 }
 
 export default async function PortfolioIndividualPage({
-  params: { "portofolio-slug": portofolioSlug = "" },
+  params: { "portfolio-slug": portofolioSlug = "" },
 }: Props) {
   const portfolio = await getPortfolio(portofolioSlug)
 
