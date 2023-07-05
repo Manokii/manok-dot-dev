@@ -34,6 +34,9 @@
     --ring: 0 0% 63.9%;
 
     --radius: 0.5rem;
+
+    --dots: #ddd;
+    --bg-ring: rgba(255, 255, 255, 0.5);
   }
 
   .dark {
@@ -65,6 +68,9 @@
     --destructive-foreground: 0 85.7% 97.3%;
 
     --ring: 0 0% 14.9%;
+
+    --dots: #222;
+    --bg-ring: rgba(255, 255, 255, 0.1);
   }
 }
 

@@ -32,14 +32,13 @@ export default function RootLayout(props: { children: ReactNode }) {
         <head />
         <body
           className={cn(
-            "relative min-h-screen bg-background font-sans text-gray-300 antialiased",
+            "relative min-h-screen bg-background font-sans text-muted-foreground antialiased",
             fontSans.variable
           )}
           style={{
-            backgroundColor: "#000",
             backgroundImage:
-              "radial-gradient(circle at 20px 20px, #222 2%, transparent 0%), radial-gradient(circle at 100% 80%, rgba(255,255,255,0.1) 0%, transparent 100%)",
-            backgroundSize: "50px 50px, 100% 100%",
+              "radial-gradient(circle at 100% 80%, var(--bg-ring) 0%, transparent 100%), radial-gradient(circle at 20px 20px, var(--dots) 2%, transparent 0%)",
+            backgroundSize: "100% 100%, 50px 50px",
           }}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

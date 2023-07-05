@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react"
 import NextLink from "next/link"
 import { GetPortfolio } from "@/queries"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 interface PortfolioPageProps {
   portfolio: GetPortfolio
@@ -106,6 +107,8 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
                 </NextLink>
               </div>
             )}
+
+            <ThemeToggle />
           </div>
         </header>
         <main className="pt-24 lg:w-1/2 lg:py-24">
