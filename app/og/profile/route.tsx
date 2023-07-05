@@ -6,10 +6,6 @@ const interBold = fetch(
   new URL("../../../assets/Inter-Bold.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-const interRegular = fetch(
-  new URL("../../../assets/Inter-Regular.ttf", import.meta.url)
-).then((res) => res.arrayBuffer())
-
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.nextUrl)
 
@@ -63,7 +59,6 @@ export async function GET(req: NextRequest) {
         <div
           style={{
             fontSize: 30,
-            fontFamily: "Inter",
             fontWeight: 300,
             width: 800,
           }}
@@ -170,11 +165,6 @@ export async function GET(req: NextRequest) {
           name: "Inter",
           weight: 800,
           data: await interBold,
-        },
-        {
-          name: "Inter",
-          weight: 300,
-          data: await interRegular,
         },
       ],
     }
