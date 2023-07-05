@@ -4,6 +4,7 @@ import { getPortfolio } from "@/queries/get-portfolio"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { ogUrl } from "@/lib/og-url"
+import { sanitizeMarkdown } from "@/lib/sanitize-md"
 
 export const revalidate = 3600
 
@@ -29,7 +30,8 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const portfolio = await getPortfolio(portfolioSlug)
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
-  const description = portfolio?.headline || "A portfolio website"
+  const description =
+    sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
 
   const url = ogUrl({
     headline: portfolio?.name,
