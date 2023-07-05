@@ -27,7 +27,7 @@ export async function generateMetadata({
   params: { "portfolio-slug": portfolioSlug = "" },
 }: Props): Promise<Metadata> {
   const portfolio = await getPortfolio(portfolioSlug)
-  const title = `${portfolio?.name || "Portfolio"} - Manok.dev`
+  const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = portfolio?.headline || "A portfolio website"
 
   return {

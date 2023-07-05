@@ -7,7 +7,7 @@ export const revalidate = 3600
 
 export async function generateMetadata(): Promise<Metadata> {
   const portfolio = await getPortfolio()
-  const title = `${portfolio?.name || "Portfolio"} - Manok.dev`
+  const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = portfolio?.headline || "A portfolio website"
 
   return {
