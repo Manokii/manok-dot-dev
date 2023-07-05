@@ -3,6 +3,7 @@ import { PortfolioPage } from "../_portfolio-page"
 import { getPortfolio } from "@/queries/get-portfolio"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { ogUrl } from "@/lib/og-url"
 
 export const revalidate = 3600
 
@@ -30,11 +31,20 @@ export async function generateMetadata({
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = portfolio?.headline || "A portfolio website"
 
+  const url = ogUrl({
+    headline: portfolio?.name,
+    url: "Manok.dev",
+    subheadline: portfolio?.headline,
+    github: portfolio?.socialLinks?.github,
+    linkedin: portfolio?.socialLinks?.linkedin,
+    twitter: portfolio?.socialLinks?.twitter,
+    website: portfolio?.socialLinks?.website,
+  })
   return {
     title,
     description,
     openGraph: {
-      images: [],
+      images: [url],
       title,
       description,
       url: "https://manok.dev",
