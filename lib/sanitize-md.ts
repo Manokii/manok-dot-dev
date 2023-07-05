@@ -1,4 +1,4 @@
-export function sanitizeMarkdown(str: string = "") {
+export function sanitizeMarkdown(str = "") {
   return str
     .replaceAll("**", "")
     .replaceAll("__", "")
