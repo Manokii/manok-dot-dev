@@ -52,6 +52,13 @@ export async function generateMetadata({
       url: "https://manok.dev",
       type: "profile",
     },
+    twitter: {
+      card: "summary_large_image",
+      images: [url],
+      title,
+      description,
+      site: "https://manok.dev",
+    },
   }
 }
 
