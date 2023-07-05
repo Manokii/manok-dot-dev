@@ -10,13 +10,13 @@ interface Props {
 
 export function ogUrl(props: Partial<Props>) {
   const url = "/og/profile"
-  url.concat("?headline=", props.headline || "John Doe")
-  url.concat("&url=", "Manok.dev")
-  url.concat("&subheadline=", props.subheadline || "Software Engineer at XYZ")
-  url.concat("&github=", props.github || "")
-  url.concat("&linkedin=", props.linkedin || "")
-  url.concat("&twitter=", props.twitter || "")
-  url.concat("&website=", props.website || "")
+    .concat("?headline=", props.headline || "John Doe")
+    .concat("&url=", "Manok.dev")
+    .concat("&subheadline=", props.subheadline || "Software Engineer at XYZ")
+    .concat("&github=", props.github || "")
+    .concat("&linkedin=", props.linkedin || "")
+    .concat("&twitter=", props.twitter || "")
+    .concat("&website=", props.website || "")
 
-  return url
+  return encodeURI(url)
 }
