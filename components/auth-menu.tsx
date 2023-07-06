@@ -13,11 +13,25 @@ import {
 import { IconBrandTabler, IconLogout, IconUser } from "@tabler/icons-react"
 import { signOut } from "next-auth/react"
 import NextLink from "next/link"
+import type { GetPortfolio } from "@/queries"
+import { useRouter } from "next/navigation"
 
 interface Props {
   user: User
 }
+
 export function AuthMenu({ user }: Props) {
+  const router = useRouter()
+  const navigateToPortfolio = async () => {
+    try {
+      const result = await fetch(`/api/profile/${user.id}`)
+      const newPortfolio: GetPortfolio = await result.json()
+      console.log({ newPortfolio })
+      router.push(`/${newPortfolio.slug}`)
+    } catch (e) {
+      console.error(e)
+    }
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,12 +57,10 @@ export function AuthMenu({ user }: Props) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <NextLink href={`/${user.portfolioSlug}`}>
-            <DropdownMenuItem>
-              <IconUser className="mr-2 h-4 w-4" />
-              <span>Portfolio Page</span>
-            </DropdownMenuItem>
-          </NextLink>
+          <DropdownMenuItem onClick={navigateToPortfolio}>
+            <IconUser className="mr-2 h-4 w-4" />
+            <span>Portfolio Page</span>
+          </DropdownMenuItem>
           <NextLink href="/dashboard">
             <DropdownMenuItem>
               <IconBrandTabler className="mr-2 h-4 w-4" />

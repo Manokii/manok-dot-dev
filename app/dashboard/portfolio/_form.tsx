@@ -52,7 +52,7 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={submit}>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 rounded-md bg-card/30 p-8 ring-1 ring-muted">
           <Card>
             <CardHeader>
               <CardTitle>General Info</CardTitle>
@@ -120,7 +120,7 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
                     <FormItem className="col-span-full">
                       <FormLabel>Subheading</FormLabel>
                       <FormControl>
-                        <Textarea {...field} />
+                        <Textarea className="h-20" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -134,7 +134,7 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
                     <FormItem className="col-span-full">
                       <FormLabel>About</FormLabel>
                       <FormControl>
-                        <Textarea {...field} />
+                        <Textarea className="h-64" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

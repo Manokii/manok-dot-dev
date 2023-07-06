@@ -16,12 +16,12 @@ const socialLinksSchema = z.object({
   linkedin: prependedUrl("linkedin.com").or(emptyString).optional(),
   twitter: prependedUrl("twitter.com").or(emptyString).optional(),
   website: z.string().url().optional().or(emptyString).optional(),
-  publicResume: z.string().url().optional().or(emptyString).optional(),
+  publicResume: z.string().url().optional().or(emptyString),
 })
 
 export const updatePortfolioSchema = createInsertSchema(portfolios, {
   userId: (schema) => schema.userId.optional(),
-  publicEmail: (schema) => schema.publicEmail.email(),
+  publicEmail: (schema) => schema.publicEmail.email().or(emptyString),
   slug: (schema) => schema.slug.regex(slugRegex),
   headline: (schema) => schema.headline.max(255),
   subheading: (schema) => schema.subheading.max(255),
