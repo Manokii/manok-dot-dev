@@ -1,17 +1,13 @@
 "use client"
 import { Markdown, MarkdownNoHeadings } from "@/components/ui/md"
-import { TypographyH1, TypographyH4 } from "@/components/ui/typography"
-import { buttonVariants } from "@/components/ui/button"
 import {
-  IconBrandGithub,
-  IconBrandLinkedin,
-  IconBrandTwitter,
-  IconMail,
-  IconWorldWww,
-} from "@tabler/icons-react"
-import NextLink from "next/link"
+  TypographyH1,
+  TypographyH2,
+  TypographyH4,
+} from "@/components/ui/typography"
 import { GetPortfolio } from "@/queries"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { ExperienceList } from "./_experiences"
+import { SocialLinks } from "./_social-links"
 
 interface PortfolioPageProps {
   portfolio: GetPortfolio
@@ -19,7 +15,7 @@ interface PortfolioPageProps {
 
 export function PortfolioPage({ portfolio }: PortfolioPageProps) {
   return (
-    <div className="mx-auto min-h-screen max-w-screen-lg px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
+    <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans sm:px-12 sm:py-20 lg:px-24 lg:py-0">
       <div className="min-h-screen lg:flex lg:justify-between lg:gap-4">
         <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:py-24">
           <div className="flex-1">
@@ -32,8 +28,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               </TypographyH4>
             )}
             <Markdown content={portfolio.subheading} />
-            <p className="mb-10 mt-3"></p>
-            <nav>
+            <nav className="hidden lg:flex">
               <ul>
                 <li>About</li>
                 <li>Experience</li>
@@ -41,78 +36,19 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               </ul>
             </nav>
           </div>
-          <div className="flex items-center gap-2">
-            {portfolio.socialLinks?.github && (
-              <div className="flex items-center">
-                <NextLink
-                  href={portfolio.socialLinks.github}
-                  className={buttonVariants({
-                    size: "icon",
-                    variant: "ghost",
-                  })}
-                >
-                  <IconBrandGithub />
-                </NextLink>
-              </div>
-            )}
-            {portfolio.socialLinks?.linkedin && (
-              <div className="flex items-center">
-                <NextLink
-                  href={portfolio.socialLinks.linkedin}
-                  className={buttonVariants({
-                    size: "icon",
-                    variant: "ghost",
-                  })}
-                >
-                  <IconBrandLinkedin />
-                </NextLink>
-              </div>
-            )}
-            {portfolio.socialLinks?.twitter && (
-              <div className="flex items-center">
-                <NextLink
-                  href={portfolio.socialLinks.twitter}
-                  className={buttonVariants({
-                    size: "icon",
-                    variant: "ghost",
-                  })}
-                >
-                  <IconBrandTwitter />
-                </NextLink>
-              </div>
-            )}
-            {portfolio.socialLinks?.website && (
-              <div className="flex items-center">
-                <NextLink
-                  href={portfolio.socialLinks.website}
-                  className={buttonVariants({
-                    size: "icon",
-                    variant: "ghost",
-                  })}
-                >
-                  <IconWorldWww />
-                </NextLink>
-              </div>
-            )}
-            {portfolio.publicEmail && (
-              <div className="flex items-center">
-                <NextLink
-                  href={`mailto:${portfolio.publicEmail}`}
-                  className={buttonVariants({
-                    size: "icon",
-                    variant: "ghost",
-                  })}
-                >
-                  <IconMail />
-                </NextLink>
-              </div>
-            )}
-
-            <ThemeToggle />
-          </div>
+          <SocialLinks
+            {...portfolio.socialLinks}
+            publicEmail={portfolio.publicEmail}
+          />
         </header>
-        <main className="pt-24 lg:w-1/2 lg:py-24">
-          <Markdown content={portfolio.about ?? ""} />
+        <main className="pt-8 lg:pt-24 lg:w-1/2 lg:py-24 flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <TypographyH2 className="border-none flex lg:hidden">
+              About
+            </TypographyH2>
+            <Markdown content={portfolio.about ?? ""} />
+          </div>
+          <ExperienceList experiences={portfolio.experiences} />
         </main>
       </div>
     </div>

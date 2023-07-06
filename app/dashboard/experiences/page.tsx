@@ -34,12 +34,12 @@ export default async function ExperienceDashboard() {
           key={experience.id}
           href={`/dashboard/experiences/${experience.id}/edit`}
         >
-          <Card className="min-h-[200px] cursor-pointer hover:border-white/30 border-white/10 transition">
+          <Card className="min-h-[200px] flex flex-col h-full cursor-pointer hover:border-white/30 border-white/10 transition">
             <CardHeader>
               <CardTitle>{experience.companyName}</CardTitle>
               <CardDescription>{experience.jobTitle}</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-1">
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row gap-2 flex-wrap items-center">
                   {experience.stack.map((tech, i) => (

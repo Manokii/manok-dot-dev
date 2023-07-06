@@ -1,6 +1,6 @@
 import { db } from "@/db/client"
-import { portfolios } from "@/db/schema"
-import { eq, or } from "drizzle-orm"
+import { experiences, portfolios } from "@/db/schema"
+import { desc, eq, or } from "drizzle-orm"
 import { cache } from "react"
 
 export const preloadPortfolio = (idOrSlug?: string) => {
@@ -14,6 +14,7 @@ export const getPortfolio = cache(async (idOrSlug?: string) => {
     with: {
       user: true,
       experiences: {
+        orderBy: desc(experiences.startedAt),
         with: {
           stack: {
             with: {

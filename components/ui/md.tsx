@@ -21,6 +21,9 @@ export function Markdown({ content, ...props }: MarkdownProps) {
         h2: ({ node, ...props }) => <TypographyH2 {...props} />,
         h3: ({ node, ...props }) => <TypographyH3 {...props} />,
         h4: ({ node, ...props }) => <TypographyH4 {...props} />,
+        p: ({ node, ...props }) => <p className="mt-4" {...props} />,
+        a: ({ node, ...props }) => <a className="text-blue-400" {...props} />,
+        li: ({ node, ...props }) => <li className="pl-4 mb-2" {...props} />,
         ...props.components,
       }}
     >
@@ -40,6 +43,9 @@ export function MarkdownNoHeadings({ content, ...props }: MarkdownProps) {
         h4: "p",
         h5: "p",
         h6: "p",
+        p: ({ node, ...props }) => <p className="mt-4" {...props} />,
+        a: ({ node, ...props }) => <a className="text-blue-400" {...props} />,
+        li: ({ node, ...props }) => <li className="pl-4 mb-2" {...props} />,
         ...props.components,
       }}
     >

@@ -71,7 +71,8 @@ export const TypographyP = forwardRef<
 >(function TypographyP({ className, ...props }, ref) {
   return (
     <p
-      className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
+      className={cn("leading-7", className)}
+      // className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
       ref={ref}
       {...props}
     />
