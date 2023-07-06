@@ -16,6 +16,7 @@ const socialLinksSchema = z.object({
   linkedin: prependedUrl("linkedin.com").or(emptyString).optional(),
   twitter: prependedUrl("twitter.com").or(emptyString).optional(),
   website: z.string().url().optional().or(emptyString).optional(),
+  publicResume: z.string().url().optional().or(emptyString).optional(),
 })
 
 export const updatePortfolioSchema = createInsertSchema(portfolios, {

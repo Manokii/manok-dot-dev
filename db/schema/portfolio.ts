@@ -25,6 +25,7 @@ export const portfolios = pgTable("portfolios", {
       linkedin?: string
       twitter?: string
       website?: string
+      publicResume?: string
     }>()
     .notNull(),
 })
