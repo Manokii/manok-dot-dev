@@ -4,10 +4,12 @@ import {
   TypographyH1,
   TypographyH2,
   TypographyH4,
+  TypographyLarge,
 } from "@/components/ui/typography"
 import { GetPortfolio } from "@/queries"
 import { ExperienceList } from "./_experiences"
 import { SocialLinks } from "./_social-links"
+import NextLink from "next/link"
 
 interface PortfolioPageProps {
   portfolio: GetPortfolio
@@ -28,11 +30,30 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               </TypographyH4>
             )}
             <Markdown content={portfolio.subheading} />
-            <nav className="hidden lg:flex">
+
+            <nav className="hidden lg:flex pt-8">
               <ul>
-                <li>About</li>
-                <li>Experience</li>
-                <li>Projects</li>
+                <li>
+                  <NextLink href="#about" scroll={false}>
+                    <TypographyLarge className="hover:text-white transition-colors">
+                      About
+                    </TypographyLarge>
+                  </NextLink>
+                </li>
+                <li>
+                  <NextLink href="#experience" scroll={false}>
+                    <TypographyLarge className="hover:text-white transition-colors">
+                      Experience
+                    </TypographyLarge>
+                  </NextLink>
+                </li>
+                <li>
+                  <NextLink href="#projects" scroll={false}>
+                    <TypographyLarge className="hover:text-white transition-colors">
+                      Projects
+                    </TypographyLarge>
+                  </NextLink>
+                </li>
               </ul>
             </nav>
           </div>
@@ -41,9 +62,12 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             publicEmail={portfolio.publicEmail}
           />
         </header>
-        <main className="pt-8 lg:pt-24 lg:w-1/2 lg:py-24 flex flex-col gap-8">
-          <div className="flex flex-col gap-2">
-            <TypographyH2 className="border-none flex lg:hidden">
+        <main
+          className="pt-8 lg:pt-24 lg:w-1/2 lg:py-24 flex flex-col gap-20"
+          id="about"
+        >
+          <div className="flex flex-col gap-2 snap-mt-6 scroll-m-8">
+            <TypographyH2 className="border-none flex lg:hidden pt-6">
               About
             </TypographyH2>
             <Markdown content={portfolio.about ?? ""} />

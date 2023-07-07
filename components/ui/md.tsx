@@ -1,4 +1,4 @@
-import ReactMarkdown from "react-markdown"
+import ReactMarkdown, { Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
 import {
   TypographyH1,
@@ -7,6 +7,12 @@ import {
   TypographyH4,
 } from "./typography"
 import { ComponentProps } from "react"
+
+const commonComponents: Components = {
+  p: ({ node, ...props }) => <p className="mt-4" {...props} />,
+  a: ({ node, ...props }) => <a className="text-blue-400" {...props} />,
+  li: ({ node, ordered, ...props }) => <li className="pl-4 mb-2" {...props} />,
+}
 
 interface MarkdownProps
   extends Omit<ComponentProps<typeof ReactMarkdown>, "children"> {
@@ -21,9 +27,7 @@ export function Markdown({ content, ...props }: MarkdownProps) {
         h2: ({ node, ...props }) => <TypographyH2 {...props} />,
         h3: ({ node, ...props }) => <TypographyH3 {...props} />,
         h4: ({ node, ...props }) => <TypographyH4 {...props} />,
-        p: ({ node, ...props }) => <p className="mt-4" {...props} />,
-        a: ({ node, ...props }) => <a className="text-blue-400" {...props} />,
-        li: ({ node, ...props }) => <li className="pl-4 mb-2" {...props} />,
+        ...commonComponents,
         ...props.components,
       }}
     >
@@ -43,9 +47,7 @@ export function MarkdownNoHeadings({ content, ...props }: MarkdownProps) {
         h4: "p",
         h5: "p",
         h6: "p",
-        p: ({ node, ...props }) => <p className="mt-4" {...props} />,
-        a: ({ node, ...props }) => <a className="text-blue-400" {...props} />,
-        li: ({ node, ...props }) => <li className="pl-4 mb-2" {...props} />,
+        ...commonComponents,
         ...props.components,
       }}
     >

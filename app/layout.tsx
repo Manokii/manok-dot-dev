@@ -28,9 +28,10 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: ReactNode }) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en">
         <head />
         <body
+          suppressHydrationWarning
           className={cn(
             "relative min-h-screen bg-background font-sans text-muted-foreground antialiased",
             fontSans.variable
@@ -39,6 +40,7 @@ export default function RootLayout(props: { children: ReactNode }) {
             backgroundImage:
               "radial-gradient(circle at 100% 80%, var(--bg-ring) 0%, transparent 100%), radial-gradient(circle at 20px 20px, var(--dots) 2%, transparent 0%)",
             backgroundSize: "100% 100%, 50px 50px",
+            backgroundAttachment: "fixed",
           }}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

@@ -25,7 +25,7 @@ interface Props {
 
 export function ExperienceList({ experiences = [] }: Props) {
   return (
-    <div className="flex flex-col gap-4">
+    <div id="experience" className="flex flex-col gap-4 scroll-m-8">
       <TypographyH2 className="border-none">Experience</TypographyH2>
       <div className="flex flex-col gap-2">
         <Timeline>
@@ -38,7 +38,7 @@ export function ExperienceList({ experiences = [] }: Props) {
               <TimelineContent>
                 <div
                   className={cn(
-                    "-mt-1.5 mb-8 flex flex-col gap-2",
+                    "-mt-1.5 mb-20 flex flex-col gap-2",
                     index === experiences.length - 1 && "mb-0"
                   )}
                 >
