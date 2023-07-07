@@ -8,7 +8,7 @@ export const projects = pgTable("projects", {
   name: varchar("name", { length: 255 }).notNull(),
   body: text("body").notNull(),
   slug: varchar("slug", { length: 255 }).notNull(),
-  icon: varchar("icon", { length: 2048 }),
+  thumbnail: varchar("thumbnail", { length: 2048 }),
   portfolioId: integer("portfolio_id")
     .notNull()
     .references(() => portfolios.id, { onDelete: "cascade" }),

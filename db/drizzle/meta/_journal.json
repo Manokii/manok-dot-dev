@@ -8,6 +8,13 @@
       "when": 1688460094943,
       "tag": "0000_chief_blackheart",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1688763669688,
+      "tag": "0001_steady_johnny_blaze",
+      "breakpoints": true
     }
   ]
 }
