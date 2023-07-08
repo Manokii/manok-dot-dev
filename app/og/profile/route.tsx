@@ -13,10 +13,10 @@ export async function GET(req: NextRequest) {
   const url = searchParams.get("url") ?? "Manok.dev"
   const headline =
     searchParams.get("subheadline") ?? "Sr. Software Engineer at AcadArena"
-  const github = searchParams.get("github") ?? "manok-dot-dev"
-  const linkedin = searchParams.get("linkedin") ?? "manok-dot-dev"
-  const twitter = searchParams.get("twitter") ?? "manok-dot-dev"
-  const website = searchParams.get("website") ?? "manok-dot-dev"
+  const github = searchParams.get("github") ?? ""
+  const linkedin = searchParams.get("linkedin") ?? ""
+  const twitter = searchParams.get("twitter") ?? ""
+  const website = searchParams.get("website") ?? ""
 
   return new ImageResponse(
     (
