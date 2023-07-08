@@ -1,4 +1,4 @@
-import { experiences, portfolios, technologies } from "@/db/schema"
+import { experiences, portfolios, projects, technologies } from "@/db/schema"
 import { createInsertSchema } from "drizzle-zod"
 import { z } from "zod"
 
@@ -49,6 +49,16 @@ export const insertTechnologiesSchema = createInsertSchema(technologies, {
   updatedBy: (schema) => schema.updatedBy.optional(),
 })
 
+export const insertProjectSchema = createInsertSchema(projects, {
+  slug: (schema) => schema.slug.min(1).regex(slugRegex),
+  name: (schema) => schema.name.min(1).max(255),
+  thumbnail: (schema) => schema.thumbnail.url().or(emptyString),
+  body: (schema) => schema.body.max(10000),
+}).extend({
+  stack: z.array(z.number().positive()),
+})
+
 export type UpdatePortfolioSchema = z.infer<typeof updatePortfolioSchema>
 export type InsertTechnologiesSchema = z.infer<typeof insertTechnologiesSchema>
 export type InsertExperienceSchema = z.infer<typeof insertExperienceSchema>
+export type InsertProjectSchema = z.infer<typeof insertProjectSchema>

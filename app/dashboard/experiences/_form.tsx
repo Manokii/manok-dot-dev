@@ -56,7 +56,7 @@ export function ExperienceForm({
     resolver: zodResolver(insertExperienceSchema),
     defaultValues: {
       id: experience?.id,
-      portfolioId: portfolioId,
+      portfolioId,
       companyName: experience?.companyName ?? "",
       jobTitle: experience?.jobTitle ?? "",
       companyWebsite: experience?.companyWebsite ?? "",
@@ -76,7 +76,7 @@ export function ExperienceForm({
       }
       form.reset({
         id: newExp.id,
-        portfolioId: portfolioId,
+        portfolioId,
         companyName: newExp.companyName ?? "",
         jobTitle: newExp.jobTitle ?? "",
         companyWebsite: newExp.companyWebsite ?? "",
@@ -86,7 +86,7 @@ export function ExperienceForm({
         stack: newExp.stack.map((expTech) => expTech.tech.id),
       })
       if (!experience) {
-        router.back()
+        router.push("/dashboard/experiences")
       }
     })
   })

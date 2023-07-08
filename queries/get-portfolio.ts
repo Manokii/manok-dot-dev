@@ -1,5 +1,5 @@
 import { db } from "@/db/client"
-import { experiences, portfolios } from "@/db/schema"
+import { experiences, portfolios, projects } from "@/db/schema"
 import { desc, eq, or } from "drizzle-orm"
 import { cache } from "react"
 
@@ -10,20 +10,18 @@ export const preloadPortfolio = (idOrSlug?: string) => {
 export const getPortfolio = cache(async (idOrSlug?: string) => {
   // defaults to the first profile if idOrSlug is empty
   // which is highly likely the owner of the website
+
   const portfolio = await db.query.portfolios.findFirst({
     with: {
       user: true,
       experiences: {
         orderBy: desc(experiences.startedAt),
-        with: {
-          stack: {
-            with: {
-              tech: true,
-            },
-          },
-        },
+        with: { stack: { with: { tech: true } } },
       },
-      projects: true,
+      projects: {
+        orderBy: desc(projects.date),
+        with: { stack: { with: { tech: true } } },
+      },
     },
     ...(idOrSlug
       ? {

@@ -43,7 +43,9 @@ export default async function ExperienceDashboard() {
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row gap-2 flex-wrap items-center">
                   {experience.stack.map((tech, i) => (
-                    <Badge key={i}>{tech.tech.name}</Badge>
+                    <Badge variant="secondary" key={i}>
+                      {tech.tech.name}
+                    </Badge>
                   ))}
                 </div>
               </div>

@@ -17,7 +17,11 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
 
   const { stack, ...exp } = await insertExperienceSchema.parseAsync(formData)
 
-  if (exp.id && exp.portfolioId !== session.user.portfolioId) {
+  const isSameAsSession = exp.portfolioId === session.user.portfolioId
+  const isAdmin = session.user.role === "admin"
+  const canUpdate = isSameAsSession || isAdmin
+
+  if (exp.id && !canUpdate) {
     throw new Error("Unauthorized")
   }
 
