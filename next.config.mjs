@@ -6,6 +6,15 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "uploadthing.com",
+        port: "",
+      },
+    ],
+  },
 }
 
 export default nextConfig

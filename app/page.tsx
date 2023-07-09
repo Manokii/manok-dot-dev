@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { getPortfolio } from "@/queries"
-import { PortfolioPage } from "./_portfolio-page"
+import { PortfolioPage } from "./_portfolio"
 import type { Metadata } from "next"
 import { ogUrl } from "@/lib/og-url"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"

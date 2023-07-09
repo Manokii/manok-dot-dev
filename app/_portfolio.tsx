@@ -10,6 +10,7 @@ import { GetPortfolio } from "@/queries"
 import { ExperienceList } from "./_experiences"
 import { SocialLinks } from "./_social-links"
 import NextLink from "next/link"
+import { ProjectList } from "./_projects"
 
 interface PortfolioPageProps {
   portfolio: GetPortfolio
@@ -73,6 +74,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
             <Markdown content={portfolio.about ?? ""} />
           </div>
           <ExperienceList experiences={portfolio.experiences} />
+          <ProjectList projects={portfolio.projects} />
         </main>
       </div>
     </div>

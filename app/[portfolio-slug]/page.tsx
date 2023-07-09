@@ -1,5 +1,5 @@
 import { getPortfolios } from "@/queries"
-import { PortfolioPage } from "../_portfolio-page"
+import { PortfolioPage } from "../_portfolio"
 import { getPortfolio } from "@/queries/get-portfolio"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
