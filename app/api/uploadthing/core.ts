@@ -1,4 +1,5 @@
-import { getServerActionUser } from "@/server/get-server-action-user"
+import { authOptions } from "@/server/auth-options"
+import { getServerSession } from "next-auth"
 import { createUploadthing, type FileRouter } from "uploadthing/next"
 
 const f = createUploadthing()
@@ -6,7 +7,7 @@ const f = createUploadthing()
 export const uploadRouter = {
   imageUploader: f({ image: { maxFileSize: "4MB" } })
     .middleware(async () => {
-      const session = await getServerActionUser()
+      const session = await getServerSession(authOptions)
       if (!session) throw new Error("Unauthorized")
       return { userId: session.user.id }
     })

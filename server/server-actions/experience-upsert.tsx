@@ -3,14 +3,15 @@ import {
   insertExperienceSchema,
   type InsertExperienceSchema,
 } from "@/lib/validators"
-import { getServerActionUser } from "../get-server-action-user"
 import { experiences, experienceTech } from "@/db/schema"
 import { db } from "@/db/client"
 import { eq } from "drizzle-orm"
 import { revalidateTag } from "next/cache"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../auth-options"
 
 export async function upsertExperience(formData: InsertExperienceSchema) {
-  const session = await getServerActionUser()
+  const session = await getServerSession(authOptions)
   if (!session?.user) {
     throw new Error("Unauthenticated")
   }

@@ -3,13 +3,14 @@ import {
   updatePortfolioSchema,
   type UpdatePortfolioSchema,
 } from "@/lib/validators"
-import { getServerActionUser } from "../get-server-action-user"
 import { portfolios } from "@/db/schema"
 import { eq } from "drizzle-orm"
 import { db } from "@/db/client"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../auth-options"
 
 export async function updatePortfolio(formData: UpdatePortfolioSchema) {
-  const session = await getServerActionUser()
+  const session = await getServerSession(authOptions)
   if (!session?.user) {
     throw new Error("Unauthenticated")
   }

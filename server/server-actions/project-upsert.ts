@@ -1,14 +1,15 @@
 "use server"
 import { insertProjectSchema, type InsertProjectSchema } from "@/lib/validators"
-import { getServerActionUser } from "../get-server-action-user"
 import { projects } from "@/db/schema"
 import { db } from "@/db/client"
 import { eq } from "drizzle-orm"
 import { projectTech } from "@/db/schema/project-technologies"
 import { revalidateTag } from "next/cache"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../auth-options"
 
 export async function upsertProject(formData: InsertProjectSchema) {
-  const session = await getServerActionUser()
+  const session = await getServerSession(authOptions)
 
   if (!session) {
     throw new Error("Unauthenticated")

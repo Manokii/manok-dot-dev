@@ -1,11 +1,12 @@
 "use server"
 import { db } from "@/db/client"
-import { getServerActionUser } from "../get-server-action-user"
 import { users } from "@/db/schema"
 import { eq } from "drizzle-orm"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../auth-options"
 
 export async function deleteUser() {
-  const session = await getServerActionUser()
+  const session = await getServerSession(authOptions)
   if (!session?.user) {
     throw new Error("Unauthenticated")
   }

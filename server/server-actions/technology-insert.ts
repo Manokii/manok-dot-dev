@@ -3,13 +3,14 @@ import {
   insertTechnologiesSchema,
   type InsertTechnologiesSchema,
 } from "@/lib/validators"
-import { getServerActionUser } from "../get-server-action-user"
 import { db } from "@/db/client"
 import { technologies } from "@/db/schema"
 import { eq } from "drizzle-orm"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../auth-options"
 
 export async function insertTechnology(formData: InsertTechnologiesSchema) {
-  const session = await getServerActionUser()
+  const session = await getServerSession(authOptions)
   if (!session?.user) {
     throw new Error("Unauthenticated")
   }
