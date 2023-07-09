@@ -26,7 +26,6 @@ export function AuthMenu({ user }: Props) {
     try {
       const result = await fetch(`/api/profile/${user.id}`)
       const newPortfolio: GetPortfolio = await result.json()
-      console.log({ newPortfolio })
       router.push(`/${newPortfolio.slug}`)
     } catch (e) {
       console.error(e)
@@ -47,7 +46,7 @@ export function AuthMenu({ user }: Props) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none text-white">
+            <p className="text-sm font-medium leading-none text-foreground">
               {user.name}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
