@@ -13,7 +13,7 @@ interface Props {
 }
 export function ProjectList({ projects = [] }: Props) {
   return (
-    <div id="experience" className="flex flex-col gap-4 scroll-m-8">
+    <div id="projects" className="flex flex-col gap-4 scroll-m-8">
       <TypographyH2 className="border-none">Projects</TypographyH2>
       <div className="flex flex-col gap-16">
         {projects.map((project) => (
