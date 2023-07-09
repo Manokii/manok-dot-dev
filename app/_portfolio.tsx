@@ -36,21 +36,21 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               <ul>
                 <li>
                   <NextLink href="#about" scroll={false}>
-                    <TypographyLarge className="hover:text-white transition-colors">
+                    <TypographyLarge className="hover:text-foreground transition-colors">
                       About
                     </TypographyLarge>
                   </NextLink>
                 </li>
                 <li>
                   <NextLink href="#experience" scroll={false}>
-                    <TypographyLarge className="hover:text-white transition-colors">
+                    <TypographyLarge className="hover:text-foreground transition-colors">
                       Experience
                     </TypographyLarge>
                   </NextLink>
                 </li>
                 <li>
                   <NextLink href="#projects" scroll={false}>
-                    <TypographyLarge className="hover:text-white transition-colors">
+                    <TypographyLarge className="hover:text-foreground transition-colors">
                       Projects
                     </TypographyLarge>
                   </NextLink>
