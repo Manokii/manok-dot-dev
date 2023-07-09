@@ -16,6 +16,7 @@ export default async function DashboardLayout({ children }: Props) {
     redirect("/sign-in")
   }
 
+  console.log(session.user.role)
   preloadPortfolio(session.user.id)
 
   return (
@@ -25,7 +26,7 @@ export default async function DashboardLayout({ children }: Props) {
           <AuthMenu user={session.user} />
         </div>
         <main className="flex flex-col gap-4">
-          <DashboardTabs />
+          <DashboardTabs isAdmin={session.user.role === "admin"} />
           {children}
         </main>
       </div>

@@ -11,7 +11,7 @@ export default async function SignInPage() {
   }
 
   return (
-    <div className="container p-8 lg:px-0">
+    <div className="flex flex-col justify-center items-center container p-8 lg:px-0 h-screen">
       <AuthScreen />
     </div>
   )

@@ -43,7 +43,7 @@ export function AuthMenu({ user }: Props) {
           <AvatarFallback>{(user.name ?? "")[0] ?? ""}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent className="bg-card/90" align="end">
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none text-foreground">

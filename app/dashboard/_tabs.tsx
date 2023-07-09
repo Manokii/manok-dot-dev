@@ -3,13 +3,17 @@
 import { LinkButton, LinkButtonProps } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 
-export default function DashboardTabs() {
+interface Props {
+  isAdmin?: boolean
+}
+
+export default function DashboardTabs({ isAdmin = false }: Props) {
   const pathname = usePathname()
   const getProps = (path: string): LinkButtonProps["variant"] =>
     pathname.startsWith(path) ? "default" : "ghost"
 
   return (
-    <div className="p-2 gap-1 rounded-md flex flex-row flex-nowrap bg-muted self-start">
+    <div className="p-2 gap-2 rounded-md flex flex-row flex-nowrap bg-card/30 ring-1 ring-muted self-start">
       <LinkButton
         variant={getProps("/dashboard/portfolio")}
         href="/dashboard/portfolio"
@@ -31,6 +35,15 @@ export default function DashboardTabs() {
       >
         Projects
       </LinkButton>
+      {isAdmin && (
+        <LinkButton
+          variant={getProps("/dashboard/admin")}
+          href="/dashboard/admin"
+          size="sm"
+        >
+          Admin
+        </LinkButton>
+      )}
     </div>
   )
 }
