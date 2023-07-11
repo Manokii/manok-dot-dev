@@ -29,10 +29,7 @@ export default async function ExperienceEditPage({ params: { id } }: Props) {
 
   const experiencePromise = getExperience(parseInt(id))
 
-  const [technologies, experience] = await Promise.all([
-    techPromise,
-    experiencePromise,
-  ])
+  const [technologies, experience] = await Promise.all([techPromise, experiencePromise])
 
   if (experience?.portfolioId !== portfolio.id || !experience) {
     notFound()

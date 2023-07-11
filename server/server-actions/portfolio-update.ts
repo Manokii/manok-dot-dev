@@ -1,8 +1,5 @@
 "use server"
-import {
-  updatePortfolioSchema,
-  type UpdatePortfolioSchema,
-} from "@/lib/validators"
+import { updatePortfolioSchema, type UpdatePortfolioSchema } from "@/lib/validators"
 import { portfolios } from "@/db/schema"
 import { eq } from "drizzle-orm"
 import { db } from "@/db/client"

@@ -1,8 +1,4 @@
-import {
-  TypographyH2,
-  TypographyH4,
-  TypographyP,
-} from "@/components/ui/typography"
+import { TypographyH2, TypographyH4, TypographyP } from "@/components/ui/typography"
 import type { GetPortfolio } from "@/queries"
 import NextImage from "next/image"
 import { StackItem } from "./_stack-item"
@@ -28,15 +24,11 @@ export function ProjectList({ projects = [] }: Props) {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <TypographyH4 className="border-none">
-                {project.name}
-              </TypographyH4>
+              <TypographyH4 className="border-none">{project.name}</TypographyH4>
               {project.shortDescription && (
                 <MarkdownNoHeadings
                   components={{
-                    p: ({ node, ...props }) => (
-                      <TypographyP className="mb-4" {...props} />
-                    ),
+                    p: ({ node, ...props }) => <TypographyP className="mb-4" {...props} />,
                   }}
                   content={project.shortDescription}
                 />

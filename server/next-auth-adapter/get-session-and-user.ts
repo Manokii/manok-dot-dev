@@ -3,9 +3,7 @@ import { portfolios, sessions, users } from "@/db/schema"
 import { eq } from "drizzle-orm"
 import type { Adapter, AdapterSession, AdapterUser } from "next-auth/adapters"
 
-export const getSessionAndUser: Adapter["getSessionAndUser"] = async (
-  sessionToken
-) => {
+export const getSessionAndUser: Adapter["getSessionAndUser"] = async (sessionToken) => {
   const data = await db
     .select({
       session: sessions,

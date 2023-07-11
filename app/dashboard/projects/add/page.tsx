@@ -23,11 +23,7 @@ export default async function ExperienceAddPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <LinkButton
-        href="/dashboard/projects"
-        className="self-start"
-        variant="secondary"
-      >
+      <LinkButton href="/dashboard/projects" className="self-start" variant="secondary">
         <IconArrowLeft className="w-4 h-4 mr-2" />
         Go back to Projects
       </LinkButton>

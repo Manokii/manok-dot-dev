@@ -13,24 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { insertProjectSchema } from "@/lib/validators"
 import type { GetProject, GetTechnologies } from "@/queries"
 import { type InsertTechnology, upsertProject } from "@/server/server-actions"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  IconCalendar,
-  IconDeviceFloppy,
-  IconLoader2,
-  IconTrash,
-  IconX,
-} from "@tabler/icons-react"
+import { IconCalendar, IconDeviceFloppy, IconLoader2, IconTrash, IconX } from "@tabler/icons-react"
 import { UploadDropzone } from "@uploadthing/react"
 import { format } from "date-fns/esm"
 import { useTransition } from "react"
@@ -64,11 +54,7 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
     },
   })
 
-  const [projectId, slug, thumbnail] = projectForm.watch([
-    "id",
-    "slug",
-    "thumbnail",
-  ])
+  const [projectId, slug, thumbnail] = projectForm.watch(["id", "slug", "thumbnail"])
 
   const submit = projectForm.handleSubmit(async (data) => {
     startTransition(async () => {
@@ -86,8 +72,7 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
         body: newProject?.body ?? "",
         slug: newProject?.slug ?? "",
         date: newProject?.date ?? new Date(),
-        stack:
-          newProject?.stack.map((projectTech) => projectTech.tech.id) ?? [],
+        stack: newProject?.stack.map((projectTech) => projectTech.tech.id) ?? [],
         thumbnail: newProject?.thumbnail ?? "",
       })
 
@@ -108,9 +93,7 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
 
   const addTechToStack = (tech: InsertTechnology) => {
     if (currentStack[tech.id]) {
-      const newStack = projectForm
-        .getValues("stack")
-        .filter((id) => id !== tech.id)
+      const newStack = projectForm.getValues("stack").filter((id) => id !== tech.id)
       projectForm.setValue("stack", newStack)
       return
     }
@@ -165,11 +148,7 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                         variant={"outline"}
                         className={cn(!field.value && "text-muted-foreground")}
                       >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
+                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                         <IconCalendar className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </PopoverTrigger>
@@ -178,14 +157,8 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                         <Calendar
                           mode="single"
                           selected={field.value}
-                          onSelect={(date) =>
-                            field.onChange(
-                              date || projectForm.getValues("date")
-                            )
-                          }
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
+                          onSelect={(date) => field.onChange(date || projectForm.getValues("date"))}
+                          disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
                           initialFocus
                         />
                       </FormControl>
@@ -204,9 +177,7 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                   <FormControl>
                     <Textarea {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Markdown supported (no headings)
-                  </FormDescription>
+                  <FormDescription>Markdown supported (no headings)</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -239,9 +210,7 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                             variant="ghost"
                             size="icon"
                             className="absolute top-2 right-2"
-                            onClick={() =>
-                              projectForm.setValue("thumbnail", "")
-                            }
+                            onClick={() => projectForm.setValue("thumbnail", "")}
                           >
                             <IconTrash className="h-4 w-4" />
                           </Button>
@@ -281,15 +250,8 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
             </div>
             <div className="flex flex-row items-center gap-2">
               {Object.values(currentStack).map((tech) => (
-                <Badge
-                  key={tech.id}
-                  className="flex items-center whitespace-nowrap"
-                >
-                  <Button
-                    size="icon"
-                    className="w-4 h-4 mr-2"
-                    onClick={() => addTechToStack(tech)}
-                  >
+                <Badge key={tech.id} className="flex items-center whitespace-nowrap">
+                  <Button size="icon" className="w-4 h-4 mr-2" onClick={() => addTechToStack(tech)}>
                     <IconX className="w-4 h-4" />
                   </Button>
                   {tech.name}

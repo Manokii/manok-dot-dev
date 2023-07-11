@@ -30,8 +30,7 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const portfolio = await getPortfolio(portfolioSlug)
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
-  const description =
-    sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
+  const description = sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
 
   const url = ogUrl({
     headline: portfolio?.name,

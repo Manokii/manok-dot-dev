@@ -1,12 +1,6 @@
 import { type InferModel, relations } from "drizzle-orm"
 import { portfolios } from "./portfolio"
-import {
-  integer,
-  pgEnum,
-  pgTable,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core"
+import { integer, pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core"
 
 // --- Next Auth Table ---
 export const userRole = pgEnum("user_role", ["admin", "default"])

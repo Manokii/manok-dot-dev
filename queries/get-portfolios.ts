@@ -24,6 +24,4 @@ export const getPortfolios = cache(async () => {
   return portfolioList
 })
 
-export type GetPortfolios = NonNullable<
-  Awaited<ReturnType<typeof getPortfolios>>
->
+export type GetPortfolios = NonNullable<Awaited<ReturnType<typeof getPortfolios>>>

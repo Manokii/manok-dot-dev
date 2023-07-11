@@ -10,13 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { deleteUser } from "@/server/server-actions"
 import { IconLoader2, IconTrash, IconTrashFilled } from "@tabler/icons-react"
 import { useRouter } from "next/navigation"
@@ -51,17 +45,12 @@ export function PortfolioDangerZone() {
             <AlertDialogHeader>
               <AlertDialogTitle>Delete your account?</AlertDialogTitle>
               <AlertDialogDescription>
-                This action cannot be undone. All of your data will be deleted
-                immediately
+                This action cannot be undone. All of your data will be deleted immediately
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
-              <Button
-                variant="destructive"
-                disabled={pending}
-                onClick={onAction}
-              >
+              <Button variant="destructive" disabled={pending} onClick={onAction}>
                 {pending ? (
                   <IconLoader2 className="animate-spin w-4 h-4 mr-2" />
                 ) : (

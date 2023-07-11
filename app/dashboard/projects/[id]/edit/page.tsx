@@ -29,10 +29,7 @@ export default async function ProjectEditPage({ params: { id } }: Props) {
 
   const projectPromise = getProjectById(parseInt(id))
 
-  const [technologies, project] = await Promise.all([
-    techPromise,
-    projectPromise,
-  ])
+  const [technologies, project] = await Promise.all([techPromise, projectPromise])
 
   if (project?.portfolioId !== portfolio.id || !project) {
     notFound()
@@ -51,11 +48,7 @@ export default async function ProjectEditPage({ params: { id } }: Props) {
           <CardTitle>Edit Project</CardTitle>
         </CardHeader>
         <CardContent>
-          <ProjectForm
-            project={project}
-            technologies={technologies}
-            portfolioId={portfolio.id}
-          />
+          <ProjectForm project={project} technologies={technologies} portfolioId={portfolio.id} />
         </CardContent>
       </Card>
       <ProjectEditDangerZone projectId={project.id} />

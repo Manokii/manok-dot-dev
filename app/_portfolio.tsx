@@ -58,19 +58,11 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               </ul>
             </nav>
           </div>
-          <SocialLinks
-            {...portfolio.socialLinks}
-            publicEmail={portfolio.publicEmail}
-          />
+          <SocialLinks {...portfolio.socialLinks} publicEmail={portfolio.publicEmail} />
         </header>
-        <main
-          className="pt-8 lg:pt-24 lg:w-1/2 lg:py-24 flex flex-col gap-20"
-          id="about"
-        >
+        <main className="pt-8 lg:pt-24 lg:w-1/2 lg:py-24 flex flex-col gap-20" id="about">
           <div className="flex flex-col gap-2 snap-mt-6 scroll-m-8">
-            <TypographyH2 className="border-none flex lg:hidden pt-6">
-              About
-            </TypographyH2>
+            <TypographyH2 className="border-none flex lg:hidden pt-6">About</TypographyH2>
             <Markdown content={portfolio.about ?? ""} />
           </div>
           <ExperienceList experiences={portfolio.experiences} />

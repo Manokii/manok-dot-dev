@@ -35,23 +35,15 @@ export function AuthMenu({ user }: Props) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage
-            className="m-0"
-            src={user.image ?? ""}
-            alt={user.name ?? ""}
-          />
+          <AvatarImage className="m-0" src={user.image ?? ""} alt={user.name ?? ""} />
           <AvatarFallback>{(user.name ?? "")[0] ?? ""}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-card/90" align="end">
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none text-foreground">
-              {user.name}
-            </p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
-            </p>
+            <p className="text-sm font-medium leading-none text-foreground">{user.name}</p>
+            <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

@@ -23,11 +23,7 @@ export default async function ExperienceAddPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <LinkButton
-        href="/dashboard/experiences"
-        className="self-start"
-        variant="secondary"
-      >
+      <LinkButton href="/dashboard/experiences" className="self-start" variant="secondary">
         <IconArrowLeft className="w-4 h-4 mr-2" />
         Go back to Experiences
       </LinkButton>
@@ -36,10 +32,7 @@ export default async function ExperienceAddPage() {
           <CardTitle>Add Experience</CardTitle>
         </CardHeader>
         <CardContent>
-          <ExperienceForm
-            technologies={technologies}
-            portfolioId={portfolio.id}
-          />
+          <ExperienceForm technologies={technologies} portfolioId={portfolio.id} />
         </CardContent>
       </Card>
     </div>

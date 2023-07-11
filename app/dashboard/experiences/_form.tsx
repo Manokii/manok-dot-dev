@@ -1,10 +1,7 @@
 "use client"
 import { insertExperienceSchema } from "@/lib/validators"
 import type { GetExperience, GetTechnologies } from "@/queries"
-import {
-  type InsertTechnology,
-  upsertExperience,
-} from "@/server/server-actions"
+import { type InsertTechnology, upsertExperience } from "@/server/server-actions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
@@ -21,19 +18,10 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { useTransition } from "react"
-import {
-  IconCalendar,
-  IconDeviceFloppy,
-  IconLoader2,
-  IconX,
-} from "@tabler/icons-react"
+import { IconCalendar, IconDeviceFloppy, IconLoader2, IconX } from "@tabler/icons-react"
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
@@ -44,11 +32,7 @@ interface Props {
   technologies: GetTechnologies
 }
 
-export function ExperienceForm({
-  portfolioId,
-  experience,
-  technologies,
-}: Props) {
+export function ExperienceForm({ portfolioId, experience, technologies }: Props) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
   const form = useForm({
@@ -123,10 +107,7 @@ export function ExperienceForm({
                 <FormItem>
                   <FormLabel>Company Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Linux Merch Gurus (LMG)..."
-                      {...field}
-                    />
+                    <Input placeholder="Linux Merch Gurus (LMG)..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -185,15 +166,9 @@ export function ExperienceForm({
                         <FormControl>
                           <Button
                             variant={"outline"}
-                            className={cn(
-                              !field.value && "text-muted-foreground"
-                            )}
+                            className={cn(!field.value && "text-muted-foreground")}
                           >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
+                            {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                             <IconCalendar className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
@@ -202,12 +177,8 @@ export function ExperienceForm({
                         <Calendar
                           mode="single"
                           selected={field.value}
-                          onSelect={(date) =>
-                            field.onChange(date || form.getValues("startedAt"))
-                          }
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
+                          onSelect={(date) => field.onChange(date || form.getValues("startedAt"))}
+                          disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
                           initialFocus
                         />
                       </PopoverContent>
@@ -228,15 +199,9 @@ export function ExperienceForm({
                         <FormControl>
                           <Button
                             variant={"outline"}
-                            className={cn(
-                              !field.value && "text-muted-foreground"
-                            )}
+                            className={cn(!field.value && "text-muted-foreground")}
                           >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
+                            {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                             <IconCalendar className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
@@ -246,9 +211,7 @@ export function ExperienceForm({
                           mode="single"
                           selected={field.value ?? undefined}
                           onSelect={(date) => field.onChange(date)}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
+                          disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
                           initialFocus
                         />
                       </PopoverContent>
@@ -273,15 +236,8 @@ export function ExperienceForm({
             </div>
             <div className="flex flex-row items-center gap-2">
               {Object.values(currentStack).map((tech) => (
-                <Badge
-                  key={tech.id}
-                  className="flex items-center whitespace-nowrap"
-                >
-                  <Button
-                    size="icon"
-                    className="w-4 h-4 mr-2"
-                    onClick={() => addTechToStack(tech)}
-                  >
+                <Badge key={tech.id} className="flex items-center whitespace-nowrap">
+                  <Button size="icon" className="w-4 h-4 mr-2" onClick={() => addTechToStack(tech)}>
                     <IconX className="w-4 h-4" />
                   </Button>
                   {tech.name}

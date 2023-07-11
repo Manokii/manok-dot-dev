@@ -1,18 +1,9 @@
 import { InferModel, relations } from "drizzle-orm"
 import { projectTech } from "./project-technologies"
 import { experienceTech } from "./experience-technologies"
-import {
-  pgEnum,
-  pgTable,
-  serial,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core"
+import { pgEnum, pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core"
 
-export const technologiesStatus = pgEnum("technologies_status", [
-  "pending",
-  "approved",
-])
+export const technologiesStatus = pgEnum("technologies_status", ["pending", "approved"])
 export const technologies = pgTable("technologies", {
   id: serial("id").primaryKey().notNull(),
   name: varchar("name", { length: 255 }).notNull(),

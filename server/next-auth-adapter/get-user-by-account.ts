@@ -3,9 +3,7 @@ import { accounts, portfolios, users } from "@/db/schema"
 import { and, eq } from "drizzle-orm"
 import type { Adapter } from "next-auth/adapters"
 
-export const getUserByAccount: Adapter["getUserByAccount"] = async (
-  payload
-) => {
+export const getUserByAccount: Adapter["getUserByAccount"] = async (payload) => {
   const dbAccount = await db
     .select()
     .from(accounts)

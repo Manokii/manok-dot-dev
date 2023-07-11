@@ -1,11 +1,6 @@
 import ReactMarkdown, { Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
-import {
-  TypographyH1,
-  TypographyH2,
-  TypographyH3,
-  TypographyH4,
-} from "./typography"
+import { TypographyH1, TypographyH2, TypographyH3, TypographyH4 } from "./typography"
 import { ComponentProps } from "react"
 
 const commonComponents: Components = {
@@ -14,8 +9,7 @@ const commonComponents: Components = {
   li: ({ node, ordered, ...props }) => <li className="pl-4 mb-2" {...props} />,
 }
 
-interface MarkdownProps
-  extends Omit<ComponentProps<typeof ReactMarkdown>, "children"> {
+interface MarkdownProps extends Omit<ComponentProps<typeof ReactMarkdown>, "children"> {
   content: string
 }
 export function Markdown({ content, ...props }: MarkdownProps) {

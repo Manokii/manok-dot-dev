@@ -14,12 +14,7 @@ export async function deleteProject(projectId: number) {
 
   const result = await db
     .delete(projects)
-    .where(
-      and(
-        eq(projects.id, projectId),
-        eq(projects.portfolioId, session.user.portfolioId)
-      )
-    )
+    .where(and(eq(projects.id, projectId), eq(projects.portfolioId, session.user.portfolioId)))
     .returning()
 
   revalidateTag(`/dashboard/projects`)
