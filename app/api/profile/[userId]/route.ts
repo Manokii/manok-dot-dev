@@ -15,10 +15,7 @@ export async function GET(_: Request, { params }: Props) {
   })
 
   if (!portfolio)
-    return NextResponse.json(
-      { success: false, message: "Not found", status: 404 },
-      { status: 404 }
-    )
+    return NextResponse.json({ success: false, message: "Not found", status: 404 }, { status: 404 })
 
   return NextResponse.json(portfolio ?? "not found")
 }

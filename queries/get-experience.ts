@@ -21,6 +21,4 @@ export const getExperience = cache(async (id: number) => {
   return portfolio
 })
 
-export type GetExperience = NonNullable<
-  Awaited<ReturnType<typeof getExperience>>
->
+export type GetExperience = NonNullable<Awaited<ReturnType<typeof getExperience>>>

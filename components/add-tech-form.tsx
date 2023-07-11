@@ -1,19 +1,9 @@
 import { insertTechnologiesSchema } from "@/lib/validators"
-import {
-  type InsertTechnology,
-  insertTechnology,
-} from "@/server/server-actions"
+import { type InsertTechnology, insertTechnology } from "@/server/server-actions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTransition } from "react"
 import { useForm } from "react-hook-form"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 import { Button } from "./ui/button"
 import { IconDeviceFloppy, IconLoader2 } from "@tabler/icons-react"
 import { Input } from "./ui/input"
@@ -84,10 +74,7 @@ export function TechnologyAddForm({ onSuccess }: Props) {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea
-                    {...field}
-                    placeholder="A React framework for the web..."
-                  />
+                  <Textarea {...field} placeholder="A React framework for the web..." />
                 </FormControl>
                 <FormMessage />
               </FormItem>

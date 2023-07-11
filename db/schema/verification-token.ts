@@ -15,7 +15,4 @@ export const verificationTokens = pgTable(
 )
 
 export type VerificationToken = InferModel<typeof verificationTokens>
-export type NewVerificationToken = InferModel<
-  typeof verificationTokens,
-  "insert"
->
+export type NewVerificationToken = InferModel<typeof verificationTokens, "insert">

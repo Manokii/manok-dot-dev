@@ -1,11 +1,6 @@
 import { IconCheck, IconCirclePlus } from "@tabler/icons-react"
 import { Button } from "./ui/button"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { TypographyP } from "./ui/typography"
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import {
@@ -67,10 +62,7 @@ export function TechnologyAdd({ technologies, selectedMap, onSelect }: Props) {
             <CommandList>
               <CommandEmpty>Nothing found.</CommandEmpty>
               <CommandGroup>
-                <CommandItem
-                  className="cursor-pointer"
-                  onSelect={() => setFormOpen(true)}
-                >
+                <CommandItem className="cursor-pointer" onSelect={() => setFormOpen(true)}>
                   <IconCirclePlus className="mr-2" />
                   Add techonology
                 </CommandItem>

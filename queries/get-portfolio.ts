@@ -25,10 +25,7 @@ export const getPortfolio = cache(async (idOrSlug?: string) => {
     },
     ...(idOrSlug
       ? {
-          where: or(
-            eq(portfolios.userId, idOrSlug),
-            eq(portfolios.slug, idOrSlug)
-          ),
+          where: or(eq(portfolios.userId, idOrSlug), eq(portfolios.slug, idOrSlug)),
         }
       : {}),
   })

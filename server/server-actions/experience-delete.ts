@@ -15,10 +15,7 @@ export async function deleteExperience(experienceId: number) {
   const result = await db
     .delete(experiences)
     .where(
-      and(
-        eq(experiences.id, experienceId),
-        eq(experiences.portfolioId, session.user.portfolioId)
-      )
+      and(eq(experiences.id, experienceId), eq(experiences.portfolioId, session.user.portfolioId))
     )
     .returning()
 

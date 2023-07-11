@@ -3,9 +3,7 @@ import { verificationTokens } from "@/db/schema"
 import { and, eq } from "drizzle-orm"
 import { Adapter } from "next-auth/adapters"
 
-export const useVerificationToken: Adapter["useVerificationToken"] = async (
-  token
-) => {
+export const useVerificationToken: Adapter["useVerificationToken"] = async (token) => {
   try {
     const deletedToken =
       (await db

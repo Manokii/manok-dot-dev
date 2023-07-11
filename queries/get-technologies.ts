@@ -9,13 +9,10 @@ export const preloadTechnologies = () => {
 
 export const getTechnologies = cache(async () => {
   const results = await db.query.technologies.findMany()
-  return results.reduce<Record<number, (typeof results)[number]>>(
-    (acc, curr) => {
-      Object.assign(acc, { [curr.id]: curr })
-      return acc
-    },
-    {}
-  )
+  return results.reduce<Record<number, (typeof results)[number]>>((acc, curr) => {
+    Object.assign(acc, { [curr.id]: curr })
+    return acc
+  }, {})
 })
 
 export const getTechnologyById = cache(async (id: number) => {
@@ -25,6 +22,4 @@ export const getTechnologyById = cache(async (id: number) => {
   return result
 })
 
-export type GetTechnologies = NonNullable<
-  Awaited<ReturnType<typeof getTechnologies>>
->
+export type GetTechnologies = NonNullable<Awaited<ReturnType<typeof getTechnologies>>>

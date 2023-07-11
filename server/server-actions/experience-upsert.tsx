@@ -1,8 +1,5 @@
 "use server"
-import {
-  insertExperienceSchema,
-  type InsertExperienceSchema,
-} from "@/lib/validators"
+import { insertExperienceSchema, type InsertExperienceSchema } from "@/lib/validators"
 import { experiences, experienceTech } from "@/db/schema"
 import { db } from "@/db/client"
 import { eq } from "drizzle-orm"
@@ -51,9 +48,7 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
       techId: techId,
     }))
 
-    await tx
-      .delete(experienceTech)
-      .where(eq(experienceTech.experienceId, experience.id))
+    await tx.delete(experienceTech).where(eq(experienceTech.experienceId, experience.id))
 
     if (stack.length) {
       await tx

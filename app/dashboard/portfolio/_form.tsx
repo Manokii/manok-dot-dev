@@ -204,12 +204,7 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
               </div>
             </CardContent>
           </Card>
-          <Button
-            size="sm"
-            className="self-end"
-            type="submit"
-            disabled={pending}
-          >
+          <Button size="sm" className="self-end" type="submit" disabled={pending}>
             {pending ? (
               <IconLoader2 className="animate-spin mr-2 h-5 w-5" />
             ) : (

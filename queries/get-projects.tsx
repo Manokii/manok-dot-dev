@@ -9,13 +9,10 @@ export const preloadProjects = () => {
 
 export const getProjects = cache(async () => {
   const results = await db.query.projects.findMany()
-  return results.reduce<Record<number, (typeof results)[number]>>(
-    (acc, curr) => {
-      Object.assign(acc, { [curr.id]: curr })
-      return acc
-    },
-    {}
-  )
+  return results.reduce<Record<number, (typeof results)[number]>>((acc, curr) => {
+    Object.assign(acc, { [curr.id]: curr })
+    return acc
+  }, {})
 })
 
 export const getProjectById = cache(async (id: number) => {

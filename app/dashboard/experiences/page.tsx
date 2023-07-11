@@ -30,10 +30,7 @@ export default async function ExperienceDashboard() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {portfolio.experiences.map((experience) => (
-        <NextLink
-          key={experience.id}
-          href={`/dashboard/experiences/${experience.id}/edit`}
-        >
+        <NextLink key={experience.id} href={`/dashboard/experiences/${experience.id}/edit`}>
           <Card className="min-h-[200px] flex flex-col h-full cursor-pointer hover:border-white/30 border-white/10 transition">
             <CardHeader>
               <CardTitle>{experience.companyName}</CardTitle>
@@ -52,9 +49,7 @@ export default async function ExperienceDashboard() {
             </CardContent>
             <CardFooter>
               {format(experience.startedAt, "MMMM yyyy")} —{" "}
-              {experience.endedAt
-                ? format(experience.endedAt, "MMMM yyyy")
-                : "Present"}
+              {experience.endedAt ? format(experience.endedAt, "MMMM yyyy") : "Present"}
             </CardFooter>
           </Card>
         </NextLink>

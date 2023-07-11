@@ -15,9 +15,7 @@ export async function upsertProject(formData: InsertProjectSchema) {
     throw new Error("Unauthenticated")
   }
 
-  const { stack, ...projectData } = await insertProjectSchema.parseAsync(
-    formData
-  )
+  const { stack, ...projectData } = await insertProjectSchema.parseAsync(formData)
 
   const isSameAsSession = projectData.portfolioId === session.user.portfolioId
   const isAdmin = session.user.role === "admin"

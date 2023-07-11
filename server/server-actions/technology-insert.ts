@@ -1,8 +1,5 @@
 "use server"
-import {
-  insertTechnologiesSchema,
-  type InsertTechnologiesSchema,
-} from "@/lib/validators"
+import { insertTechnologiesSchema, type InsertTechnologiesSchema } from "@/lib/validators"
 import { db } from "@/db/client"
 import { technologies } from "@/db/schema"
 import { eq } from "drizzle-orm"
