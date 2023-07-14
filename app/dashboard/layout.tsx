@@ -16,7 +16,6 @@ export default async function DashboardLayout({ children }: Props) {
     redirect("/sign-in")
   }
 
-  console.log(session.user.role)
   preloadPortfolio(session.user.id)
 
   return (
