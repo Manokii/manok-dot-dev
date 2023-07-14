@@ -1,6 +1,5 @@
-import { getPortfolios } from "@/queries"
+import { getPortfolioWithRelations, getPortfolios } from "@/queries"
 import { PortfolioPage } from "../_portfolio"
-import { getPortfolio } from "@/queries"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { ogUrl } from "@/lib/og-url"
@@ -28,7 +27,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params: { "portfolio-slug": portfolioSlug = "" },
 }: Props): Promise<Metadata> {
-  const portfolio = await getPortfolio(portfolioSlug)
+  const portfolio = await getPortfolioWithRelations(portfolioSlug)
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
 
@@ -64,7 +63,7 @@ export async function generateMetadata({
 export default async function PortfolioIndividualPage({
   params: { "portfolio-slug": portofolioSlug = "" },
 }: Props) {
-  const portfolio = await getPortfolio(portofolioSlug)
+  const portfolio = await getPortfolioWithRelations(portofolioSlug)
 
   if (!portfolio) {
     notFound()

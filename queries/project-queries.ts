@@ -6,15 +6,8 @@ import { cache } from "react"
 /* -------------------------------------------------------------------------------------------------
  * Queries
  * -----------------------------------------------------------------------------------------------*/
-export const getProjects = cache(async () => {
-  const results = await db.query.projects.findMany()
-  return results.reduce<Record<number, (typeof results)[number]>>((acc, curr) => {
-    Object.assign(acc, { [curr.id]: curr })
-    return acc
-  }, {})
-})
 
-export const getProjectById = cache(async (id: number) => {
+export const getProject = cache(async (id: number) => {
   const result = await db.query.projects.findFirst({
     with: {
       stack: {
@@ -28,15 +21,35 @@ export const getProjectById = cache(async (id: number) => {
   return result
 })
 
+export const getProjectsByPortfolioId = cache(async (portfolioId: number) => {
+  const result = await db.query.projects.findMany({
+    with: {
+      stack: {
+        with: {
+          tech: true,
+        },
+      },
+    },
+    where: eq(projects.portfolioId, portfolioId),
+  })
+  return result
+})
+
 /* -------------------------------------------------------------------------------------------------
  * Preloads
  * -----------------------------------------------------------------------------------------------*/
-export const preloadProjects = () => {
-  void getProjects()
+export function preloadGetProject(id: number) {
+  void getProject(id)
+}
+
+export function preloadGetProjectsByPortfolioId(portfolioId: number) {
+  void getProjectsByPortfolioId(portfolioId)
 }
 
 /* -------------------------------------------------------------------------------------------------
  * Types
  * -----------------------------------------------------------------------------------------------*/
-export type GetProjects = NonNullable<Awaited<ReturnType<typeof getProjects>>>
-export type GetProject = NonNullable<Awaited<ReturnType<typeof getProjectById>>>
+export type GetProject = NonNullable<Awaited<ReturnType<typeof getProject>>>
+export type GetProjectsByPortfolioId = NonNullable<
+  Awaited<ReturnType<typeof getProjectsByPortfolioId>>
+>

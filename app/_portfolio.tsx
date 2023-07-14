@@ -6,14 +6,14 @@ import {
   TypographyH4,
   TypographyLarge,
 } from "@/components/ui/typography"
-import { GetPortfolio } from "@/queries"
+import type { GetPortfolioWithRelations } from "@/queries"
 import { ExperienceList } from "./_experiences"
 import { SocialLinks } from "./_social-links"
 import NextLink from "next/link"
 import { ProjectList } from "./_projects"
 
 interface PortfolioPageProps {
-  portfolio: GetPortfolio
+  portfolio: GetPortfolioWithRelations
 }
 
 export function PortfolioPage({ portfolio }: PortfolioPageProps) {

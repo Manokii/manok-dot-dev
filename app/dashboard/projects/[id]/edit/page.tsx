@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth"
 import { ProjectForm } from "../../_form"
 import { authOptions } from "@/server/auth-options"
 import { notFound, redirect } from "next/navigation"
-import { getAllTech, getPortfolio, getProjectById } from "@/queries"
+import { getAllTech, getProject } from "@/queries"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { LinkButton } from "@/components/ui/button"
 import { IconArrowLeft } from "@tabler/icons-react"
@@ -21,16 +21,11 @@ export default async function ProjectEditPage({ params: { id } }: Props) {
   }
 
   const techPromise = getAllTech()
-  const portfolio = await getPortfolio(session.user.id)
-  if (!portfolio) {
-    redirect("/")
-  }
-
-  const projectPromise = getProjectById(parseInt(id))
+  const projectPromise = getProject(parseInt(id))
+  const portfolioId = session.user.portfolioId
 
   const [technologies, project] = await Promise.all([techPromise, projectPromise])
-
-  if (project?.portfolioId !== portfolio.id || !project) {
+  if (project?.portfolioId !== portfolioId || !project) {
     notFound()
   }
 
@@ -47,7 +42,7 @@ export default async function ProjectEditPage({ params: { id } }: Props) {
           <CardTitle>Edit Project</CardTitle>
         </CardHeader>
         <CardContent>
-          <ProjectForm project={project} technologies={technologies} portfolioId={portfolio.id} />
+          <ProjectForm project={project} technologies={technologies} portfolioId={portfolioId} />
         </CardContent>
       </Card>
       <ProjectEditDangerZone projectId={project.id} />

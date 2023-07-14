@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card"
 import { TypographyH3 } from "@/components/ui/typography"
 import { authOptions } from "@/server/auth-options"
-import { getPortfolio } from "@/queries"
+import { getExpsByPortfolioId } from "@/queries"
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 import NextLink from "next/link"
@@ -22,14 +22,11 @@ export default async function ExperienceDashboard() {
     redirect("/sign-in")
   }
 
-  const portfolio = await getPortfolio(session.user.id)
-  if (!portfolio) {
-    redirect("/")
-  }
+  const experiences = await getExpsByPortfolioId(session.user.portfolioId)
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      {portfolio.experiences.map((experience) => (
+      {experiences.map((experience) => (
         <NextLink key={experience.id} href={`/dashboard/experiences/${experience.id}/edit`}>
           <Card className="min-h-[200px] flex flex-col h-full cursor-pointer hover:border-white/30 border-white/10 transition">
             <CardHeader>

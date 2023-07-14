@@ -1,11 +1,11 @@
 import { TypographyH2, TypographyH4, TypographyP } from "@/components/ui/typography"
-import type { GetPortfolio } from "@/queries"
+import type { GetPortfolioWithRelations } from "@/queries"
 import NextImage from "next/image"
 import { StackItem } from "./_stack-item"
 import { MarkdownNoHeadings } from "@/components/ui/md"
 
 interface Props {
-  projects: GetPortfolio["projects"]
+  projects: GetPortfolioWithRelations["projects"]
 }
 export function ProjectList({ projects = [] }: Props) {
   return (

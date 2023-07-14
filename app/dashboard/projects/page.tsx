@@ -1,4 +1,4 @@
-import { getPortfolio } from "@/queries"
+import { getProjectsByPortfolioId } from "@/queries"
 import { authOptions } from "@/server/auth-options"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
@@ -22,14 +22,14 @@ export default async function ProjectsDashboard() {
     redirect("/sign-in")
   }
 
-  const portfolio = await getPortfolio(session.user.id)
-  if (!portfolio) {
+  const projects = await getProjectsByPortfolioId(session.user.portfolioId)
+  if (!projects) {
     redirect("/")
   }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      {portfolio.projects.map((project) => (
+      {projects.map((project) => (
         <NextLink key={project.id} href={`/dashboard/projects/${project.id}/edit`}>
           <Card className="min-h-[200px] flex flex-col h-full cursor-pointer hover:border-white/30 border-white/10 transition">
             <CardHeader>

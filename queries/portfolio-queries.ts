@@ -1,5 +1,5 @@
 import { db } from "@/db/client"
-import { experiences, portfolios, projects } from "@/db/schema"
+import { experiences, portfolios, posts, projects } from "@/db/schema"
 import { desc, eq, or } from "drizzle-orm"
 import { cache } from "react"
 
@@ -8,9 +8,9 @@ import { cache } from "react"
  * -----------------------------------------------------------------------------------------------*/
 
 /*
- * Get a portfolio by id or slug
+ * Get portfolio by id or slug with all relations.
  */
-export const getPortfolio = cache(async (idOrSlug: string) => {
+export const getPortfolioWithRelations = cache(async (idOrSlug: string) => {
   const portfolio = await db.query.portfolios.findFirst({
     with: {
       user: true,
@@ -22,7 +22,20 @@ export const getPortfolio = cache(async (idOrSlug: string) => {
         orderBy: desc(projects.date),
         with: { stack: { with: { tech: true } } },
       },
+      posts: {
+        orderBy: desc(posts.publishedAt),
+      },
     },
+    where: or(eq(portfolios.userId, idOrSlug), eq(portfolios.slug, idOrSlug)),
+  })
+  return portfolio
+})
+
+/*
+ * Get portfolio by id or slug.
+ */
+export const getPortfolio = cache(async (idOrSlug: string) => {
+  const portfolio = await db.query.portfolios.findFirst({
     where: or(eq(portfolios.userId, idOrSlug), eq(portfolios.slug, idOrSlug)),
   })
   return portfolio
@@ -42,6 +55,9 @@ export const getFirstPortfolio = cache(async () => {
       projects: {
         orderBy: desc(projects.date),
         with: { stack: { with: { tech: true } } },
+      },
+      posts: {
+        orderBy: desc(posts.publishedAt),
       },
     },
   })
@@ -84,5 +100,8 @@ export function preloadPortfolios() {}
 /* -------------------------------------------------------------------------------------------------
  * Types
  * -----------------------------------------------------------------------------------------------*/
+export type GetPortfolioWithRelations = NonNullable<
+  Awaited<ReturnType<typeof getPortfolioWithRelations>>
+>
 export type GetPortfolio = NonNullable<Awaited<ReturnType<typeof getPortfolio>>>
 export type GetPortfolios = NonNullable<Awaited<ReturnType<typeof getPortfolios>>>

@@ -23,6 +23,13 @@ export const getExp = cache(async (id: number) => {
 
 export async function getExpsByPortfolioId(portfolioId: number) {
   return await db.query.experiences.findMany({
+    with: {
+      stack: {
+        with: {
+          tech: true,
+        },
+      },
+    },
     where: (experiences) => eq(experiences.portfolioId, portfolioId),
   })
 }
