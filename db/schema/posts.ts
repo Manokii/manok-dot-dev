@@ -14,6 +14,7 @@ export const posts = pgTable("posts", {
   authorId: integer("author_id")
     .notNull()
     .references(() => portfolios.id, { onDelete: "cascade" }),
+  publishedAt: timestamp("published_at", { mode: "date" }),
   updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 })
