@@ -19,7 +19,7 @@ export const experienceTech = pgTable(
   },
   (schema) => ({
     id: primaryKey(schema.experienceId, schema.techId),
-  })
+  }),
 )
 
 export const experienceTechRelations = relations(experienceTech, ({ one }) => ({

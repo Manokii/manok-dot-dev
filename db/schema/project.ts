@@ -7,8 +7,9 @@ export const projects = pgTable("projects", {
   id: serial("id").primaryKey().notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   body: text("body").notNull(),
-  slug: varchar("slug", { length: 255 }).notNull(), // TODO: convert to unique column
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
   thumbnail: varchar("thumbnail", { length: 2048 }),
+  link: varchar("link", { length: 2048 }),
   shortDescription: varchar("short_description", { length: 255 }),
   date: date("date", { mode: "date" }).notNull(),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),

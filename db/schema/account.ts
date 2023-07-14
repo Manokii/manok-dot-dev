@@ -24,7 +24,7 @@ export const accounts = pgTable(
   },
   (account) => ({
     compoundKey: primaryKey(account.provider, account.providerAccountId),
-  })
+  }),
 )
 
 export type Account = InferModel<typeof accounts>
