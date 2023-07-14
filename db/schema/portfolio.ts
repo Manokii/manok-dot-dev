@@ -6,6 +6,7 @@ import { type InferModel, relations } from "drizzle-orm"
 import { experiences } from "./experience"
 import { users } from "./user"
 import { projects } from "./project"
+import { posts } from "./posts"
 import { jsonb, pgTable, serial, text, varchar } from "drizzle-orm/pg-core"
 
 export const portfolios = pgTable("portfolios", {
@@ -17,7 +18,7 @@ export const portfolios = pgTable("portfolios", {
   userId: varchar("user_id", { length: 255 })
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  slug: varchar("slug", { length: 255 }).notNull(), // TODO: convert to unique column
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
   publicEmail: varchar("public_email", { length: 255 }),
   socialLinks: jsonb("social_links")
     .$type<{
@@ -33,6 +34,7 @@ export const portfolios = pgTable("portfolios", {
 export const portfoliosRelations = relations(portfolios, ({ one, many }) => ({
   experiences: many(experiences),
   projects: many(projects),
+  posts: many(posts),
   user: one(users, {
     fields: [portfolios.userId],
     references: [users.id],

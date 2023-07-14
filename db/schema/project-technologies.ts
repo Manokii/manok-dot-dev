@@ -16,7 +16,7 @@ export const projectTech = pgTable(
   },
   (schema) => ({
     id: primaryKey(schema.projectId, schema.techId),
-  })
+  }),
 )
 
 export const projectTechRelations = relations(projectTech, ({ one }) => ({
