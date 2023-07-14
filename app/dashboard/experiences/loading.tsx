@@ -1,2 +1,2 @@
-import Loading from "../_form_loading"
+import Loading from "../_form-loading"
 export default Loading

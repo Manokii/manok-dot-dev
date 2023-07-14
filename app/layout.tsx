@@ -34,7 +34,7 @@ export default function RootLayout(props: { children: ReactNode }) {
           suppressHydrationWarning
           className={cn(
             "relative min-h-screen bg-background font-sans text-muted-foreground antialiased",
-            fontSans.variable
+            fontSans.variable,
           )}
           style={{
             backgroundImage:
