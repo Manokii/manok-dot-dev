@@ -2,8 +2,7 @@ import { getServerSession } from "next-auth"
 import { ProjectForm } from "../../_form"
 import { authOptions } from "@/server/auth-options"
 import { notFound, redirect } from "next/navigation"
-import { getPortfolio, getProjectById } from "@/queries"
-import { getTechnologies } from "@/queries/get-technologies"
+import { getAllTech, getPortfolio, getProjectById } from "@/queries"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { LinkButton } from "@/components/ui/button"
 import { IconArrowLeft } from "@tabler/icons-react"
@@ -21,7 +20,7 @@ export default async function ProjectEditPage({ params: { id } }: Props) {
     redirect("/sign-in")
   }
 
-  const techPromise = getTechnologies()
+  const techPromise = getAllTech()
   const portfolio = await getPortfolio(session.user.id)
   if (!portfolio) {
     redirect("/")

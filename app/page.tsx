@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { getPortfolio } from "@/queries"
+import { getFirstPortfolio } from "@/queries"
 import { PortfolioPage } from "./_portfolio"
 import type { Metadata } from "next"
 import { ogUrl } from "@/lib/og-url"
@@ -8,7 +8,7 @@ import { sanitizeMarkdown } from "@/lib/sanitize-md"
 export const revalidate = 3600
 
 export async function generateMetadata(): Promise<Metadata> {
-  const portfolio = await getPortfolio()
+  const portfolio = await getFirstPortfolio()
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
 
@@ -43,7 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const portfolio = await getPortfolio()
+  const portfolio = await getFirstPortfolio()
 
   if (!portfolio) {
     notFound()

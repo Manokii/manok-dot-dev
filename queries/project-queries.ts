@@ -3,10 +3,9 @@ import { projects } from "@/db/schema"
 import { eq } from "drizzle-orm"
 import { cache } from "react"
 
-export const preloadProjects = () => {
-  void getProjects()
-}
-
+/* -------------------------------------------------------------------------------------------------
+ * Queries
+ * -----------------------------------------------------------------------------------------------*/
 export const getProjects = cache(async () => {
   const results = await db.query.projects.findMany()
   return results.reduce<Record<number, (typeof results)[number]>>((acc, curr) => {
@@ -29,5 +28,15 @@ export const getProjectById = cache(async (id: number) => {
   return result
 })
 
+/* -------------------------------------------------------------------------------------------------
+ * Preloads
+ * -----------------------------------------------------------------------------------------------*/
+export const preloadProjects = () => {
+  void getProjects()
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Types
+ * -----------------------------------------------------------------------------------------------*/
 export type GetProjects = NonNullable<Awaited<ReturnType<typeof getProjects>>>
 export type GetProject = NonNullable<Awaited<ReturnType<typeof getProjectById>>>

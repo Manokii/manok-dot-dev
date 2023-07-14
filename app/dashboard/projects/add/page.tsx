@@ -2,8 +2,7 @@ import { getServerSession } from "next-auth"
 import { ProjectForm } from "../_form"
 import { authOptions } from "@/server/auth-options"
 import { redirect } from "next/navigation"
-import { getPortfolio } from "@/queries"
-import { getTechnologies } from "@/queries/get-technologies"
+import { getPortfolio, getAllTech } from "@/queries"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { LinkButton } from "@/components/ui/button"
 import { IconArrowLeft } from "@tabler/icons-react"
@@ -19,7 +18,7 @@ export default async function ExperienceAddPage() {
     redirect("/")
   }
 
-  const technologies = await getTechnologies()
+  const technologies = await getAllTech()
 
   return (
     <div className="flex flex-col gap-4">

@@ -1,6 +1,6 @@
 "use client"
 import { insertExperienceSchema } from "@/lib/validators"
-import type { GetExperience, GetTechnologies } from "@/queries"
+import type { GetExp, GetAllTech } from "@/queries"
 import { type InsertTechnology, upsertExperience } from "@/server/server-actions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -27,9 +27,9 @@ import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
 
 interface Props {
-  experience?: GetExperience
+  experience?: GetExp
   portfolioId: number
-  technologies: GetTechnologies
+  technologies: GetAllTech
 }
 
 export function ExperienceForm({ portfolioId, experience, technologies }: Props) {
@@ -77,7 +77,7 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
 
   const currentStack = form
     .watch("stack")
-    .reduce<Record<number, GetTechnologies[number]>>((acc, curr) => {
+    .reduce<Record<number, GetAllTech[number]>>((acc, curr) => {
       const tech = technologies[curr]
       if (!tech) return acc
       Object.assign(acc, { [curr]: tech })

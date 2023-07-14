@@ -1,6 +1,6 @@
 import { getPortfolios } from "@/queries"
 import { PortfolioPage } from "../_portfolio"
-import { getPortfolio } from "@/queries/get-portfolio"
+import { getPortfolio } from "@/queries"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { ogUrl } from "@/lib/og-url"
