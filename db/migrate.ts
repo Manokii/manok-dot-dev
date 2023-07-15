@@ -4,12 +4,7 @@ import postgres from "postgres"
 import dotenv from "dotenv"
 dotenv.config({ path: ".env" })
 
-const queryClient = postgres(process.env.POSTGRES_URL_NON_POOLING ?? "", {
-  max: 1,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-})
+const queryClient = postgres(process.env.POSTGRES_URL_NON_POOLING ?? "", { max: 1 })
 
 const nonPoolingDb = drizzle(queryClient)
 async function runMigration() {

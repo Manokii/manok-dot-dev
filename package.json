@@ -12,6 +12,7 @@
     "preview": "next build && next start",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "db:init": "docker-compose up -d",
     "db:check": "drizzle-kit check:pg",
     "db:generate": "drizzle-kit generate:pg",
     "db:pull": "drizzle-kit introspect:pg",
