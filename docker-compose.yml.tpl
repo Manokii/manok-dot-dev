@@ -5,8 +5,8 @@ services:
     container_name: manok_dot_dev_postgres
     image: postgres
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "localpassword" # local only password
+      POSTGRES_USER: "op://cli-$APP_ENV/db/username"
+      POSTGRES_PASSWORD: "op://cli-$APP_ENV/db/password" # local only password
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
