@@ -336,4 +336,12 @@ async function seed() {
   return { success: true }
 }
 
-seed().then(console.log)
+seed()
+  .then((res) => {
+    console.log(res)
+    process.exit(0)
+  })
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
