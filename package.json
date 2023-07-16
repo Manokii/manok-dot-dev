@@ -3,22 +3,24 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tsx ./db/migrate && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "typecheck": "tsc --noEmit",
-    "init:env": "sh ./init-env.sh",
+    "env:init": "sh ./env-init.sh local",
+    "env:init:dev": "sh ./env-init.sh dev",
+    "env:init:prod": "sh ./env-init.sh prod",
     "preview": "next build && next start",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "db:init": "docker-compose up -d",
+    "db:init": "sh ./docker-init.sh local",
     "db:check": "drizzle-kit check:pg",
     "db:generate": "drizzle-kit generate:pg",
     "db:pull": "drizzle-kit introspect:pg",
-    "db:migrate": "pnpm dlx tsx ./db/migrate",
+    "db:migrate": "tsx ./db/migrate",
     "db:studio": "drizzle-kit studio --port 1337 --verbose",
-    "db:seed": "pnpm dlx tsx ./db/seed",
+    "db:seed": "tsx ./db/seed",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -78,6 +80,7 @@
     "postcss": "8.4.25",
     "prettier": "3.0.0",
     "tailwindcss": "3.3.2",
+    "tsx": "3.12.7",
     "typescript": "5.1.6"
   },
   "lint-staged": {

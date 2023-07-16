@@ -169,6 +169,9 @@ devDependencies:
   tailwindcss:
     specifier: 3.3.2
     version: 3.3.2
+  tsx:
+    specifier: 3.12.7
+    version: 3.12.7
   typescript:
     specifier: 5.1.6
     version: 5.1.6
@@ -461,6 +464,16 @@ packages:
       {
         integrity: sha512-cHgGezy2ojBFMaU6PZyBkksgFsg2CQ8IRN4mS7WdbA/Zv6xUK6fCNmpEWS/FftbxoA4B8Z0XGnuKsaTJEZsGgA==,
       }
+    dev: true
+
+  /@esbuild-kit/cjs-loader@2.4.2:
+    resolution:
+      {
+        integrity: sha512-BDXFbYOJzT/NBEtp71cvsrGPwGAMGRB/349rwKuoxNSiKjPraNNnlK6MIIabViCjqZugu6j+xeMDlEkWdHHJSg==,
+      }
+    dependencies:
+      "@esbuild-kit/core-utils": 3.1.0
+      get-tsconfig: 4.6.2
     dev: true
 
   /@esbuild-kit/core-utils@3.1.0:
@@ -8025,6 +8038,20 @@ packages:
     dependencies:
       tslib: 1.14.1
       typescript: 5.1.6
+    dev: true
+
+  /tsx@3.12.7:
+    resolution:
+      {
+        integrity: sha512-C2Ip+jPmqKd1GWVQDvz/Eyc6QJbGfE7NrR3fx5BpEHMZsEHoIxHL1j+lKdGobr8ovEyqeNkPLSKp6SCSOt7gmw==,
+      }
+    hasBin: true
+    dependencies:
+      "@esbuild-kit/cjs-loader": 2.4.2
+      "@esbuild-kit/core-utils": 3.1.0
+      "@esbuild-kit/esm-loader": 2.5.5
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: true
 
   /type-check@0.4.0:
