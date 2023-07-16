@@ -9,7 +9,7 @@
     "lint:fix": "next lint --fix",
     "typecheck": "tsc --noEmit",
     "env:init": "sh ./env-init.sh local",
-    "env:init:dev": "sh ./env-init.sh dev",
+    "env:init:staging": "sh ./env-init.sh staging",
     "env:init:prod": "sh ./env-init.sh prod",
     "preview": "next build && next start",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
