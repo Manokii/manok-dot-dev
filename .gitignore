@@ -36,3 +36,8 @@ yarn-error.log*
 .env
 .vercel
 tsconfig.tsbuildinfo
+
+
+# docker
+docker-compose.yml
+

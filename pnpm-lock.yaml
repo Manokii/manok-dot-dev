@@ -44,9 +44,6 @@ dependencies:
   "@uploadthing/react":
     specifier: 5.1.0
     version: 5.1.0(react-dropzone@14.2.3)(react@18.2.0)(uploadthing@5.1.0)(zod@3.21.4)
-  "@vercel/postgres":
-    specifier: 0.4.0
-    version: 0.4.0
   class-variance-authority:
     specifier: 0.6.1
     version: 0.6.1
@@ -64,7 +61,7 @@ dependencies:
     version: 16.3.1
   drizzle-orm:
     specifier: 0.27.2
-    version: 0.27.2(@vercel/postgres@0.4.0)
+    version: 0.27.2(postgres@3.3.5)
   drizzle-zod:
     specifier: 0.4.4
     version: 0.4.4(drizzle-orm@0.27.2)(zod@3.21.4)
@@ -77,6 +74,9 @@ dependencies:
   next-themes:
     specifier: 0.2.1
     version: 0.2.1(next@13.4.9)(react-dom@18.2.0)(react@18.2.0)
+  postgres:
+    specifier: 3.3.5
+    version: 3.3.5
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -169,6 +169,9 @@ devDependencies:
   tailwindcss:
     specifier: 3.3.2
     version: 3.3.2
+  tsx:
+    specifier: 3.12.7
+    version: 3.12.7
   typescript:
     specifier: 5.1.6
     version: 5.1.6
@@ -461,6 +464,16 @@ packages:
       {
         integrity: sha512-cHgGezy2ojBFMaU6PZyBkksgFsg2CQ8IRN4mS7WdbA/Zv6xUK6fCNmpEWS/FftbxoA4B8Z0XGnuKsaTJEZsGgA==,
       }
+    dev: true
+
+  /@esbuild-kit/cjs-loader@2.4.2:
+    resolution:
+      {
+        integrity: sha512-BDXFbYOJzT/NBEtp71cvsrGPwGAMGRB/349rwKuoxNSiKjPraNNnlK6MIIabViCjqZugu6j+xeMDlEkWdHHJSg==,
+      }
+    dependencies:
+      "@esbuild-kit/core-utils": 3.1.0
+      get-tsconfig: 4.6.2
     dev: true
 
   /@esbuild-kit/core-utils@3.1.0:
@@ -1198,15 +1211,6 @@ packages:
     dependencies:
       "@jridgewell/resolve-uri": 3.1.0
       "@jridgewell/sourcemap-codec": 1.4.14
-
-  /@neondatabase/serverless@0.4.19:
-    resolution:
-      {
-        integrity: sha512-atzpP9uBLrWPokXZdVy2iNPmmxVx51HXhrEObDb4KXmsyGEkGhCcb6cs51LA/oyXwjJUeB4AreOoVgMcPAIv5g==,
-      }
-    dependencies:
-      "@types/pg": 8.6.6
-    dev: false
 
   /@next/env@13.4.9:
     resolution:
@@ -2517,17 +2521,7 @@ packages:
       {
         integrity: sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==,
       }
-
-  /@types/pg@8.6.6:
-    resolution:
-      {
-        integrity: sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw==,
-      }
-    dependencies:
-      "@types/node": 20.4.2
-      pg-protocol: 1.6.0
-      pg-types: 2.2.0
-    dev: false
+    dev: true
 
   /@types/prop-types@15.7.5:
     resolution:
@@ -2848,19 +2842,6 @@ packages:
     dependencies:
       "@uploadthing/mime-types": 0.2.0
       zod: 3.21.4
-    dev: false
-
-  /@vercel/postgres@0.4.0:
-    resolution:
-      {
-        integrity: sha512-GemRRKvLi90BC511WQzt5tfVLPNOQ9eNbbbaPquSgasm5ogfWLtjJSbNUD4jYEbs9IxbNovKqr0H0CAjJzOAyw==,
-      }
-    engines: { node: ">=14.6" }
-    dependencies:
-      "@neondatabase/serverless": 0.4.19
-      bufferutil: 4.0.7
-      utf-8-validate: 6.0.3
-      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@6.0.3)
     dev: false
 
   /acorn-jsx@5.3.2(acorn@8.9.0):
@@ -3229,17 +3210,6 @@ packages:
         integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==,
       }
     dev: true
-
-  /bufferutil@4.0.7:
-    resolution:
-      {
-        integrity: sha512-kukuqc39WOHtdxtw4UScxF/WVnMFVSQVKhtx3AjZJzhd0RGZZldcrfSEbVsWWe6KNH253574cq5F+wpv0G9pJw==,
-      }
-    engines: { node: ">=6.14.2" }
-    requiresBuild: true
-    dependencies:
-      node-gyp-build: 4.6.0
-    dev: false
 
   /bundle-name@3.0.0:
     resolution:
@@ -3820,7 +3790,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.27.2(@vercel/postgres@0.4.0):
+  /drizzle-orm@0.27.2(postgres@3.3.5):
     resolution:
       {
         integrity: sha512-ZvBvceff+JlgP7FxHKe0zOU9CkZ4RcOtibumIrqfYzDGuOeF0YUY0F9iMqYpRM7pxnLRfC+oO7rWOUH3T5oFQA==,
@@ -3885,7 +3855,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      "@vercel/postgres": 0.4.0
+      postgres: 3.3.5
     dev: false
 
   /drizzle-zod@0.4.4(drizzle-orm@0.27.2)(zod@3.21.4):
@@ -3897,7 +3867,7 @@ packages:
       drizzle-orm: ">=0.23.13"
       zod: "*"
     dependencies:
-      drizzle-orm: 0.27.2(@vercel/postgres@0.4.0)
+      drizzle-orm: 0.27.2(postgres@3.3.5)
       zod: 3.21.4
     dev: false
 
@@ -6569,14 +6539,6 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  /node-gyp-build@4.6.0:
-    resolution:
-      {
-        integrity: sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==,
-      }
-    hasBin: true
-    dev: false
-
   /node-releases@2.0.12:
     resolution:
       {
@@ -6882,35 +6844,6 @@ packages:
     engines: { node: ">=8" }
     dev: true
 
-  /pg-int8@1.0.1:
-    resolution:
-      {
-        integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==,
-      }
-    engines: { node: ">=4.0.0" }
-    dev: false
-
-  /pg-protocol@1.6.0:
-    resolution:
-      {
-        integrity: sha512-M+PDm637OY5WM307051+bsDia5Xej6d9IR4GwJse1qA1DIhiKlksvrneZOYQq42OM+spubpcNYEo2FcKQrDk+Q==,
-      }
-    dev: false
-
-  /pg-types@2.2.0:
-    resolution:
-      {
-        integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==,
-      }
-    engines: { node: ">=4" }
-    dependencies:
-      pg-int8: 1.0.1
-      postgres-array: 2.0.0
-      postgres-bytea: 1.0.0
-      postgres-date: 1.0.7
-      postgres-interval: 1.2.0
-    dev: false
-
   /picocolors@1.0.0:
     resolution:
       {
@@ -7043,38 +6976,11 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
-  /postgres-array@2.0.0:
+  /postgres@3.3.5:
     resolution:
       {
-        integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==,
+        integrity: sha512-+JD93VELV9gHkqpV5gdL5/70HdGtEw4/XE1S4BC8f1mcPmdib3K5XsKVbnR1XcAyC41zOnifJ+9YRKxdIsXiUw==,
       }
-    engines: { node: ">=4" }
-    dev: false
-
-  /postgres-bytea@1.0.0:
-    resolution:
-      {
-        integrity: sha512-xy3pmLuQqRBZBXDULy7KbaitYqLcmxigw14Q5sj8QBVLqEwXfeybIKVWiqAXTlcvdvb0+xkOtDbfQMOf4lST1w==,
-      }
-    engines: { node: ">=0.10.0" }
-    dev: false
-
-  /postgres-date@1.0.7:
-    resolution:
-      {
-        integrity: sha512-suDmjLVQg78nMK2UZ454hAG+OAW+HQPZ6n++TNDUX+L0+uUlLywnoxJKDou51Zm+zTCjrCl0Nq6J9C5hP9vK/Q==,
-      }
-    engines: { node: ">=0.10.0" }
-    dev: false
-
-  /postgres-interval@1.2.0:
-    resolution:
-      {
-        integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==,
-      }
-    engines: { node: ">=0.10.0" }
-    dependencies:
-      xtend: 4.0.2
     dev: false
 
   /preact-render-to-string@5.2.6(preact@10.15.1):
@@ -8134,6 +8040,20 @@ packages:
       typescript: 5.1.6
     dev: true
 
+  /tsx@3.12.7:
+    resolution:
+      {
+        integrity: sha512-C2Ip+jPmqKd1GWVQDvz/Eyc6QJbGfE7NrR3fx5BpEHMZsEHoIxHL1j+lKdGobr8ovEyqeNkPLSKp6SCSOt7gmw==,
+      }
+    hasBin: true
+    dependencies:
+      "@esbuild-kit/cjs-loader": 2.4.2
+      "@esbuild-kit/core-utils": 3.1.0
+      "@esbuild-kit/esm-loader": 2.5.5
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
   /type-check@0.4.0:
     resolution:
       {
@@ -8368,17 +8288,6 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /utf-8-validate@6.0.3:
-    resolution:
-      {
-        integrity: sha512-uIuGf9TWQ/y+0Lp+KGZCMuJWc3N9BHA+l/UmHd/oUHwJJDeysyTRxNQVkbzsIWfGFbRe3OcgML/i0mvVRPOyDA==,
-      }
-    engines: { node: ">=6.14.2" }
-    requiresBuild: true
-    dependencies:
-      node-gyp-build: 4.6.0
-    dev: false
-
   /util-deprecate@1.0.2:
     resolution:
       {
@@ -8530,33 +8439,6 @@ packages:
       {
         integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==,
       }
-
-  /ws@8.13.0(bufferutil@4.0.7)(utf-8-validate@6.0.3):
-    resolution:
-      {
-        integrity: sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==,
-      }
-    engines: { node: ">=10.0.0" }
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: ">=5.0.2"
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dependencies:
-      bufferutil: 4.0.7
-      utf-8-validate: 6.0.3
-    dev: false
-
-  /xtend@4.0.2:
-    resolution:
-      {
-        integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==,
-      }
-    engines: { node: ">=0.4" }
-    dev: false
 
   /yallist@3.1.1:
     resolution:
