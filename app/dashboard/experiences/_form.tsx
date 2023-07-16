@@ -69,8 +69,9 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
         endedAt: newExp.endedAt,
         stack: newExp.stack.map((expTech) => expTech.tech.id),
       })
-      if (!experience) {
-        router.push("/dashboard/experiences")
+
+      if (!experienceId) {
+        router.push(`/dashboard/experiences/${newExp.id}`)
       }
     })
   })

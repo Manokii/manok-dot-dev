@@ -76,8 +76,8 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
         thumbnail: newProject?.thumbnail ?? "",
       })
 
-      if (!project) {
-        router.push("/dashboard/projects")
+      if (projectId !== newProject.id) {
+        router.push(`/dashboard/projects/${newProject.id}`)
       }
     })
   })

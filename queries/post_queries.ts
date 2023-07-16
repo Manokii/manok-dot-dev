@@ -1,5 +1,5 @@
 import { db } from "@/db/client"
-import { eq } from "drizzle-orm"
+import { eq, or } from "drizzle-orm"
 import { cache } from "react"
 
 /* -------------------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ export const getPostsByAuthorId = cache(async (authorId: number) => {
   })
 })
 
-export const getPostBySlug = cache(async (slug: string) => {
+export const getPost = cache(async (slugOrId: string) => {
   return await db.query.posts.findFirst({
     with: {
       author: {
@@ -22,7 +22,7 @@ export const getPostBySlug = cache(async (slug: string) => {
         },
       },
     },
-    where: (posts) => eq(posts.slug, slug),
+    where: (posts) => or(eq(posts.slug, slugOrId), eq(posts.id, parseInt(slugOrId))),
   })
 })
 
@@ -33,12 +33,12 @@ export function preloadGetPostsByAuthorId(authorId: number) {
   void getPostsByAuthorId(authorId)
 }
 
-export function preloadGetPosxtBySlug(slug: string) {
-  void getPostBySlug(slug)
+export function preloadGetPostBySlug(slug: string) {
+  void getPost(slug)
 }
 
 /* -------------------------------------------------------------------------------------------------
  * Types
  * -----------------------------------------------------------------------------------------------*/
 export type GetPostsByAuthorId = Awaited<ReturnType<typeof getPostsByAuthorId>>
-export type GetPostBySlug = Awaited<ReturnType<typeof getPostBySlug>>
+export type GetPost = Awaited<ReturnType<typeof getPost>>
