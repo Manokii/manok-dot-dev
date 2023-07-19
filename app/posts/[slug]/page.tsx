@@ -10,6 +10,7 @@ import NextLink from "next/link"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"
 import type { Metadata } from "next"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { env } from "@/env.mjs"
 
 export const revalidate = 300
 
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${post?.title || "Blog"} — Manok.dev`
   const description = sanitizeMarkdown(post?.excerpt || "")
 
-  const url = `/og/post?${new URLSearchParams({
+  const url = `${env.NEXT_PUBLIC_URL}/og/post?${new URLSearchParams({
     title: post?.title || "",
     slug: post?.slug || "",
     author: post?.author.name || "",

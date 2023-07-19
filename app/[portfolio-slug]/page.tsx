@@ -3,6 +3,7 @@ import { PortfolioPage } from "../_portfolio"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"
+import { env } from "@/env.mjs"
 
 export const revalidate = 300
 
@@ -30,7 +31,7 @@ export async function generateMetadata({
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
 
-  const url = `/og/profile/${new URLSearchParams({
+  const url = `${env.NEXT_PUBLIC_URL}/og/profile/${new URLSearchParams({
     headline: portfolio?.name || "",
     url: "Manok.dev",
     subheadline: portfolio?.headline || "",
