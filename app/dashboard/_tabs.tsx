@@ -1,7 +1,7 @@
 "use client"
 
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Button, LinkButton, LinkButtonProps } from "@/components/ui/button"
+import { LinkButton, LinkButtonProps } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 
 interface Props {
