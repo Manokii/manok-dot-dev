@@ -3,7 +3,7 @@ import { AuthMenu } from "@/components/auth-menu"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/server/auth-options"
 import { redirect } from "next/navigation"
-import { preloadPortfolio } from "@/queries"
+import { preloadGetPortfolio } from "@/queries"
 import DashboardTabs from "./_tabs"
 
 interface Props {
@@ -16,7 +16,7 @@ export default async function DashboardLayout({ children }: Props) {
     redirect("/sign-in")
   }
 
-  preloadPortfolio(session.user.id)
+  preloadGetPortfolio(session.user.id)
 
   return (
     <div className="container p-4 md:p-8">

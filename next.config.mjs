@@ -1,4 +1,4 @@
-import "./env.mjs"
+import { env } from "./env.mjs"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -7,6 +7,7 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
+    domains: ["manok.dev", "beta.manok.dev"],
     remotePatterns: [
       {
         protocol: "https",

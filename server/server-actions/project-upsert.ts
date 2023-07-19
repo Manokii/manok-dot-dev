@@ -74,5 +74,6 @@ export async function upsertProject(formData: InsertProjectSchema) {
   })
 
   revalidateTag(`/dashboard/projects`)
+  revalidateTag(`/${session.user.portfolioSlug}`)
   return result
 }

@@ -7,7 +7,6 @@ dotenv.config({ path: ".env" })
 export const env = createEnv({
   server: {
     POSTGRES_URL: z.string(),
-    POSTGRES_PRISMA_URL: z.string(),
     POSTGRES_URL_NON_POOLING: z.string(),
     POSTGRES_USER: z.string(),
     POSTGRES_HOST: z.string(),
@@ -29,11 +28,11 @@ export const env = createEnv({
 
   client: {
     NEXT_PUBLIC_NEXTAUTH_URL: z.string(),
+    NEXT_PUBLIC_URL: z.string(),
   },
 
   runtimeEnv: {
     POSTGRES_URL: process.env.POSTGRES_URL,
-    POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
     POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
     POSTGRES_USER: process.env.POSTGRES_USER,
     POSTGRES_HOST: process.env.POSTGRES_HOST,
@@ -46,9 +45,12 @@ export const env = createEnv({
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-    NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
 
     UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
     UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
+
+    // Client
+    NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
 })
