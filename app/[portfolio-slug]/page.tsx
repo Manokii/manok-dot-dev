@@ -33,7 +33,7 @@ export async function generateMetadata({
 
   const url = `${env.NEXT_PUBLIC_URL}/og/profile/${new URLSearchParams({
     headline: portfolio?.name || "",
-    url: "Manok.dev",
+    url: env.NEXT_PUBLIC_URL.replace("https://", ""),
     subheadline: portfolio?.headline || "",
     github: portfolio?.socialLinks?.github || "",
     linkedin: portfolio?.socialLinks?.linkedin || "",
@@ -48,7 +48,7 @@ export async function generateMetadata({
       images: [url],
       title,
       description,
-      url: "https://manok.dev",
+      url: env.NEXT_PUBLIC_URL,
       type: "profile",
     },
     twitter: {
@@ -56,7 +56,7 @@ export async function generateMetadata({
       images: [url],
       title,
       description,
-      site: "https://manok.dev",
+      site: env.NEXT_PUBLIC_URL,
     },
   }
 }

@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const url = `${env.NEXT_PUBLIC_URL}/og/profile?${new URLSearchParams({
     name: portfolio?.name || "",
-    url: "Manok.dev",
+    url: env.NEXT_PUBLIC_URL.replace("https://", ""),
     subheadline: portfolio?.headline || "",
     github: portfolio?.socialLinks?.github || "",
     linkedin: portfolio?.socialLinks?.linkedin || "",
