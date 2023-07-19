@@ -1,5 +1,6 @@
 "use client"
 import { TypographyH2, TypographyH4, TypographySmall } from "@/components/ui/typography"
+import { env } from "@/env.mjs"
 import { cn } from "@/lib/utils"
 import type { GetPortfolioWithRelations } from "@/queries"
 import { IconArrowUpRight } from "@tabler/icons-react"
@@ -31,7 +32,7 @@ export function PostList({ posts = [], authorName }: Props) {
               className="bg-white sm:h-[76px] sm:w-36 w-full flex-shrink-0 shadow aspect-[40/21] rounded"
               src={
                 post.thumbnail ||
-                `/og/post?${new URLSearchParams({
+                `${env.NEXT_PUBLIC_URL}/og/post?${new URLSearchParams({
                   title: post.title,
                   slug: post.slug,
                   author: authorName,

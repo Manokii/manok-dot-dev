@@ -3,6 +3,7 @@ import { getFirstPortfolio } from "@/queries"
 import { PortfolioPage } from "./_portfolio"
 import type { Metadata } from "next"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"
+import { env } from "@/env.mjs"
 
 export const revalidate = 300
 
@@ -11,8 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
 
-  const url = `/og/profile?${new URLSearchParams({
-    headline: portfolio?.name || "",
+  const url = `${env.NEXT_PUBLIC_URL}/og/profile?${new URLSearchParams({
+    name: portfolio?.name || "",
     url: "Manok.dev",
     subheadline: portfolio?.headline || "",
     github: portfolio?.socialLinks?.github || "",
@@ -28,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [url],
       title,
       description,
-      url: "https://manok.dev",
+      url: env.NEXT_PUBLIC_URL,
       type: "profile",
     },
     twitter: {
@@ -36,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [url],
       title,
       description,
-      site: "https://manok.dev",
+      site: env.NEXT_PUBLIC_URL,
     },
   }
 }
