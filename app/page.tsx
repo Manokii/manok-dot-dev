@@ -2,7 +2,6 @@ import { notFound } from "next/navigation"
 import { getFirstPortfolio } from "@/queries"
 import { PortfolioPage } from "./_portfolio"
 import type { Metadata } from "next"
-import { ogUrl } from "@/lib/og-url"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"
 
 export const revalidate = 3600
@@ -12,15 +11,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
 
-  const url = ogUrl({
-    headline: portfolio?.name,
+  const url = `/og/profile?${new URLSearchParams({
+    headline: portfolio?.name || "",
     url: "Manok.dev",
-    subheadline: portfolio?.headline,
-    github: portfolio?.socialLinks?.github,
-    linkedin: portfolio?.socialLinks?.linkedin,
-    twitter: portfolio?.socialLinks?.twitter,
-    website: portfolio?.socialLinks?.website,
-  })
+    subheadline: portfolio?.headline || "",
+    github: portfolio?.socialLinks?.github || "",
+    linkedin: portfolio?.socialLinks?.linkedin || "",
+    twitter: portfolio?.socialLinks?.twitter || "",
+    website: portfolio?.socialLinks?.website || "",
+  }).toString()}`
 
   return {
     title,
