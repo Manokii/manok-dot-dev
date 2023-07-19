@@ -19,5 +19,6 @@ export async function deleteProject(projectId: number) {
 
   revalidateTag(`/dashboard/projects`)
   revalidateTag(`/dashboard/projects/${projectId}/edit`)
+  revalidateTag(`/${session.user.portfolioSlug}`)
   return result
 }

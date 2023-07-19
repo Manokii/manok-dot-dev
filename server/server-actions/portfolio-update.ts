@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm"
 import { db } from "@/db/client"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../auth-options"
+import { revalidateTag } from "next/cache"
 
 export async function updatePortfolio(formData: UpdatePortfolioSchema) {
   const session = await getServerSession(authOptions)
@@ -18,5 +19,6 @@ export async function updatePortfolio(formData: UpdatePortfolioSchema) {
     .where(eq(portfolios.userId, session.user.id))
     .returning()
 
+  revalidateTag(`/${session.user.portfolioSlug}`)
   return updatedPortfolio
 }
