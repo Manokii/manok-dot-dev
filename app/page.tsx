@@ -4,7 +4,7 @@ import { PortfolioPage } from "./_portfolio"
 import type { Metadata } from "next"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"
 
-export const revalidate = 3600
+export const revalidate = 300
 
 export async function generateMetadata(): Promise<Metadata> {
   const portfolio = await getFirstPortfolio()

@@ -4,6 +4,7 @@ import { users } from "@/db/schema"
 import { eq } from "drizzle-orm"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../auth-options"
+import { revalidateTag } from "next/cache"
 
 export async function deleteUser() {
   const session = await getServerSession(authOptions)
@@ -12,5 +13,6 @@ export async function deleteUser() {
   }
 
   // Deletes are cascaded
+  revalidateTag(`/${session.user.portfolioSlug}`)
   return await db.delete(users).where(eq(users.id, session.user.id)).returning()
 }

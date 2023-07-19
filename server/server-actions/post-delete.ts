@@ -19,5 +19,6 @@ export async function deletePost(postId: number) {
 
   revalidateTag(`/dashboard/posts`)
   revalidateTag(`/dashboard/posts/${postId}/edit`)
+  revalidateTag(`/${session.user.portfolioSlug}`)
   return result
 }

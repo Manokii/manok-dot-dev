@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth-options"
 import { db } from "@/db/client"
 import { posts } from "@/db/schema"
+import { revalidateTag } from "next/cache"
 
 export async function upsertPost(formData: InsertPostSchema) {
   const session = await getServerSession(authOptions)
@@ -36,5 +37,8 @@ export async function upsertPost(formData: InsertPostSchema) {
     throw new Error("Upsert failed")
   }
 
+  revalidateTag(`/dashboard/posts`)
+  revalidateTag(`/dashboard/posts/${result.id}/edit`)
+  revalidateTag(`/${session.user.portfolioSlug}`)
   return result
 }

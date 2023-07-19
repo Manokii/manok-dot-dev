@@ -73,5 +73,6 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
   })
 
   revalidateTag(`/dashboard/experiences`)
+  revalidateTag(`/${session.user.portfolioSlug}`)
   return result
 }

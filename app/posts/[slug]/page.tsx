@@ -11,7 +11,7 @@ import { sanitizeMarkdown } from "@/lib/sanitize-md"
 import type { Metadata } from "next"
 import { ThemeToggle } from "@/components/theme-toggle"
 
-export const revalidate = 3600
+export const revalidate = 300
 
 type Props = {
   params: { slug: string }

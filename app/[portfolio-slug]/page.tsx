@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"
 
-export const revalidate = 3600
+export const revalidate = 300
 
 type Props = {
   params: {

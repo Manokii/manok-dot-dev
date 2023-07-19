@@ -25,5 +25,7 @@ export async function setPostStatus(postId: number, status: Post["status"]) {
 
   revalidateTag(`/dashboard/posts`)
   revalidateTag(`/dashboard/posts/${postId}/edit`)
+  revalidateTag(`/posts/${result.slug}`)
+  revalidateTag(`/${session.user.portfolioSlug}`)
   return result
 }
