@@ -5,8 +5,18 @@ import { cache } from "react"
 /* -------------------------------------------------------------------------------------------------
  * Queries
  * -----------------------------------------------------------------------------------------------*/
+
 export const getPostsByAuthorId = cache(async (authorId: number) => {
   return await db.query.posts.findMany({
+    with: {
+      author: {
+        columns: {
+          name: true,
+          headline: true,
+          slug: true,
+        },
+      },
+    },
     where: (posts) => eq(posts.authorId, authorId),
   })
 })
@@ -26,6 +36,36 @@ export const getPost = cache(async (slugOrId: string) => {
   })
 })
 
+export const getPublicPosts = cache(async () => {
+  return await db.query.posts.findMany({
+    with: {
+      author: {
+        columns: {
+          name: true,
+          headline: true,
+          slug: true,
+        },
+      },
+    },
+    where: (posts) => eq(posts.status, "published"),
+  })
+})
+
+export const getPublicPost = cache(async (slug: string) => {
+  return await db.query.posts.findFirst({
+    with: {
+      author: {
+        columns: {
+          name: true,
+          headline: true,
+          slug: true,
+        },
+      },
+    },
+    where: (posts) => eq(posts.slug, slug),
+  })
+})
+
 /* -------------------------------------------------------------------------------------------------
  * Preloads
  * -----------------------------------------------------------------------------------------------*/
@@ -37,8 +77,18 @@ export function preloadGetPostBySlug(slug: string) {
   void getPost(slug)
 }
 
+export function preloadGetPublicPosts() {
+  void getPublicPosts()
+}
+
+export function preloadGetPublicPost(slug: string) {
+  void getPublicPost(slug)
+}
+
 /* -------------------------------------------------------------------------------------------------
  * Types
  * -----------------------------------------------------------------------------------------------*/
 export type GetPostsByAuthorId = Awaited<ReturnType<typeof getPostsByAuthorId>>
 export type GetPost = Awaited<ReturnType<typeof getPost>>
+export type GetPublicPost = Awaited<ReturnType<typeof getPublicPost>>
+export type GetPublicPosts = Awaited<ReturnType<typeof getPublicPosts>>

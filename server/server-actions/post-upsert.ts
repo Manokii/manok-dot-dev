@@ -12,6 +12,7 @@ export async function upsertPost(formData: InsertPostSchema) {
   }
 
   const post = await insertPostSchema.parseAsync(formData)
+  post.updatedAt = new Date()
 
   const isSameAsSession = post.authorId === session.user.portfolioId
   const isAdmin = session.user.role === "admin"

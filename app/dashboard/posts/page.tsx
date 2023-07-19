@@ -22,7 +22,7 @@ export default async function PostDashboard() {
       <TypographySmall>You can also refer to this as blog posts</TypographySmall>
       {posts.map((post) => (
         <NextLink key={post.id} href={`/dashboard/posts/${post.id}/edit`}>
-          <Card className="flex flex-col h-full cursor-pointer hover:border-white/30 border-white/10 transition">
+          <Card className="flex flex-col h-full cursor-pointer border border-muted hover:border-muted-foreground/30 transition">
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
             </CardHeader>
@@ -33,7 +33,7 @@ export default async function PostDashboard() {
       ))}
 
       <NextLink href="/dashboard/posts/add">
-        <Card className="h-full flex items-center justify-center hover:border-white/30 border-white/10 transition">
+        <Card className="h-full flex items-center justify-center border border-muted hover:border-muted-foreground/30 transition">
           <div className="flex items-center gap-2 py-4">
             <IconCirclePlus className="w-4 h-4" />
             <TypographyLarge className="inline">Create Post</TypographyLarge>

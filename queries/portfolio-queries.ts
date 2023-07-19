@@ -1,5 +1,5 @@
 import { db } from "@/db/client"
-import { experiences, portfolios, posts, projects } from "@/db/schema"
+import { portfolios } from "@/db/schema"
 import { desc, eq, or } from "drizzle-orm"
 import { cache } from "react"
 
@@ -15,15 +15,16 @@ export const getPortfolioWithRelations = cache(async (idOrSlug: string) => {
     with: {
       user: true,
       experiences: {
-        orderBy: desc(experiences.startedAt),
+        orderBy: (exps) => desc(exps.startedAt),
         with: { stack: { with: { tech: true } } },
       },
       projects: {
-        orderBy: desc(projects.date),
+        orderBy: (projects) => desc(projects.date),
         with: { stack: { with: { tech: true } } },
       },
       posts: {
-        orderBy: desc(posts.publishedAt),
+        where: (posts) => eq(posts.status, "published"),
+        orderBy: (posts) => desc(posts.publishedAt),
       },
     },
     where: or(eq(portfolios.userId, idOrSlug), eq(portfolios.slug, idOrSlug)),
@@ -49,15 +50,16 @@ export const getFirstPortfolio = cache(async () => {
     with: {
       user: true,
       experiences: {
-        orderBy: desc(experiences.startedAt),
+        orderBy: (exps) => desc(exps.startedAt),
         with: { stack: { with: { tech: true } } },
       },
       projects: {
-        orderBy: desc(projects.date),
+        orderBy: (projects) => desc(projects.date),
         with: { stack: { with: { tech: true } } },
       },
       posts: {
-        orderBy: desc(posts.publishedAt),
+        where: (posts) => eq(posts.status, "published"),
+        orderBy: (posts) => desc(posts.publishedAt),
       },
     },
   })
