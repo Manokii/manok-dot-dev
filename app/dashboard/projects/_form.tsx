@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation"
 import { TypographyH4 } from "@/components/ui/typography"
 import { TechnologyAdd } from "@/components/add-tech-button"
 import { Badge } from "@/components/ui/badge"
+import { env } from "@/env.mjs"
 
 interface Props {
   project?: GetProject
@@ -130,7 +131,7 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                     <Input {...field} />
                   </FormControl>
                   <FormDescription>
-                    https://manok.dev/projects/{slug || "project_slug_here"}
+                    {env.NEXT_PUBLIC_URL || "localhost"}/projects/{slug || "project_slug_here"}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

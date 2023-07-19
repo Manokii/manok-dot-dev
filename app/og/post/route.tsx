@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
             color: "rgba(255,255,255,0.5)",
           }}
         >
-          {`https://${process.env.VERCEL_URL || "manok.dev"}/posts/${slug}`}
+          {`https://${process.env.NEXT_PUBLIC_URL}/posts/${slug}`}
         </div>
         <div
           style={{

@@ -11,6 +11,7 @@ import { sanitizeMarkdown } from "@/lib/sanitize-md"
 import type { Metadata } from "next"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { env } from "@/env.mjs"
+import { siteConfig } from "@/config/site"
 
 export const revalidate = 300
 
@@ -31,7 +32,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPublicPost(params.slug)
-  const title = `${post?.title || "Blog"} — Manok.dev`
+  const title = `${post?.title || "Blog"} — ${siteConfig.name}`
   const description = sanitizeMarkdown(post?.excerpt || "")
 
   const url = `${env.NEXT_PUBLIC_URL}/og/post?${new URLSearchParams({
@@ -47,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [url],
       title,
       description,
-      url: "https://manok.dev",
+      url: env.NEXT_PUBLIC_URL,
       type: "profile",
     },
     twitter: {
@@ -55,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [url],
       title,
       description,
-      site: "https://manok.dev",
+      site: env.NEXT_PUBLIC_URL,
     },
   }
 }
