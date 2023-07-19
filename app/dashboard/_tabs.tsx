@@ -1,6 +1,7 @@
 "use client"
 
-import { LinkButton, LinkButtonProps } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { Button, LinkButton, LinkButtonProps } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 
 interface Props {
@@ -35,6 +36,7 @@ export default function DashboardTabs({ isAdmin = false }: Props) {
           Admin
         </LinkButton>
       )}
+      <ThemeToggle size="sm" />
     </div>
   )
 }

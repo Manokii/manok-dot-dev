@@ -11,6 +11,7 @@ import { ExperienceList } from "./_experiences"
 import { SocialLinks } from "./_social-links"
 import NextLink from "next/link"
 import { ProjectList } from "./_projects"
+import { PostList } from "./_posts"
 
 interface PortfolioPageProps {
   portfolio: GetPortfolioWithRelations
@@ -34,39 +35,61 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
 
             <nav className="hidden lg:flex pt-8">
               <ul>
-                <li>
-                  <NextLink href="#about" scroll={false}>
-                    <TypographyLarge className="hover:text-foreground transition-colors">
-                      About
-                    </TypographyLarge>
-                  </NextLink>
-                </li>
-                <li>
-                  <NextLink href="#experience" scroll={false}>
-                    <TypographyLarge className="hover:text-foreground transition-colors">
-                      Experience
-                    </TypographyLarge>
-                  </NextLink>
-                </li>
-                <li>
-                  <NextLink href="#projects" scroll={false}>
-                    <TypographyLarge className="hover:text-foreground transition-colors">
-                      Projects
-                    </TypographyLarge>
-                  </NextLink>
-                </li>
+                {portfolio.about && (
+                  <li>
+                    <NextLink href="#about" scroll={false}>
+                      <TypographyLarge className="hover:text-foreground transition-colors">
+                        About
+                      </TypographyLarge>
+                    </NextLink>
+                  </li>
+                )}
+                {portfolio.experiences.length > 0 && (
+                  <li>
+                    <NextLink href="#experience" scroll={false}>
+                      <TypographyLarge className="hover:text-foreground transition-colors">
+                        Experience
+                      </TypographyLarge>
+                    </NextLink>
+                  </li>
+                )}
+                {portfolio.projects.length > 0 && (
+                  <li>
+                    <NextLink href="#projects" scroll={false}>
+                      <TypographyLarge className="hover:text-foreground transition-colors">
+                        Projects
+                      </TypographyLarge>
+                    </NextLink>
+                  </li>
+                )}
+                {portfolio.posts.length > 0 && (
+                  <li>
+                    <NextLink href="#posts" scroll={false}>
+                      <TypographyLarge className="hover:text-foreground transition-colors">
+                        Posts
+                      </TypographyLarge>
+                    </NextLink>
+                  </li>
+                )}
               </ul>
             </nav>
           </div>
           <SocialLinks {...portfolio.socialLinks} publicEmail={portfolio.publicEmail} />
         </header>
         <main className="pt-8 lg:pt-24 lg:w-1/2 lg:py-24 flex flex-col gap-20" id="about">
-          <div className="flex flex-col gap-2 snap-mt-6 scroll-m-8">
-            <TypographyH2 className="border-none flex lg:hidden pt-6">About</TypographyH2>
-            <Markdown content={portfolio.about ?? ""} />
-          </div>
-          <ExperienceList experiences={portfolio.experiences} />
-          <ProjectList projects={portfolio.projects} />
+          {portfolio.about && (
+            <div className="flex flex-col gap-2 snap-mt-6 scroll-m-8">
+              <TypographyH2 className="border-none flex lg:hidden pt-6">About</TypographyH2>
+              <Markdown content={portfolio.about ?? ""} />
+            </div>
+          )}
+          {portfolio.experiences.length > 0 && (
+            <ExperienceList experiences={portfolio.experiences} />
+          )}
+          {portfolio.projects.length > 0 && <ProjectList projects={portfolio.projects} />}
+          {portfolio.posts.length > 0 && (
+            <PostList posts={portfolio.posts} authorName={portfolio.name} />
+          )}
         </main>
       </div>
     </div>

@@ -77,7 +77,7 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
       })
 
       if (projectId !== newProject.id) {
-        router.push(`/dashboard/projects/${newProject.id}`)
+        router.push(`/dashboard/projects/${newProject.id}/edit`)
       }
     })
   })

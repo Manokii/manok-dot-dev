@@ -71,7 +71,7 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
       })
 
       if (!experienceId) {
-        router.push(`/dashboard/experiences/${newExp.id}`)
+        router.push(`/dashboard/experiences/${newExp.id}/edit`)
       }
     })
   })

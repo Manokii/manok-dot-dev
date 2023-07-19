@@ -28,7 +28,7 @@ export default async function ExperienceDashboard() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {experiences.map((experience) => (
         <NextLink key={experience.id} href={`/dashboard/experiences/${experience.id}/edit`}>
-          <Card className="min-h-[200px] flex flex-col h-full cursor-pointer hover:border-white/30 border-white/10 transition">
+          <Card className="min-h-[200px] flex flex-col h-full cursor-pointer border border-muted hover:border-muted-foreground/30 transition">
             <CardHeader>
               <CardTitle>{experience.companyName}</CardTitle>
               <CardDescription>{experience.jobTitle}</CardDescription>
@@ -53,7 +53,7 @@ export default async function ExperienceDashboard() {
       ))}
 
       <NextLink href="/dashboard/experiences/add">
-        <Card className="min-h-[200px] h-full flex items-center justify-center hover:border-white/30 border-white/10 transition">
+        <Card className="min-h-[200px] h-full flex items-center justify-center border border-muted hover:border-muted-foreground/30 transition">
           <div className="flex items-center gap-2">
             <IconCirclePlus className="w-8 h-8" />
             <TypographyH3 className="inline">Add Experience</TypographyH3>

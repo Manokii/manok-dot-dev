@@ -13,9 +13,9 @@ const interBold = fetch(new URL("../../../assets/Inter-Bold.ttf", import.meta.ur
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.nextUrl)
 
-  const name = searchParams.get("name") ?? "Jasper Concepcion"
-  const url = searchParams.get("url") ?? "Manok.dev"
-  const headline = searchParams.get("subheadline") ?? "Sr. Software Engineer at AcadArena"
+  const name = searchParams.get("name") ?? ""
+  const url = searchParams.get("url") ?? ""
+  const headline = searchParams.get("subheadline") ?? ""
   const github = searchParams.get("github") ?? ""
   const linkedin = searchParams.get("linkedin") ?? ""
   const twitter = searchParams.get("twitter") ?? ""
