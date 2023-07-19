@@ -1,4 +1,3 @@
-import { env } from "@/env.mjs"
 import { ImageResponse, type NextRequest } from "next/server"
 
 export const runtime = "edge"
@@ -43,7 +42,7 @@ export async function GET(req: NextRequest) {
             color: "rgba(255,255,255,0.5)",
           }}
         >
-          {`https://${env.NEXT_PUBLIC_URL}/posts/${slug}`}
+          {`https://${process.env.NEXT_PUBLIC_URL}/posts/${slug}`}
         </div>
         <div
           style={{
