@@ -9,7 +9,7 @@ export function AuthScreen() {
     <div className="w-[350px] flex flex-col gap-2">
       <TypographyH3 className="text-center">Sign in / sign up</TypographyH3>
       <TypographyP className="text-center">You can always delete your account anytime</TypographyP>
-      <div className="flex flex-col gap-2 text-white my-4">
+      <div className="flex flex-col gap-2 text-foreground my-4">
         <Button variant="outline" size="sm" onClick={() => signIn("discord")}>
           <IconBrandDiscordFilled className="mr-2 h-4 w-4" />
           Login with Discord

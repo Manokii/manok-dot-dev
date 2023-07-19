@@ -10,13 +10,13 @@ import {
 } from "@/components/ui/timeline"
 import { TypographyH2, TypographyLead, TypographyP } from "@/components/ui/typography"
 import { cn } from "@/lib/utils"
-import { GetPortfolio } from "@/queries"
+import type { GetPortfolioWithRelations } from "@/queries"
 import { format } from "date-fns/esm"
 import { StackItem } from "./_stack-item"
 import NextLink from "next/link"
 
 interface Props {
-  experiences: GetPortfolio["experiences"]
+  experiences: GetPortfolioWithRelations["experiences"]
 }
 
 export function ExperienceList({ experiences = [] }: Props) {
@@ -35,7 +35,7 @@ export function ExperienceList({ experiences = [] }: Props) {
                 <div
                   className={cn(
                     "-mt-1.5 mb-20 flex flex-col gap-2",
-                    index === experiences.length - 1 && "mb-0"
+                    index === experiences.length - 1 && "mb-0",
                   )}
                 >
                   <TypographyP>

@@ -7,15 +7,15 @@ import { LinkIcon } from "./_link_icon"
 export const runtime = "edge"
 
 const interBold = fetch(new URL("../../../assets/Inter-Bold.ttf", import.meta.url)).then((res) =>
-  res.arrayBuffer()
+  res.arrayBuffer(),
 )
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.nextUrl)
 
-  const name = searchParams.get("name") ?? "Jasper Concepcion"
-  const url = searchParams.get("url") ?? "Manok.dev"
-  const headline = searchParams.get("subheadline") ?? "Sr. Software Engineer at AcadArena"
+  const name = searchParams.get("name") ?? ""
+  const url = searchParams.get("url") ?? ""
+  const headline = searchParams.get("subheadline") ?? ""
   const github = searchParams.get("github") ?? ""
   const linkedin = searchParams.get("linkedin") ?? ""
   const twitter = searchParams.get("twitter") ?? ""
@@ -111,7 +111,7 @@ export async function GET(req: NextRequest) {
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <LinkIcon />
               <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)" }}>
-                {website.replace(new RegExp(/.*\/\//), "").replace(/\/$/g, "")}
+                {website.replace(new RegExp(/https:\/\//), "").replace(/\/$/g, "")}
               </div>
             </div>
           )}
@@ -128,6 +128,6 @@ export async function GET(req: NextRequest) {
           data: await interBold,
         },
       ],
-    }
+    },
   )
 }

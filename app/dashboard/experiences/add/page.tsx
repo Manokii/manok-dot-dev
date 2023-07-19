@@ -2,8 +2,7 @@ import { getServerSession } from "next-auth"
 import { ExperienceForm } from "../_form"
 import { authOptions } from "@/server/auth-options"
 import { redirect } from "next/navigation"
-import { getPortfolio } from "@/queries"
-import { getTechnologies } from "@/queries/get-technologies"
+import { getAllTech } from "@/queries"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { LinkButton } from "@/components/ui/button"
 import { IconArrowLeft } from "@tabler/icons-react"
@@ -14,12 +13,7 @@ export default async function ExperienceAddPage() {
     redirect("/sign-in")
   }
 
-  const portfolio = await getPortfolio(session.user.id)
-  if (!portfolio) {
-    redirect("/")
-  }
-
-  const technologies = await getTechnologies()
+  const technologies = await getAllTech()
 
   return (
     <div className="flex flex-col gap-4">
@@ -32,7 +26,7 @@ export default async function ExperienceAddPage() {
           <CardTitle>Add Experience</CardTitle>
         </CardHeader>
         <CardContent>
-          <ExperienceForm technologies={technologies} portfolioId={portfolio.id} />
+          <ExperienceForm technologies={technologies} portfolioId={session.user.portfolioId} />
         </CardContent>
       </Card>
     </div>

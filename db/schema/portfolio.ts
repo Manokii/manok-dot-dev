@@ -42,4 +42,5 @@ export const portfoliosRelations = relations(portfolios, ({ one, many }) => ({
 }))
 
 export type Portfolio = InferModel<typeof portfolios>
+export type SelectPortfolio = InferModel<typeof portfolios, "select">
 export type NewPortfolio = InferModel<typeof portfolios, "insert">

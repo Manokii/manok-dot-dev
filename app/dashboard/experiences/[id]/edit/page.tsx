@@ -2,8 +2,7 @@ import { getServerSession } from "next-auth"
 import { ExperienceForm } from "../../_form"
 import { authOptions } from "@/server/auth-options"
 import { notFound, redirect } from "next/navigation"
-import { getExperience, getPortfolio } from "@/queries"
-import { getTechnologies } from "@/queries/get-technologies"
+import { getAllTech, getExp } from "@/queries"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { LinkButton } from "@/components/ui/button"
 import { IconArrowLeft } from "@tabler/icons-react"
@@ -20,18 +19,12 @@ export default async function ExperienceEditPage({ params: { id } }: Props) {
   if (!session?.user) {
     redirect("/sign-in")
   }
-
-  const techPromise = getTechnologies()
-  const portfolio = await getPortfolio(session.user.id)
-  if (!portfolio) {
-    redirect("/")
-  }
-
-  const experiencePromise = getExperience(parseInt(id))
+  const portfolioId = session.user.portfolioId
+  const techPromise = getAllTech()
+  const experiencePromise = getExp(parseInt(id))
 
   const [technologies, experience] = await Promise.all([techPromise, experiencePromise])
-
-  if (experience?.portfolioId !== portfolio.id || !experience) {
+  if (experience?.portfolioId !== portfolioId || !experience) {
     notFound()
   }
 
@@ -51,7 +44,7 @@ export default async function ExperienceEditPage({ params: { id } }: Props) {
           <ExperienceForm
             experience={experience}
             technologies={technologies}
-            portfolioId={portfolio.id}
+            portfolioId={portfolioId}
           />
         </CardContent>
       </Card>

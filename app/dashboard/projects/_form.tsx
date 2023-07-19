@@ -17,7 +17,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { insertProjectSchema } from "@/lib/validators"
-import type { GetProject, GetTechnologies } from "@/queries"
+import type { GetProject, GetAllTech } from "@/queries"
 import { type InsertTechnology, upsertProject } from "@/server/server-actions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { IconCalendar, IconDeviceFloppy, IconLoader2, IconTrash, IconX } from "@tabler/icons-react"
@@ -33,7 +33,7 @@ import { Badge } from "@/components/ui/badge"
 interface Props {
   project?: GetProject
   portfolioId: number
-  technologies: GetTechnologies
+  technologies: GetAllTech
 }
 
 export function ProjectForm({ project, technologies, portfolioId }: Props) {
@@ -76,15 +76,15 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
         thumbnail: newProject?.thumbnail ?? "",
       })
 
-      if (!project) {
-        router.push("/dashboard/projects")
+      if (projectId !== newProject.id) {
+        router.push(`/dashboard/projects/${newProject.id}/edit`)
       }
     })
   })
 
   const currentStack = projectForm
     .watch("stack")
-    .reduce<Record<number, GetTechnologies[number]>>((acc, curr) => {
+    .reduce<Record<number, GetAllTech[number]>>((acc, curr) => {
       const tech = technologies[curr]
       if (!tech) return acc
       Object.assign(acc, { [curr]: tech })

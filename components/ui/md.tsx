@@ -6,12 +6,16 @@ import { ComponentProps } from "react"
 const commonComponents: Components = {
   p: ({ node, ...props }) => <p className="mt-4" {...props} />,
   a: ({ node, ...props }) => <a className="text-blue-400" {...props} />,
-  li: ({ node, ordered, ...props }) => <li className="pl-4 mb-2" {...props} />,
+  li: ({ node, ordered, ...props }) => <li className="mb-2" {...props} />,
+  pre: ({ node, ...props }) => (
+    <pre {...props} className="!bg-card/30 border border-muted shadow" />
+  ),
 }
 
 interface MarkdownProps extends Omit<ComponentProps<typeof ReactMarkdown>, "children"> {
   content: string
 }
+
 export function Markdown({ content, ...props }: MarkdownProps) {
   return (
     <ReactMarkdown

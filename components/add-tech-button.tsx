@@ -12,7 +12,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "./ui/command"
-import { GetTechnologies } from "@/queries/get-technologies"
+import type { GetAllTech } from "@/queries"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
@@ -20,8 +20,8 @@ import { TechnologyAddForm } from "./add-tech-form"
 import type { InsertTechnology } from "@/server/server-actions"
 
 interface Props {
-  technologies: GetTechnologies
-  selectedMap: Record<number, GetTechnologies[number]>
+  technologies: GetAllTech
+  selectedMap: Record<number, GetAllTech[number]>
   onSelect: (tech: InsertTechnology) => void
 }
 
@@ -77,7 +77,7 @@ export function TechnologyAdd({ technologies, selectedMap, onSelect }: Props) {
                     <IconCheck
                       className={cn(
                         "mr-2 h-4 w-4",
-                        selectedMap[technology.id] ? "opacity-100" : "opacity-0"
+                        selectedMap[technology.id] ? "opacity-100" : "opacity-0",
                       )}
                     />
                     {technology.name}

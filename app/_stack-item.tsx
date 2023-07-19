@@ -1,11 +1,11 @@
 "use client"
-import type { GetPortfolio } from "@/queries"
+import type { GetPortfolioWithRelations } from "@/queries"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 
 interface Props {
-  tech: GetPortfolio["experiences"][number]["stack"][number]["tech"]
+  tech: GetPortfolioWithRelations["experiences"][number]["stack"][number]["tech"]
 }
 
 export function StackItem({ tech }: Props) {
