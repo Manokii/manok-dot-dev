@@ -7,16 +7,12 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
+    domains: ["manok.dev", "beta.manok.dev"],
     remotePatterns: [
       {
         protocol: "https",
         hostname: "uploadthing.com",
         port: "",
-      },
-      {
-        protocol: env.NEXT_PUBLIC_URL ? "https" : "http",
-        hostname: env.NEXT_PUBLIC_URL || "localhost",
-        port: env.NEXT_PUBLIC_URL ? "" : "3000",
       },
     ],
   },
