@@ -37,7 +37,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               <ul>
                 {portfolio.about && (
                   <li>
-                    <NextLink href="#about" scroll={false}>
+                    <NextLink href="#about">
                       <TypographyLarge className="hover:text-foreground transition-colors">
                         About
                       </TypographyLarge>
@@ -46,7 +46,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
                 )}
                 {portfolio.experiences.length > 0 && (
                   <li>
-                    <NextLink href="#experience" scroll={false}>
+                    <NextLink href="#experience">
                       <TypographyLarge className="hover:text-foreground transition-colors">
                         Experience
                       </TypographyLarge>
@@ -55,7 +55,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
                 )}
                 {portfolio.projects.length > 0 && (
                   <li>
-                    <NextLink href="#projects" scroll={false}>
+                    <NextLink href="#projects">
                       <TypographyLarge className="hover:text-foreground transition-colors">
                         Projects
                       </TypographyLarge>
@@ -64,7 +64,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
                 )}
                 {portfolio.posts.length > 0 && (
                   <li>
-                    <NextLink href="#posts" scroll={false}>
+                    <NextLink href="#posts">
                       <TypographyLarge className="hover:text-foreground transition-colors">
                         Posts
                       </TypographyLarge>
