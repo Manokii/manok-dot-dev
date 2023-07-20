@@ -48,7 +48,7 @@ export async function generateMetadata({
       images: [url],
       title,
       description,
-      url: `${env.NEXT_PUBLIC_URL}/portfolio/${portfolioSlug}`,
+      url: `${env.NEXT_PUBLIC_URL}/${portfolioSlug}`,
       type: "profile",
     },
     twitter: {
@@ -56,7 +56,7 @@ export async function generateMetadata({
       images: [url],
       title,
       description,
-      site: `${env.NEXT_PUBLIC_URL}/portfolio/${portfolioSlug}`,
+      site: `${env.NEXT_PUBLIC_URL}/${portfolioSlug}`,
     },
   }
 }
