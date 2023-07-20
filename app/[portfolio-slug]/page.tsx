@@ -31,7 +31,7 @@ export async function generateMetadata({
   const title = `${portfolio?.name || "Portfolio"} — Portfolio`
   const description = sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
 
-  const url = `${env.NEXT_PUBLIC_URL}/og/profile/${new URLSearchParams({
+  const url = `${env.NEXT_PUBLIC_URL}/og/profile?${new URLSearchParams({
     headline: portfolio?.name || "",
     url: env.NEXT_PUBLIC_URL.replace("https://", ""),
     subheadline: portfolio?.headline || "",
@@ -48,7 +48,7 @@ export async function generateMetadata({
       images: [url],
       title,
       description,
-      url: env.NEXT_PUBLIC_URL,
+      url: `${env.NEXT_PUBLIC_URL}/${portfolioSlug}`,
       type: "profile",
     },
     twitter: {
@@ -56,7 +56,7 @@ export async function generateMetadata({
       images: [url],
       title,
       description,
-      site: env.NEXT_PUBLIC_URL,
+      site: `${env.NEXT_PUBLIC_URL}/${portfolioSlug}`,
     },
   }
 }

@@ -29,11 +29,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${post?.title || "Blog"} — ${siteConfig.name}`
   const description = sanitizeMarkdown(post?.excerpt || "")
 
-  const url = `${env.NEXT_PUBLIC_URL}/og/post?${new URLSearchParams({
+  const searchparams = new URLSearchParams({
     title: post?.title || "",
     slug: post?.slug || "",
     author: post?.author.name || "",
-  })}`
+    excerpt: post?.excerpt || "",
+  })
+
+  const relativeUrl = `/og/post?${searchparams}`
+  const url = `${env.NEXT_PUBLIC_URL}${relativeUrl}`
 
   return {
     title,
@@ -42,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [url],
       title,
       description,
-      url: env.NEXT_PUBLIC_URL,
+      url: `${env.NEXT_PUBLIC_URL}/posts/${params.slug}`,
       type: "profile",
     },
     twitter: {
@@ -50,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [url],
       title,
       description,
-      site: env.NEXT_PUBLIC_URL,
+      site: `${env.NEXT_PUBLIC_URL}/posts/${params.slug}`,
     },
   }
 }
