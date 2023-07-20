@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     linkedin: portfolio?.socialLinks?.linkedin || "",
     twitter: portfolio?.socialLinks?.twitter || "",
     website: portfolio?.socialLinks?.website || "",
-  }).toString()}`
+  })}`
 
   return {
     title,
