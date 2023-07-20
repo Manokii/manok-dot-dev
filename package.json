@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
-    "build": "tsx ./db/migrate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -87,5 +87,6 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "**": "prettier --write --ignore-unknown"
-  }
+  },
+  "packageManager": "pnpm@8.6.1"
 }

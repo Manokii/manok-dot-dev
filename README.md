@@ -1,9 +1,9 @@
 ## Greetings Gamers!
 
-My name is Jasper Concepcion, I'm currently a Sr. Software Engieer at AcadArena, focusing on DevOps and cloud engineering side of things.
+My name is Jasper Concepcion, I'm currently a Sr. Software Engieer at AcadArena.
 
 I made this project mainly to showcase my experience as a software engineer.
-I chose the latest in tech (as of July 2023) as the stack for this project, listed below:
+I chose the latest in tech (as of July 2023) as the stack for this project primarily because I like exploring new things on my side projects, listed below:
 
 ### FrontEnd
 
@@ -16,7 +16,7 @@ I chose the latest in tech (as of July 2023) as the stack for this project, list
 ### Backend
 
 - NextJS Server Components / Server Actions / Routes
-- [vercel/postgres](https://vercel.com/docs/storage/vercel-postgres)
+- ~Planetscale~ > ~vercel/postgres~ > [NeonDB](https://neon.tech/)
 
 ### Tools
 
