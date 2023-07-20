@@ -167,7 +167,7 @@ export function PostForm({ post, portfolioId }: Props) {
               </TypographySmall>
             </NextLink>
           )}
-          <Button onClick={saveAsDraft} variant="secondary">
+          <Button disabled={pending} onClick={saveAsDraft} variant="secondary">
             {pending ? (
               <IconLoader2 className="animate-spin mr-2 w-5 h-5" />
             ) : (
