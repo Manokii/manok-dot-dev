@@ -75,25 +75,22 @@ export function PostForm({ post, portfolioId }: Props) {
     })
   }, console.error)
 
-  const updateStatus = (status: Post["status"]) => {
-    if (!post) {
-      return
-    }
-
-    startTransition(async () => {
-      const newPost = await setPostStatus(post.id, status)
-      postForm.reset({
-        id: newPost.id,
-        authorId: portfolioId,
-        title: newPost.title,
-        excerpt: newPost.excerpt ?? "",
-        body: newPost.body,
-        slug: newPost.slug,
-        thumbnail: newPost.thumbnail ?? "",
-        status: newPost.status,
+  const updateStatus = (status: Post["status"]) =>
+    postForm.handleSubmit((post) => {
+      startTransition(async () => {
+        const newPost = await setPostStatus(post, status)
+        postForm.reset({
+          id: newPost.id,
+          authorId: portfolioId,
+          title: newPost.title,
+          excerpt: newPost.excerpt ?? "",
+          body: newPost.body,
+          slug: newPost.slug,
+          thumbnail: newPost.thumbnail ?? "",
+          status: newPost.status,
+        })
       })
     })
-  }
 
   return (
     <Form {...postForm}>
@@ -181,7 +178,7 @@ export function PostForm({ post, portfolioId }: Props) {
           {isEdit && (
             <Button
               disabled={pending}
-              onClick={() => updateStatus(status === "published" ? "draft" : "published")}
+              onClick={updateStatus(status === "published" ? "draft" : "published")}
             >
               {pending ? (
                 <IconLoader2 className="animate-spin mr-2 w-5 h-5" />
