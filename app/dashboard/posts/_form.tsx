@@ -163,6 +163,13 @@ export function PostForm({ post, portfolioId }: Props) {
               </TypographySmall>
             </NextLink>
           )}
+          {post?.status === "draft" && isEdit && (
+            <NextLink href={`/posts/preview/${post.id}`}>
+              <TypographySmall className="leading-none cursor-pointer text-blue-400">
+                Preview post
+              </TypographySmall>
+            </NextLink>
+          )}
           <Button onClick={saveAsDraft} variant="secondary">
             {pending ? (
               <IconLoader2 className="animate-spin mr-2 w-5 h-5" />
