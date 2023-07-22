@@ -16,7 +16,7 @@ I chose the latest in tech (as of July 2023) as the stack for this project prima
 ### Backend
 
 - NextJS Server Components / Server Actions / Routes
-- ~Planetscale~ > ~vercel/postgres~ > [NeonDB](https://neon.tech/)
+- ~Planetscale~ > ~vercel/postgres~ > [NeonDB](https://neon.tech/) using PostgresJS driver
 
 ### Tools
 
@@ -28,12 +28,10 @@ I chose the latest in tech (as of July 2023) as the stack for this project prima
 - [date-fns](https://date-fns.org/)
 - [Prettier](https://prettier.io/)
 - [Eslint](https://eslint.org/)
+- Github Actions
+- Docker
 
 ### Languages
 
-- Typescript
+- TypeScript
 - Shell scripting
-
-## Credits
-
-You may be able to tell... I'm no designer, the design layout of this website is heavily inspired by [brittanychiang.com](https://brittanychiang.com), a huge credit to them.
