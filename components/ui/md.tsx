@@ -10,6 +10,8 @@ const commonComponents: Components = {
   pre: ({ node, ...props }) => (
     <pre {...props} className="!bg-card/30 border border-muted shadow" />
   ),
+  // eslint-disable-next-line @next/next/no-img-element
+  img: ({ node, ...props }) => <img {...props} style={{ maxHeight: 512, ...props.style }} />,
 }
 
 interface MarkdownProps extends Omit<ComponentProps<typeof ReactMarkdown>, "children"> {
