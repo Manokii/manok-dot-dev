@@ -39,6 +39,7 @@ export async function upsertPost(formData: InsertPostSchema) {
 
   revalidateTag(`/dashboard/posts`)
   revalidateTag(`/dashboard/posts/${result.id}/edit`)
+  revalidateTag(`/posts/${result.slug}`)
   revalidateTag(`/${session.user.portfolioSlug}`)
   return result
 }
