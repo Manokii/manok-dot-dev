@@ -5,7 +5,7 @@ import { notFound } from "next/navigation"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"
 import { env } from "@/env.mjs"
 
-export const revalidate = 300
+export const revalidate = 30
 
 type Props = {
   params: {

@@ -1,4 +1,4 @@
-import { getPostsByAuthorId } from "@/queries/post_queries"
+import { getPostsByAuthorId } from "@/queries"
 import { authOptions } from "@/server/auth-options"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"

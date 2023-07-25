@@ -1,5 +1,5 @@
 import { db } from "@/db/client"
-import { eq, or } from "drizzle-orm"
+import { and, eq, or } from "drizzle-orm"
 import { cache } from "react"
 
 /* -------------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ export const getPublicPost = cache(async (slug: string) => {
         },
       },
     },
-    where: (posts) => eq(posts.slug, slug),
+    where: (posts) => and(eq(posts.slug, slug), eq(posts.status, "published")),
   })
 })
 

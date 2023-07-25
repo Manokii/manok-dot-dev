@@ -1,5 +1,5 @@
 export * from "./experience-queries"
 export * from "./portfolio-queries"
-export * from "./post_queries"
+export * from "./post-queries"
 export * from "./project-queries"
-export * from "./technology_queries"
+export * from "./technology-queries"
