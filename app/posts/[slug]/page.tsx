@@ -7,7 +7,7 @@ import { env } from "@/env.mjs"
 import { siteConfig } from "@/config/site"
 import { PostPageContent } from "../_post"
 
-export const revalidate = 300
+export const revalidate = 30
 
 type Props = {
   params: { slug: string }

@@ -5,7 +5,7 @@ import type { Metadata } from "next"
 import { sanitizeMarkdown } from "@/lib/sanitize-md"
 import { env } from "@/env.mjs"
 
-export const revalidate = 300
+export const revalidate = 30
 
 export async function generateMetadata(): Promise<Metadata> {
   const portfolio = await getFirstPortfolio()
