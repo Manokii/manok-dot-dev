@@ -6,6 +6,7 @@ import type { Metadata } from "next"
 import { env } from "@/env.mjs"
 import { siteConfig } from "@/config/site"
 import { PostPageContent } from "../_post"
+import { postOgParams } from "@/lib/og-params"
 
 export const revalidate = 30
 
@@ -29,14 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${post?.title || "Blog"} — ${siteConfig.name}`
   const description = sanitizeMarkdown(post?.excerpt || "")
 
-  const searchparams = new URLSearchParams({
+  const relativeUrl = `/og/post?${postOgParams({
     title: post?.title || "",
     slug: post?.slug || "",
     author: post?.author.name || "",
     excerpt: post?.excerpt || "",
-  })
+  })}`
 
-  const relativeUrl = `/og/post?${searchparams}`
   const url = `${env.NEXT_PUBLIC_URL}${relativeUrl}`
 
   return {
