@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
 
   const name = searchParams.get("name") ?? ""
   const url = searchParams.get("url") ?? ""
-  const headline = searchParams.get("subheadline") ?? ""
+  const headline = searchParams.get("headline") ?? ""
   const github = searchParams.get("github") ?? ""
   const linkedin = searchParams.get("linkedin") ?? ""
   const twitter = searchParams.get("twitter") ?? ""
