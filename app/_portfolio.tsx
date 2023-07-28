@@ -24,7 +24,7 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
         <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:py-24">
           <div className="flex-1">
             <TypographyH1 className="tracking-tight text-foreground">
-              <a href="/">{portfolio.name}</a>
+              <a href={`/${portfolio.slug}`}>{portfolio.name}</a>
             </TypographyH1>
             {portfolio.headline && (
               <TypographyH4 className="mt-3 font-medium tracking-tight text-foreground">
