@@ -2,6 +2,7 @@ import ReactMarkdown, { Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { TypographyH1, TypographyH2, TypographyH3, TypographyH4 } from "./typography"
 import { ComponentProps } from "react"
+import { Code } from "./md-prism"
 
 const commonComponents: Components = {
   p: ({ node, ...props }) => <p className="mt-4" {...props} />,
@@ -12,6 +13,7 @@ const commonComponents: Components = {
   ),
   // eslint-disable-next-line @next/next/no-img-element
   img: ({ node, ...props }) => <img {...props} style={{ maxHeight: 512, ...props.style }} />,
+  code: Code,
 }
 
 interface MarkdownProps extends Omit<ComponentProps<typeof ReactMarkdown>, "children"> {
