@@ -2,10 +2,10 @@ import { TypographyH2, TypographyLarge, TypographySmall } from "@/components/ui/
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Separator } from "@/components/ui/separator"
 import { format } from "date-fns/esm"
-import { Markdown } from "@/components/ui/md"
 import NextImage from "next/image"
 import NextLink from "next/link"
 import type { GetPublicPost } from "@/queries"
+import { MarkdownWithCode } from "@/components/ui/md-prism"
 
 interface Props {
   post: NonNullable<GetPublicPost>
@@ -44,7 +44,7 @@ export function PostPageContent({ post }: Props) {
           </div>
         )}
         <main className="markdown-body">
-          <Markdown content={post.body} />
+          <MarkdownWithCode content={post.body} />
         </main>
       </div>
     </div>
