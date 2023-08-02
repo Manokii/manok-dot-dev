@@ -2,9 +2,8 @@ import ReactMarkdown, { Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { TypographyH1, TypographyH2, TypographyH3, TypographyH4 } from "./typography"
 import { ComponentProps } from "react"
-import { Code } from "./md-prism"
 
-const commonComponents: Components = {
+export const commonMdComponents: Components = {
   p: ({ node, ...props }) => <p className="mt-4" {...props} />,
   a: ({ node, ...props }) => <a className="text-blue-400" {...props} />,
   li: ({ node, ordered, ...props }) => <li className="mb-2" {...props} />,
@@ -13,10 +12,9 @@ const commonComponents: Components = {
   ),
   // eslint-disable-next-line @next/next/no-img-element
   img: ({ node, ...props }) => <img {...props} style={{ maxHeight: 512, ...props.style }} />,
-  code: Code,
 }
 
-interface MarkdownProps extends Omit<ComponentProps<typeof ReactMarkdown>, "children"> {
+export interface MarkdownProps extends Omit<ComponentProps<typeof ReactMarkdown>, "children"> {
   content: string
 }
 
@@ -29,7 +27,7 @@ export function Markdown({ content, ...props }: MarkdownProps) {
         h2: ({ node, ...props }) => <TypographyH2 {...props} />,
         h3: ({ node, ...props }) => <TypographyH3 {...props} />,
         h4: ({ node, ...props }) => <TypographyH4 {...props} />,
-        ...commonComponents,
+        ...commonMdComponents,
         ...props.components,
       }}
     >
@@ -49,7 +47,7 @@ export function MarkdownNoHeadings({ content, ...props }: MarkdownProps) {
         h4: "p",
         h5: "p",
         h6: "p",
-        ...commonComponents,
+        ...commonMdComponents,
         ...props.components,
       }}
     >
