@@ -415,11 +415,12 @@
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 2em;
+  list-style-type: decimal;
 }
 
 .markdown-body ol ol,
 .markdown-body ul ol {
-  list-style-type: lower-roman;
+  list-style-type: lower-alpha;
 }
 
 .markdown-body ul ul ol,
