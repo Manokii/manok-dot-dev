@@ -7,6 +7,7 @@ export const experiences = pgTable("experiences", {
   id: serial("id").primaryKey().notNull(),
   companyName: varchar("company_name", { length: 255 }).notNull(),
   companyWebsite: varchar("company_website", { length: 255 }),
+  companyLogo: varchar("company_logo"),
   jobTitle: varchar("job_title", { length: 255 }).notNull(),
   jobDescription: text("job_description").notNull(),
   startedAt: date("start_date", { mode: "date" }).notNull(),
