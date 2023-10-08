@@ -313,16 +313,14 @@ async function seed() {
 
     await db.transaction(async (tx) => {
       try {
-        for (const tech of data) {
-          const exists = await tx.query.technologies.findFirst({
-            where: eq(technologies.slug, tech.slug),
+        await tx
+          .insert(technologies)
+          .values(data)
+          .onConflictDoNothing({
+            target: [technologies.slug],
           });
-
-          if (!exists) {
-            await db.insert(technologies).values(tech);
-          }
-        }
-      } catch {
+      } catch (e) {
+        console.log(e);
         tx.rollback();
       }
     });

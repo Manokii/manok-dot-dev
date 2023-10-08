@@ -16,8 +16,8 @@ export const technologiesStatus = pgEnum("technologies_status", [
 export const technologies = pgTable("technologies", {
   id: serial("id").primaryKey().notNull(),
   name: varchar("name", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).unique().notNull(),
   icon: varchar("icon", { length: 2048 }),
-  slug: varchar("slug", { length: 255 }).notNull(),
   status: technologiesStatus("status").default("pending").notNull(),
   description: varchar("description", { length: 2048 }),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
