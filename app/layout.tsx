@@ -1,11 +1,11 @@
-import "@/styles/globals.css"
-import type { ReactNode } from "react"
-import type { Metadata } from "next"
-import { siteConfig } from "@/config/site"
-import { fontSans } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Analytics } from "@vercel/analytics/react"
+import "@/styles/globals.css";
+import type { ReactNode } from "react";
+import type { Metadata } from "next";
+import { siteConfig } from "@/config/site";
+import { fontSans } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-}
+};
 
 export default function RootLayout(props: { children: ReactNode }) {
   return (
@@ -47,5 +47,5 @@ export default function RootLayout(props: { children: ReactNode }) {
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

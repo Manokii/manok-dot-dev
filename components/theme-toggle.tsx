@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
-import { IconMoonFilled, IconSunFilled } from "@tabler/icons-react"
-import { cn } from "@/lib/utils"
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+import { IconMoonFilled, IconSunFilled } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
 
 interface Props {
-  size?: "sm" | "md"
+  size?: "sm" | "md";
 }
 export function ThemeToggle({ size = "md" }: Props) {
-  const { setTheme, theme } = useTheme()
+  const { setTheme, theme } = useTheme();
 
-  const small = size === "sm"
+  const small = size === "sm";
   return (
     <Button
       variant="ghost"
@@ -32,5 +32,5 @@ export function ThemeToggle({ size = "md" }: Props) {
         )}
       />
     </Button>
-  )
+  );
 }

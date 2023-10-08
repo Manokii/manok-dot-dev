@@ -1,8 +1,13 @@
-import { IconCheck, IconCirclePlus } from "@tabler/icons-react"
-import { Button } from "./ui/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
-import { TypographyP } from "./ui/typography"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
+import { IconCheck, IconCirclePlus } from "@tabler/icons-react";
+import { Button } from "./ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { TypographyP } from "./ui/typography";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import {
   Command,
   CommandGroup,
@@ -11,27 +16,27 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "./ui/command"
-import type { GetAllTech } from "@/queries"
-import { useState } from "react"
-import { cn } from "@/lib/utils"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
-import { TechnologyAddForm } from "./add-tech-form"
-import type { InsertTechnology } from "@/server/server-actions"
+} from "./ui/command";
+import type { GetAllTech } from "@/queries";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import { TechnologyAddForm } from "./add-tech-form";
+import type { InsertTechnology } from "@/server/server-actions";
 
 interface Props {
-  technologies: GetAllTech
-  selectedMap: Record<number, GetAllTech[number]>
-  onSelect: (tech: InsertTechnology) => void
+  technologies: GetAllTech;
+  selectedMap: Record<number, GetAllTech[number]>;
+  onSelect: (tech: InsertTechnology) => void;
 }
 
 export function TechnologyAdd({ technologies, selectedMap, onSelect }: Props) {
-  const [formOpen, setFormOpen] = useState(false)
+  const [formOpen, setFormOpen] = useState(false);
 
   const onSuccess = (tech: InsertTechnology) => {
-    onSelect(tech)
-    setFormOpen(false)
-  }
+    onSelect(tech);
+    setFormOpen(false);
+  };
 
   return (
     <>
@@ -62,7 +67,10 @@ export function TechnologyAdd({ technologies, selectedMap, onSelect }: Props) {
             <CommandList>
               <CommandEmpty>Nothing found.</CommandEmpty>
               <CommandGroup>
-                <CommandItem className="cursor-pointer" onSelect={() => setFormOpen(true)}>
+                <CommandItem
+                  className="cursor-pointer"
+                  onSelect={() => setFormOpen(true)}
+                >
                   <IconCirclePlus className="mr-2" />
                   Add techonology
                 </CommandItem>
@@ -77,7 +85,9 @@ export function TechnologyAdd({ technologies, selectedMap, onSelect }: Props) {
                     <IconCheck
                       className={cn(
                         "mr-2 h-4 w-4",
-                        selectedMap[technology.id] ? "opacity-100" : "opacity-0",
+                        selectedMap[technology.id]
+                          ? "opacity-100"
+                          : "opacity-0",
                       )}
                     />
                     {technology.name}
@@ -98,5 +108,5 @@ export function TechnologyAdd({ technologies, selectedMap, onSelect }: Props) {
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }

@@ -1,14 +1,18 @@
-import { TypographyH2, TypographyLarge, TypographySmall } from "@/components/ui/typography"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Separator } from "@/components/ui/separator"
-import { format } from "date-fns/esm"
-import NextImage from "next/image"
-import NextLink from "next/link"
-import type { GetPublicPost } from "@/queries"
-import { MarkdownWithCode } from "@/components/ui/md-prism"
+import {
+  TypographyH2,
+  TypographyLarge,
+  TypographySmall,
+} from "@/components/ui/typography";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Separator } from "@/components/ui/separator";
+import { format } from "date-fns/esm";
+import NextImage from "next/image";
+import NextLink from "next/link";
+import type { GetPublicPost } from "@/queries";
+import { MarkdownWithCode } from "@/components/ui/md-prism";
 
 interface Props {
-  post: NonNullable<GetPublicPost>
+  post: NonNullable<GetPublicPost>;
 }
 
 export function PostPageContent({ post }: Props) {
@@ -16,10 +20,17 @@ export function PostPageContent({ post }: Props) {
     <div className="mx-auto min-h-screen max-w-screen-xl py-16 px-4 sm:px-8 lg:py-20">
       <div className="flex flex-col gap-8">
         <header className="flex flex-col gap-1">
-          <TypographyH2 className="font-extrabold leading-none">{post.title}</TypographyH2>
-          <TypographyLarge className="leading-none">{post.excerpt}</TypographyLarge>
+          <TypographyH2 className="font-extrabold leading-none">
+            {post.title}
+          </TypographyH2>
+          <TypographyLarge className="leading-none">
+            {post.excerpt}
+          </TypographyLarge>
           <div className="flex items-center gap-2 my-2">
-            <NextLink href={`/${post.author.slug}`} className="text-sm text-foreground font-bold">
+            <NextLink
+              href={`/${post.author.slug}`}
+              className="text-sm text-foreground font-bold"
+            >
               {post.author.name}
             </NextLink>
             <Separator orientation="vertical" className="h-5" />
@@ -48,5 +59,5 @@ export function PostPageContent({ post }: Props) {
         </main>
       </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import Loading from "../_list-loading"
+import Loading from "../_list-loading";
 export default function PostListLoading() {
-  return <Loading className="lg:grid-cols-1" />
+  return <Loading className="lg:grid-cols-1" />;
 }

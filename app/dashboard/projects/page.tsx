@@ -1,8 +1,8 @@
-import { getProjectsByPortfolioId } from "@/queries"
-import { authOptions } from "@/server/auth-options"
-import { getServerSession } from "next-auth"
-import { redirect } from "next/navigation"
-import NextLink from "next/link"
+import { getProjectsByPortfolioId } from "@/queries";
+import { authOptions } from "@/server/auth-options";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import NextLink from "next/link";
 import {
   Card,
   CardContent,
@@ -10,27 +10,30 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { format } from "date-fns/esm"
-import { Badge } from "@/components/ui/badge"
-import { IconCirclePlus } from "@tabler/icons-react"
-import { TypographyH3 } from "@/components/ui/typography"
+} from "@/components/ui/card";
+import { format } from "date-fns/esm";
+import { Badge } from "@/components/ui/badge";
+import { IconCirclePlus } from "@tabler/icons-react";
+import { TypographyH3 } from "@/components/ui/typography";
 
 export default async function ProjectsDashboard() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
-  const projects = await getProjectsByPortfolioId(session.user.portfolioId)
+  const projects = await getProjectsByPortfolioId(session.user.portfolioId);
   if (!projects) {
-    redirect("/")
+    redirect("/");
   }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {projects.map((project) => (
-        <NextLink key={project.id} href={`/dashboard/projects/${project.id}/edit`}>
+        <NextLink
+          key={project.id}
+          href={`/dashboard/projects/${project.id}/edit`}
+        >
           <Card className="min-h-[200px] flex flex-col h-full cursor-pointer border border-muted hover:border-muted-foreground/30 transition">
             <CardHeader>
               <CardTitle>{project.name}</CardTitle>
@@ -61,5 +64,5 @@ export default async function ProjectsDashboard() {
         </Card>
       </NextLink>
     </div>
-  )
+  );
 }

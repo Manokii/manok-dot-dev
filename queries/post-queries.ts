@@ -1,6 +1,6 @@
-import { db } from "@/db/client"
-import { and, eq, or } from "drizzle-orm"
-import { cache } from "react"
+import { db } from "@/db/client";
+import { and, eq, or } from "drizzle-orm";
+import { cache } from "react";
 
 /* -------------------------------------------------------------------------------------------------
  * Queries
@@ -18,8 +18,8 @@ export const getPostsByAuthorId = cache(async (authorId: number) => {
       },
     },
     where: (posts) => eq(posts.authorId, authorId),
-  })
-})
+  });
+});
 
 export const getPost = cache(async (slugOrId: string) => {
   return await db.query.posts.findFirst({
@@ -32,9 +32,10 @@ export const getPost = cache(async (slugOrId: string) => {
         },
       },
     },
-    where: (posts) => or(eq(posts.slug, slugOrId), eq(posts.id, parseInt(slugOrId))),
-  })
-})
+    where: (posts) =>
+      or(eq(posts.slug, slugOrId), eq(posts.id, parseInt(slugOrId))),
+  });
+});
 
 export const getPublicPosts = cache(async () => {
   return await db.query.posts.findMany({
@@ -48,8 +49,8 @@ export const getPublicPosts = cache(async () => {
       },
     },
     where: (posts) => eq(posts.status, "published"),
-  })
-})
+  });
+});
 
 export const getPublicPost = cache(async (slug: string) => {
   return await db.query.posts.findFirst({
@@ -63,32 +64,32 @@ export const getPublicPost = cache(async (slug: string) => {
       },
     },
     where: (posts) => and(eq(posts.slug, slug), eq(posts.status, "published")),
-  })
-})
+  });
+});
 
 /* -------------------------------------------------------------------------------------------------
  * Preloads
  * -----------------------------------------------------------------------------------------------*/
 export function preloadGetPostsByAuthorId(authorId: number) {
-  void getPostsByAuthorId(authorId)
+  void getPostsByAuthorId(authorId);
 }
 
 export function preloadGetPostBySlug(slug: string) {
-  void getPost(slug)
+  void getPost(slug);
 }
 
 export function preloadGetPublicPosts() {
-  void getPublicPosts()
+  void getPublicPosts();
 }
 
 export function preloadGetPublicPost(slug: string) {
-  void getPublicPost(slug)
+  void getPublicPost(slug);
 }
 
 /* -------------------------------------------------------------------------------------------------
  * Types
  * -----------------------------------------------------------------------------------------------*/
-export type GetPostsByAuthorId = Awaited<ReturnType<typeof getPostsByAuthorId>>
-export type GetPost = Awaited<ReturnType<typeof getPost>>
-export type GetPublicPost = Awaited<ReturnType<typeof getPublicPost>>
-export type GetPublicPosts = Awaited<ReturnType<typeof getPublicPosts>>
+export type GetPostsByAuthorId = Awaited<ReturnType<typeof getPostsByAuthorId>>;
+export type GetPost = Awaited<ReturnType<typeof getPost>>;
+export type GetPublicPost = Awaited<ReturnType<typeof getPublicPost>>;
+export type GetPublicPosts = Awaited<ReturnType<typeof getPublicPosts>>;

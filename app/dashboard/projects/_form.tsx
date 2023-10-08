@@ -1,8 +1,8 @@
-"use client"
-import "@uploadthing/react/styles.css"
-import type { UploadRouter } from "@/app/api/uploadthing/core"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
+"use client";
+import "@uploadthing/react/styles.css";
+import type { UploadRouter } from "@/app/api/uploadthing/core";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -11,35 +11,45 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Textarea } from "@/components/ui/textarea"
-import { cn } from "@/lib/utils"
-import { insertProjectSchema } from "@/lib/validators"
-import type { GetProject, GetAllTech } from "@/queries"
-import { type InsertTechnology, upsertProject } from "@/server/server-actions"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { IconCalendar, IconDeviceFloppy, IconLoader2, IconTrash, IconX } from "@tabler/icons-react"
-import { UploadDropzone } from "@uploadthing/react"
-import { format } from "date-fns/esm"
-import { useTransition } from "react"
-import { useForm } from "react-hook-form"
-import { useRouter } from "next/navigation"
-import { TypographyH4 } from "@/components/ui/typography"
-import { TechnologyAdd } from "@/components/add-tech-button"
-import { Badge } from "@/components/ui/badge"
-import { env } from "@/env.mjs"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+import { insertProjectSchema } from "@/lib/validators";
+import type { GetProject, GetAllTech } from "@/queries";
+import { type InsertTechnology, upsertProject } from "@/server/server-actions";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  IconCalendar,
+  IconDeviceFloppy,
+  IconLoader2,
+  IconTrash,
+  IconX,
+} from "@tabler/icons-react";
+import { UploadDropzone } from "@uploadthing/react";
+import { format } from "date-fns/esm";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { TypographyH4 } from "@/components/ui/typography";
+import { TechnologyAdd } from "@/components/add-tech-button";
+import { Badge } from "@/components/ui/badge";
+import { env } from "@/env.mjs";
 
 interface Props {
-  project?: GetProject
-  portfolioId: number
-  technologies: GetAllTech
+  project?: GetProject;
+  portfolioId: number;
+  technologies: GetAllTech;
 }
 
 export function ProjectForm({ project, technologies, portfolioId }: Props) {
-  const router = useRouter()
-  const [pending, startTransition] = useTransition()
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
   const projectForm = useForm({
     resolver: zodResolver(insertProjectSchema),
     defaultValues: {
@@ -53,16 +63,20 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
       stack: project?.stack.map((projectTech) => projectTech.tech.id) ?? [],
       thumbnail: project?.thumbnail ?? "",
     },
-  })
+  });
 
-  const [projectId, slug, thumbnail] = projectForm.watch(["id", "slug", "thumbnail"])
+  const [projectId, slug, thumbnail] = projectForm.watch([
+    "id",
+    "slug",
+    "thumbnail",
+  ]);
 
   const submit = projectForm.handleSubmit(async (data) => {
     startTransition(async () => {
-      const formData = { ...data, portfolioId }
-      const newProject = await upsertProject(formData)
+      const formData = { ...data, portfolioId };
+      const newProject = await upsertProject(formData);
       if (!newProject) {
-        return
+        return;
       }
 
       projectForm.reset({
@@ -73,35 +87,38 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
         body: newProject?.body ?? "",
         slug: newProject?.slug ?? "",
         date: newProject?.date ?? new Date(),
-        stack: newProject?.stack.map((projectTech) => projectTech.tech.id) ?? [],
+        stack:
+          newProject?.stack.map((projectTech) => projectTech.tech.id) ?? [],
         thumbnail: newProject?.thumbnail ?? "",
-      })
+      });
 
       if (projectId !== newProject.id) {
-        router.push(`/dashboard/projects/${newProject.id}/edit`)
+        router.push(`/dashboard/projects/${newProject.id}/edit`);
       }
-    })
-  })
+    });
+  });
 
   const currentStack = projectForm
     .watch("stack")
     .reduce<Record<number, GetAllTech[number]>>((acc, curr) => {
-      const tech = technologies[curr]
-      if (!tech) return acc
-      Object.assign(acc, { [curr]: tech })
-      return acc
-    }, {})
+      const tech = technologies[curr];
+      if (!tech) return acc;
+      Object.assign(acc, { [curr]: tech });
+      return acc;
+    }, {});
 
   const addTechToStack = (tech: InsertTechnology) => {
     if (currentStack[tech.id]) {
-      const newStack = projectForm.getValues("stack").filter((id) => id !== tech.id)
-      projectForm.setValue("stack", newStack)
-      return
+      const newStack = projectForm
+        .getValues("stack")
+        .filter((id) => id !== tech.id);
+      projectForm.setValue("stack", newStack);
+      return;
     }
-    const index = projectForm.getValues("stack").length
-    projectForm.setValue(`stack.${index}`, tech.id)
-    technologies[tech.id] = tech
-  }
+    const index = projectForm.getValues("stack").length;
+    projectForm.setValue(`stack.${index}`, tech.id);
+    technologies[tech.id] = tech;
+  };
 
   return (
     <Form {...projectForm}>
@@ -131,7 +148,8 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                     <Input {...field} />
                   </FormControl>
                   <FormDescription>
-                    {env.NEXT_PUBLIC_URL || "localhost"}/projects/{slug || "project_slug_here"}
+                    {env.NEXT_PUBLIC_URL || "localhost"}/projects/
+                    {slug || "project_slug_here"}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -149,7 +167,11 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                         variant={"outline"}
                         className={cn(!field.value && "text-muted-foreground")}
                       >
-                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
                         <IconCalendar className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </PopoverTrigger>
@@ -158,8 +180,14 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                         <Calendar
                           mode="single"
                           selected={field.value}
-                          onSelect={(date) => field.onChange(date || projectForm.getValues("date"))}
-                          disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+                          onSelect={(date) =>
+                            field.onChange(
+                              date || projectForm.getValues("date"),
+                            )
+                          }
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
                           initialFocus
                         />
                       </FormControl>
@@ -178,7 +206,9 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                   <FormControl>
                     <Textarea {...field} />
                   </FormControl>
-                  <FormDescription>Markdown supported (no headings)</FormDescription>
+                  <FormDescription>
+                    Markdown supported (no headings)
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -211,7 +241,9 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                             variant="ghost"
                             size="icon"
                             className="absolute top-2 right-2"
-                            onClick={() => projectForm.setValue("thumbnail", "")}
+                            onClick={() =>
+                              projectForm.setValue("thumbnail", "")
+                            }
                           >
                             <IconTrash className="h-4 w-4" />
                           </Button>
@@ -224,9 +256,9 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
                       <UploadDropzone<UploadRouter>
                         endpoint="imageUploader"
                         onClientUploadComplete={(res = []) => {
-                          const file = res.at(0)
+                          const file = res.at(0);
                           if (file) {
-                            projectForm.setValue("thumbnail", file.fileUrl)
+                            projectForm.setValue("thumbnail", file.fileUrl);
                           }
                         }}
                       />
@@ -251,8 +283,15 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
             </div>
             <div className="flex flex-row items-center gap-2">
               {Object.values(currentStack).map((tech) => (
-                <Badge key={tech.id} className="flex items-center whitespace-nowrap">
-                  <Button size="icon" className="w-4 h-4 mr-2" onClick={() => addTechToStack(tech)}>
+                <Badge
+                  key={tech.id}
+                  className="flex items-center whitespace-nowrap"
+                >
+                  <Button
+                    size="icon"
+                    className="w-4 h-4 mr-2"
+                    onClick={() => addTechToStack(tech)}
+                  >
                     <IconX className="w-4 h-4" />
                   </Button>
                   {tech.name}
@@ -272,5 +311,5 @@ export function ProjectForm({ project, technologies, portfolioId }: Props) {
         </Button>
       </div>
     </Form>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-"use client"
-import { MarkdownNoHeadings } from "@/components/ui/md"
+"use client";
+import { MarkdownNoHeadings } from "@/components/ui/md";
 import {
   Timeline,
   TimelineConnector,
@@ -7,16 +7,20 @@ import {
   TimelineDot,
   TimelineItem,
   TimelineSeparator,
-} from "@/components/ui/timeline"
-import { TypographyH2, TypographyLead, TypographyP } from "@/components/ui/typography"
-import { cn } from "@/lib/utils"
-import type { GetPortfolioWithRelations } from "@/queries"
-import { format } from "date-fns/esm"
-import { StackItem } from "./_stack-item"
-import NextLink from "next/link"
+} from "@/components/ui/timeline";
+import {
+  TypographyH2,
+  TypographyLead,
+  TypographyP,
+} from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
+import type { GetPortfolioWithRelations } from "@/queries";
+import { format } from "date-fns/esm";
+import { StackItem } from "./_stack-item";
+import NextLink from "next/link";
 
 interface Props {
-  experiences: GetPortfolioWithRelations["experiences"]
+  experiences: GetPortfolioWithRelations["experiences"];
 }
 
 export function ExperienceList({ experiences = [] }: Props) {
@@ -52,7 +56,9 @@ export function ExperienceList({ experiences = [] }: Props) {
                   <TypographyP className="text-foreground/90 leading-none whitespace-pre">
                     {exp.jobTitle}
                   </TypographyP>
-                  {exp.jobDescription && <MarkdownNoHeadings content={exp.jobDescription} />}
+                  {exp.jobDescription && (
+                    <MarkdownNoHeadings content={exp.jobDescription} />
+                  )}
                   {exp.stack.length > 0 && (
                     <div className="mt-4 flex flex-wrap gap-2 items-center">
                       {exp.stack.map((expTech, i) => (
@@ -67,5 +73,5 @@ export function ExperienceList({ experiences = [] }: Props) {
         </Timeline>
       </div>
     </div>
-  )
+  );
 }

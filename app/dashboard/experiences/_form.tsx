@@ -1,14 +1,17 @@
-"use client"
-import { insertExperienceSchema } from "@/lib/validators"
-import type { GetExp, GetAllTech } from "@/queries"
-import { type InsertTechnology, upsertExperience } from "@/server/server-actions"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { TypographyH4 } from "@/components/ui/typography"
-import { TechnologyAdd } from "@/components/add-tech-button"
+"use client";
+import { insertExperienceSchema } from "@/lib/validators";
+import type { GetExp, GetAllTech } from "@/queries";
+import {
+  type InsertTechnology,
+  upsertExperience,
+} from "@/server/server-actions";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { TypographyH4 } from "@/components/ui/typography";
+import { TechnologyAdd } from "@/components/add-tech-button";
 import {
   Form,
   FormControl,
@@ -16,25 +19,38 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { useTransition } from "react"
-import { IconCalendar, IconDeviceFloppy, IconLoader2, IconX } from "@tabler/icons-react"
-import { Badge } from "@/components/ui/badge"
-import { useRouter } from "next/navigation"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
-import { Calendar } from "@/components/ui/calendar"
+} from "@/components/ui/form";
+import { useTransition } from "react";
+import {
+  IconCalendar,
+  IconDeviceFloppy,
+  IconLoader2,
+  IconX,
+} from "@tabler/icons-react";
+import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
 
 interface Props {
-  experience?: GetExp
-  portfolioId: number
-  technologies: GetAllTech
+  experience?: GetExp;
+  portfolioId: number;
+  technologies: GetAllTech;
 }
 
-export function ExperienceForm({ portfolioId, experience, technologies }: Props) {
-  const router = useRouter()
-  const [pending, startTransition] = useTransition()
+export function ExperienceForm({
+  portfolioId,
+  experience,
+  technologies,
+}: Props) {
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
   const form = useForm({
     reValidateMode: "onSubmit",
     resolver: zodResolver(insertExperienceSchema),
@@ -49,14 +65,14 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
       endedAt: experience?.endedAt,
       stack: experience?.stack.map((expTech) => expTech.tech.id) ?? [],
     },
-  })
+  });
 
-  const experienceId = form.watch("id")
+  const experienceId = form.watch("id");
   const submit = form.handleSubmit(async (data) => {
     startTransition(async () => {
-      const newExp = await upsertExperience(data)
+      const newExp = await upsertExperience(data);
       if (!newExp) {
-        return
+        return;
       }
       form.reset({
         id: newExp.id,
@@ -68,33 +84,33 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
         startedAt: newExp.startedAt ?? new Date(),
         endedAt: newExp.endedAt,
         stack: newExp.stack.map((expTech) => expTech.tech.id),
-      })
+      });
 
       if (!experienceId) {
-        router.push(`/dashboard/experiences/${newExp.id}/edit`)
+        router.push(`/dashboard/experiences/${newExp.id}/edit`);
       }
-    })
-  })
+    });
+  });
 
   const currentStack = form
     .watch("stack")
     .reduce<Record<number, GetAllTech[number]>>((acc, curr) => {
-      const tech = technologies[curr]
-      if (!tech) return acc
-      Object.assign(acc, { [curr]: tech })
-      return acc
-    }, {})
+      const tech = technologies[curr];
+      if (!tech) return acc;
+      Object.assign(acc, { [curr]: tech });
+      return acc;
+    }, {});
 
   const addTechToStack = (tech: InsertTechnology) => {
     if (currentStack[tech.id]) {
-      const newStack = form.getValues("stack").filter((id) => id !== tech.id)
-      form.setValue("stack", newStack)
-      return
+      const newStack = form.getValues("stack").filter((id) => id !== tech.id);
+      form.setValue("stack", newStack);
+      return;
     }
-    const index = form.getValues("stack").length
-    form.setValue(`stack.${index}`, tech.id)
-    technologies[tech.id] = tech
-  }
+    const index = form.getValues("stack").length;
+    form.setValue(`stack.${index}`, tech.id);
+    technologies[tech.id] = tech;
+  };
 
   return (
     <Form {...form}>
@@ -108,7 +124,10 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
                 <FormItem>
                   <FormLabel>Company Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Linux Merch Gurus (LMG)..." {...field} />
+                    <Input
+                      placeholder="Linux Merch Gurus (LMG)..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -167,9 +186,15 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
                         <FormControl>
                           <Button
                             variant={"outline"}
-                            className={cn(!field.value && "text-muted-foreground")}
+                            className={cn(
+                              !field.value && "text-muted-foreground",
+                            )}
                           >
-                            {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
                             <IconCalendar className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
@@ -178,8 +203,12 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
                         <Calendar
                           mode="single"
                           selected={field.value}
-                          onSelect={(date) => field.onChange(date || form.getValues("startedAt"))}
-                          disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+                          onSelect={(date) =>
+                            field.onChange(date || form.getValues("startedAt"))
+                          }
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
                           initialFocus
                         />
                       </PopoverContent>
@@ -200,9 +229,15 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
                         <FormControl>
                           <Button
                             variant={"outline"}
-                            className={cn(!field.value && "text-muted-foreground")}
+                            className={cn(
+                              !field.value && "text-muted-foreground",
+                            )}
                           >
-                            {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
                             <IconCalendar className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
@@ -212,7 +247,9 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
                           mode="single"
                           selected={field.value ?? undefined}
                           onSelect={(date) => field.onChange(date)}
-                          disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
                           initialFocus
                         />
                       </PopoverContent>
@@ -237,8 +274,15 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
             </div>
             <div className="flex flex-row items-center gap-2">
               {Object.values(currentStack).map((tech) => (
-                <Badge key={tech.id} className="flex items-center whitespace-nowrap">
-                  <Button size="icon" className="w-4 h-4 mr-2" onClick={() => addTechToStack(tech)}>
+                <Badge
+                  key={tech.id}
+                  className="flex items-center whitespace-nowrap"
+                >
+                  <Button
+                    size="icon"
+                    className="w-4 h-4 mr-2"
+                    onClick={() => addTechToStack(tech)}
+                  >
                     <IconX className="w-4 h-4" />
                   </Button>
                   {tech.name}
@@ -258,5 +302,5 @@ export function ExperienceForm({ portfolioId, experience, technologies }: Props)
         </Button>
       </div>
     </Form>
-  )
+  );
 }

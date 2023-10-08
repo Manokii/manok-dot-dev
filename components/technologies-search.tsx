@@ -1,3 +1,3 @@
 export function TechnologiesSearch() {
-  return <div>TechnologiesSearch</div>
+  return <div>TechnologiesSearch</div>;
 }

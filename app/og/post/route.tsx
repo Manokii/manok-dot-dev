@@ -1,18 +1,18 @@
-import { ImageResponse, type NextRequest } from "next/server"
+import { ImageResponse, type NextRequest } from "next/server";
 
-export const runtime = "edge"
+export const runtime = "edge";
 
-const interBold = fetch(new URL("../../../assets/Inter-Bold.ttf", import.meta.url)).then((res) =>
-  res.arrayBuffer(),
-)
+const interBold = fetch(
+  new URL("../../../assets/Inter-Bold.ttf", import.meta.url),
+).then((res) => res.arrayBuffer());
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.nextUrl)
+  const { searchParams } = new URL(req.nextUrl);
 
-  const title = searchParams.get("title") ?? ""
-  const slug = searchParams.get("slug") ?? ""
-  const author = searchParams.get("author") ?? ""
-  const excerpt = searchParams.get("excerpt") ?? ""
+  const title = searchParams.get("title") ?? "";
+  const slug = searchParams.get("slug") ?? "";
+  const author = searchParams.get("author") ?? "";
+  const excerpt = searchParams.get("excerpt") ?? "";
 
   return new ImageResponse(
     (
@@ -86,5 +86,5 @@ export async function GET(req: NextRequest) {
         },
       ],
     },
-  )
+  );
 }

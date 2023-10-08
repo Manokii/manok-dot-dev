@@ -1,11 +1,22 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { cn } from "@/lib/utils"
-import { ComponentProps } from "react"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+import { ComponentProps } from "react";
 
-export default function Loading({ className, ...props }: ComponentProps<"div">) {
+export default function Loading({
+  className,
+  ...props
+}: ComponentProps<"div">) {
   return (
-    <div className={cn("grid grid-cols-1 lg:grid-cols-3 gap-4", className)} {...props}>
+    <div
+      className={cn("grid grid-cols-1 lg:grid-cols-3 gap-4", className)}
+      {...props}
+    >
       {new Array(3).fill(0).map((_, i) => (
         <Card className="min-h-[200px]">
           <CardHeader>
@@ -28,5 +39,5 @@ export default function Loading({ className, ...props }: ComponentProps<"div">) 
         </Card>
       ))}
     </div>
-  )
+  );
 }

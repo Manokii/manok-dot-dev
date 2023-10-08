@@ -1,7 +1,7 @@
-import { db } from "@/db/client"
-import { portfolios } from "@/db/schema"
-import { desc, eq, or } from "drizzle-orm"
-import { cache } from "react"
+import { db } from "@/db/client";
+import { portfolios } from "@/db/schema";
+import { desc, eq, or } from "drizzle-orm";
+import { cache } from "react";
 
 /* -------------------------------------------------------------------------------------------------
  * Queries
@@ -28,9 +28,9 @@ export const getPortfolioWithRelations = cache(async (idOrSlug: string) => {
       },
     },
     where: or(eq(portfolios.userId, idOrSlug), eq(portfolios.slug, idOrSlug)),
-  })
-  return portfolio
-})
+  });
+  return portfolio;
+});
 
 /*
  * Get portfolio by id or slug.
@@ -38,9 +38,9 @@ export const getPortfolioWithRelations = cache(async (idOrSlug: string) => {
 export const getPortfolio = cache(async (idOrSlug: string) => {
   const portfolio = await db.query.portfolios.findFirst({
     where: or(eq(portfolios.userId, idOrSlug), eq(portfolios.slug, idOrSlug)),
-  })
-  return portfolio
-})
+  });
+  return portfolio;
+});
 
 /*
  * Get the first portfolio in the database. This is most likely the owner of the project.
@@ -62,9 +62,9 @@ export const getFirstPortfolio = cache(async () => {
         orderBy: (posts) => desc(posts.publishedAt),
       },
     },
-  })
-  return portfolio
-})
+  });
+  return portfolio;
+});
 
 export const getPortfolios = cache(async () => {
   const portfolioList = await db.query.portfolios.findMany({
@@ -81,22 +81,22 @@ export const getPortfolios = cache(async () => {
       },
       projects: true,
     },
-  })
-  return portfolioList
-})
+  });
+  return portfolioList;
+});
 
 /* -------------------------------------------------------------------------------------------------
  * Preloads
  * -----------------------------------------------------------------------------------------------*/
 export function preloadGetPortfolio(idOrSlug: string) {
-  void getPortfolio(idOrSlug)
+  void getPortfolio(idOrSlug);
 }
 
 export function preloadGetFirstPortfolio(idOrSlug: string) {
-  void getPortfolio(idOrSlug)
+  void getPortfolio(idOrSlug);
 }
 
-void getPortfolios()
+void getPortfolios();
 export function preloadPortfolios() {}
 
 /* -------------------------------------------------------------------------------------------------
@@ -104,6 +104,10 @@ export function preloadPortfolios() {}
  * -----------------------------------------------------------------------------------------------*/
 export type GetPortfolioWithRelations = NonNullable<
   Awaited<ReturnType<typeof getPortfolioWithRelations>>
->
-export type GetPortfolio = NonNullable<Awaited<ReturnType<typeof getPortfolio>>>
-export type GetPortfolios = NonNullable<Awaited<ReturnType<typeof getPortfolios>>>
+>;
+export type GetPortfolio = NonNullable<
+  Awaited<ReturnType<typeof getPortfolio>>
+>;
+export type GetPortfolios = NonNullable<
+  Awaited<ReturnType<typeof getPortfolios>>
+>;

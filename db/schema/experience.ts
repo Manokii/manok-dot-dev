@@ -1,7 +1,15 @@
-import { type InferModel, relations } from "drizzle-orm"
-import { portfolios } from "./portfolio"
-import { experienceTech } from "./experience-technologies"
-import { date, integer, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core"
+import { type InferModel, relations } from "drizzle-orm";
+import { portfolios } from "./portfolio";
+import { experienceTech } from "./experience-technologies";
+import {
+  date,
+  integer,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const experiences = pgTable("experiences", {
   id: serial("id").primaryKey().notNull(),
@@ -17,7 +25,7 @@ export const experiences = pgTable("experiences", {
     .references(() => portfolios.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
-})
+});
 
 export const experienceRelations = relations(experiences, ({ one, many }) => ({
   portfolio: one(portfolios, {
@@ -25,7 +33,7 @@ export const experienceRelations = relations(experiences, ({ one, many }) => ({
     references: [portfolios.id],
   }),
   stack: many(experienceTech),
-}))
+}));
 
-export type Experience = InferModel<typeof experiences>
-export type NewExperience = InferModel<typeof experiences, "insert">
+export type Experience = InferModel<typeof experiences>;
+export type NewExperience = InferModel<typeof experiences, "insert">;

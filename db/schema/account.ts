@@ -1,7 +1,7 @@
-import type { ProviderType } from "next-auth/providers"
-import type { InferModel } from "drizzle-orm"
-import { integer, pgTable, primaryKey, varchar } from "drizzle-orm/pg-core"
-import { users } from "./user"
+import type { ProviderType } from "next-auth/providers";
+import type { InferModel } from "drizzle-orm";
+import { integer, pgTable, primaryKey, varchar } from "drizzle-orm/pg-core";
+import { users } from "./user";
 
 // --- Next Auth Table ---
 export const accounts = pgTable(
@@ -25,7 +25,7 @@ export const accounts = pgTable(
   (account) => ({
     compoundKey: primaryKey(account.provider, account.providerAccountId),
   }),
-)
+);
 
-export type Account = InferModel<typeof accounts>
-export type NewAccount = InferModel<typeof accounts, "insert">
+export type Account = InferModel<typeof accounts>;
+export type NewAccount = InferModel<typeof accounts, "insert">;

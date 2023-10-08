@@ -1,15 +1,21 @@
-import { experiences, portfolios, posts, projects, technologies } from "@/db/schema"
-import { createInsertSchema } from "drizzle-zod"
-import { z } from "zod"
+import {
+  experiences,
+  portfolios,
+  posts,
+  projects,
+  technologies,
+} from "@/db/schema";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
-const emptyString = z.literal("")
-const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+const emptyString = z.literal("");
+const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const prependedUrl = (url: string) =>
   z
     .string()
     .url()
     .startsWith(`https://${url}`)
-    .or(z.string().url().startsWith(`https://www.${url}`))
+    .or(z.string().url().startsWith(`https://www.${url}`));
 
 const socialLinksSchema = z.object({
   github: prependedUrl("github.com").or(emptyString).optional(),
@@ -17,7 +23,7 @@ const socialLinksSchema = z.object({
   twitter: prependedUrl("twitter.com").or(emptyString).optional(),
   website: z.string().url().optional().or(emptyString).optional(),
   publicResume: z.string().url().optional().or(emptyString),
-})
+});
 
 export const updatePortfolioSchema = createInsertSchema(portfolios, {
   userId: (schema) => schema.userId.optional(),
@@ -27,7 +33,7 @@ export const updatePortfolioSchema = createInsertSchema(portfolios, {
   subheading: (schema) => schema.subheading.max(255),
   name: (schema) => schema.name.max(255),
   socialLinks: socialLinksSchema,
-})
+});
 
 export const insertExperienceSchema = createInsertSchema(experiences, {
   companyName: (schema) => schema.companyName.min(3).max(255),
@@ -36,7 +42,7 @@ export const insertExperienceSchema = createInsertSchema(experiences, {
   companyWebsite: (schema) => schema.companyWebsite.url().or(emptyString),
 }).extend({
   stack: z.array(z.number().positive()),
-})
+});
 
 export const insertTechnologiesSchema = createInsertSchema(technologies, {
   slug: (schema) => schema.slug.min(1).regex(slugRegex),
@@ -47,7 +53,7 @@ export const insertTechnologiesSchema = createInsertSchema(technologies, {
   updatedAt: (schema) => schema.updatedAt.optional(),
   createdBy: (schema) => schema.createdBy.optional(),
   updatedBy: (schema) => schema.updatedBy.optional(),
-})
+});
 
 export const insertProjectSchema = createInsertSchema(projects, {
   slug: (schema) => schema.slug.min(1).regex(slugRegex),
@@ -56,17 +62,17 @@ export const insertProjectSchema = createInsertSchema(projects, {
   body: (schema) => schema.body.max(10000),
 }).extend({
   stack: z.array(z.number().positive()),
-})
+});
 
 export const insertPostSchema = createInsertSchema(posts, {
   slug: (schema) => schema.slug.min(1).regex(slugRegex),
   title: (schema) => schema.title.min(1).max(255),
   thumbnail: (schema) => schema.thumbnail.url().or(emptyString),
   body: (schema) => schema.body.max(10000),
-})
+});
 
-export type UpdatePortfolioSchema = z.infer<typeof updatePortfolioSchema>
-export type InsertTechnologiesSchema = z.infer<typeof insertTechnologiesSchema>
-export type InsertExperienceSchema = z.infer<typeof insertExperienceSchema>
-export type InsertProjectSchema = z.infer<typeof insertProjectSchema>
-export type InsertPostSchema = z.infer<typeof insertPostSchema>
+export type UpdatePortfolioSchema = z.infer<typeof updatePortfolioSchema>;
+export type InsertTechnologiesSchema = z.infer<typeof insertTechnologiesSchema>;
+export type InsertExperienceSchema = z.infer<typeof insertExperienceSchema>;
+export type InsertProjectSchema = z.infer<typeof insertProjectSchema>;
+export type InsertPostSchema = z.infer<typeof insertPostSchema>;

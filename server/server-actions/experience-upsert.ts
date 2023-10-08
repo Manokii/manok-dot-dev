@@ -1,26 +1,29 @@
-"use server"
-import { insertExperienceSchema, type InsertExperienceSchema } from "@/lib/validators"
-import { experiences, experienceTech } from "@/db/schema"
-import { db } from "@/db/client"
-import { eq } from "drizzle-orm"
-import { revalidateTag } from "next/cache"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../auth-options"
+"use server";
+import {
+  insertExperienceSchema,
+  type InsertExperienceSchema,
+} from "@/lib/validators";
+import { experiences, experienceTech } from "@/db/schema";
+import { db } from "@/db/client";
+import { eq } from "drizzle-orm";
+import { revalidateTag } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth-options";
 
 export async function upsertExperience(formData: InsertExperienceSchema) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    throw new Error("Unauthenticated")
+    throw new Error("Unauthenticated");
   }
 
-  const { stack, ...exp } = await insertExperienceSchema.parseAsync(formData)
+  const { stack, ...exp } = await insertExperienceSchema.parseAsync(formData);
 
-  const isSameAsSession = exp.portfolioId === session.user.portfolioId
-  const isAdmin = session.user.role === "admin"
-  const canUpdate = isSameAsSession || isAdmin
+  const isSameAsSession = exp.portfolioId === session.user.portfolioId;
+  const isAdmin = session.user.role === "admin";
+  const canUpdate = isSameAsSession || isAdmin;
 
   if (exp.id && !canUpdate) {
-    throw new Error("Unauthorized")
+    throw new Error("Unauthorized");
   }
 
   const result = await db.transaction(async (tx) => {
@@ -41,14 +44,16 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
           updatedAt: new Date(),
         },
       })
-      .returning()
+      .returning();
 
     const stackInput = stack.map((techId) => ({
       experienceId: experience.id,
       techId: techId,
-    }))
+    }));
 
-    await tx.delete(experienceTech).where(eq(experienceTech.experienceId, experience.id))
+    await tx
+      .delete(experienceTech)
+      .where(eq(experienceTech.experienceId, experience.id));
 
     if (stack.length) {
       await tx
@@ -57,7 +62,7 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
         .onConflictDoNothing({
           target: [experienceTech.experienceId, experienceTech.techId],
         })
-        .returning()
+        .returning();
     }
 
     return await tx.query.experiences.findFirst({
@@ -69,10 +74,10 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
           },
         },
       },
-    })
-  })
+    });
+  });
 
-  revalidateTag(`/dashboard/experiences`)
-  revalidateTag(`/${session.user.portfolioSlug}`)
-  return result
+  revalidateTag(`/dashboard/experiences`);
+  revalidateTag(`/${session.user.portfolioSlug}`);
+  return result;
 }

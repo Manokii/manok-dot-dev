@@ -1,25 +1,37 @@
-import { getPostsByAuthorId } from "@/queries"
-import { authOptions } from "@/server/auth-options"
-import { getServerSession } from "next-auth"
-import { redirect } from "next/navigation"
-import NextLink from "next/link"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { IconCirclePlus } from "@tabler/icons-react"
-import { TypographyH3, TypographyLarge, TypographySmall } from "@/components/ui/typography"
-import { format } from "date-fns/esm"
+import { getPostsByAuthorId } from "@/queries";
+import { authOptions } from "@/server/auth-options";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import NextLink from "next/link";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { IconCirclePlus } from "@tabler/icons-react";
+import {
+  TypographyH3,
+  TypographyLarge,
+  TypographySmall,
+} from "@/components/ui/typography";
+import { format } from "date-fns/esm";
 
 export default async function PostDashboard() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
-  const posts = await getPostsByAuthorId(session.user.portfolioId)
+  const posts = await getPostsByAuthorId(session.user.portfolioId);
 
   return (
     <div className="flex flex-col gap-4">
       <TypographyH3 className="leading-none">Posts</TypographyH3>
-      <TypographySmall>You can also refer to this as blog posts</TypographySmall>
+      <TypographySmall>
+        You can also refer to this as blog posts
+      </TypographySmall>
       {posts.map((post) => (
         <NextLink key={post.id} href={`/dashboard/posts/${post.id}/edit`}>
           <Card className="flex flex-col h-full cursor-pointer border border-muted hover:border-muted-foreground/30 transition">
@@ -41,5 +53,5 @@ export default async function PostDashboard() {
         </Card>
       </NextLink>
     </div>
-  )
+  );
 }

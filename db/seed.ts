@@ -1,8 +1,8 @@
-import { eq } from "drizzle-orm"
-import { db } from "./client"
-import { NewTechnologies, technologies } from "./schema"
-import dotenv from "dotenv"
-dotenv.config({ path: ".env" })
+import { eq } from "drizzle-orm";
+import { db } from "./client";
+import { NewTechnologies, technologies } from "./schema";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env" });
 
 /**
  * Seed the database with initial data
@@ -300,7 +300,7 @@ async function seed() {
       name: "shadcn/ui",
       slug: "shadcn-ui",
     },
-  ]
+  ];
 
   try {
     const data: NewTechnologies[] = insertData.map((data) => {
@@ -308,40 +308,40 @@ async function seed() {
         status: "approved",
         updatedBy: "-1",
         createdBy: "-1",
-      })
-    })
+      });
+    });
 
     await db.transaction(async (tx) => {
       try {
         for (const tech of data) {
           const exists = await tx.query.technologies.findFirst({
             where: eq(technologies.slug, tech.slug),
-          })
+          });
 
           if (!exists) {
-            await db.insert(technologies).values(tech)
+            await db.insert(technologies).values(tech);
           }
         }
       } catch {
-        tx.rollback()
+        tx.rollback();
       }
-    })
+    });
   } catch (e) {
     return {
       message: (e as { message: string })?.message,
       success: false,
-    }
+    };
   }
 
-  return { success: true }
+  return { success: true };
 }
 
 seed()
   .then((res) => {
-    console.log(res)
-    process.exit(0)
+    console.log(res);
+    process.exit(0);
   })
   .catch((e) => {
-    console.error(e)
-    process.exit(1)
-  })
+    console.error(e);
+    process.exit(1);
+  });

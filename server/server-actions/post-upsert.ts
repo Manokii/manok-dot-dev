@@ -1,26 +1,26 @@
-"use server"
-import { type InsertPostSchema, insertPostSchema } from "@/lib/validators"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "../auth-options"
-import { db } from "@/db/client"
-import { posts } from "@/db/schema"
-import { revalidateTag } from "next/cache"
+"use server";
+import { type InsertPostSchema, insertPostSchema } from "@/lib/validators";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth-options";
+import { db } from "@/db/client";
+import { posts } from "@/db/schema";
+import { revalidateTag } from "next/cache";
 
 export async function upsertPost(formData: InsertPostSchema) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    throw new Error("Unauthenticated")
+    throw new Error("Unauthenticated");
   }
 
-  const post = await insertPostSchema.parseAsync(formData)
-  post.updatedAt = new Date()
+  const post = await insertPostSchema.parseAsync(formData);
+  post.updatedAt = new Date();
 
-  const isSameAsSession = post.authorId === session.user.portfolioId
-  const isAdmin = session.user.role === "admin"
-  const canUpdate = isSameAsSession || isAdmin
+  const isSameAsSession = post.authorId === session.user.portfolioId;
+  const isAdmin = session.user.role === "admin";
+  const canUpdate = isSameAsSession || isAdmin;
 
   if (post.id && !canUpdate) {
-    throw new Error("Unauthorized")
+    throw new Error("Unauthorized");
   }
 
   const result = await db
@@ -31,15 +31,15 @@ export async function upsertPost(formData: InsertPostSchema) {
       set: post,
     })
     .returning()
-    .then((res) => res.at(0))
+    .then((res) => res.at(0));
 
   if (!result) {
-    throw new Error("Upsert failed")
+    throw new Error("Upsert failed");
   }
 
-  revalidateTag(`/dashboard/posts`)
-  revalidateTag(`/dashboard/posts/${result.id}/edit`)
-  revalidateTag(`/posts/${result.slug}`)
-  revalidateTag(`/${session.user.portfolioSlug}`)
-  return result
+  revalidateTag(`/dashboard/posts`);
+  revalidateTag(`/dashboard/posts/${result.id}/edit`);
+  revalidateTag(`/posts/${result.slug}`);
+  revalidateTag(`/${session.user.portfolioSlug}`);
+  return result;
 }

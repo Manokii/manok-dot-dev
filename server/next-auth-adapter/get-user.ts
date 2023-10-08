@@ -1,16 +1,16 @@
-import { db } from "@/db/client"
-import { users } from "@/db/schema"
-import { eq } from "drizzle-orm"
-import type { Adapter } from "next-auth/adapters"
+import { db } from "@/db/client";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
+import type { Adapter } from "next-auth/adapters";
 
 export const getUser: Adapter["getUser"] = async (userId) => {
   const data = await db.query.users.findFirst({
     with: { portfolio: true },
     where: eq(users.id, userId),
-  })
+  });
 
   if (!data || !data.portfolio) {
-    return null
+    return null;
   }
 
   return {
@@ -22,5 +22,5 @@ export const getUser: Adapter["getUser"] = async (userId) => {
     emailVerified: data.emailVerified,
     portfolioId: data.portfolio.id,
     portfolioSlug: data.portfolio.slug,
-  }
-}
+  };
+};

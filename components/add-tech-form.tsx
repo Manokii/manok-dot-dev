@@ -1,20 +1,30 @@
-import { insertTechnologiesSchema } from "@/lib/validators"
-import { type InsertTechnology, insertTechnology } from "@/server/server-actions"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useTransition } from "react"
-import { useForm } from "react-hook-form"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Button } from "./ui/button"
-import { IconDeviceFloppy, IconLoader2 } from "@tabler/icons-react"
-import { Input } from "./ui/input"
-import { Textarea } from "./ui/textarea"
+import { insertTechnologiesSchema } from "@/lib/validators";
+import {
+  type InsertTechnology,
+  insertTechnology,
+} from "@/server/server-actions";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import { Button } from "./ui/button";
+import { IconDeviceFloppy, IconLoader2 } from "@tabler/icons-react";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 interface Props {
-  onSuccess: (newTech: InsertTechnology) => void
+  onSuccess: (newTech: InsertTechnology) => void;
 }
 
 export function TechnologyAddForm({ onSuccess }: Props) {
-  const [pending, startTransition] = useTransition()
+  const [pending, startTransition] = useTransition();
 
   const form = useForm({
     resolver: zodResolver(insertTechnologiesSchema),
@@ -24,18 +34,18 @@ export function TechnologyAddForm({ onSuccess }: Props) {
       description: "",
       icon: "",
     },
-  })
+  });
 
   const submit = form.handleSubmit((data) => {
     startTransition(async () => {
       try {
-        const result = await insertTechnology(data)
-        onSuccess(result)
+        const result = await insertTechnology(data);
+        onSuccess(result);
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    })
-  }, console.error)
+    });
+  }, console.error);
 
   return (
     <Form {...form}>
@@ -74,7 +84,10 @@ export function TechnologyAddForm({ onSuccess }: Props) {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea {...field} placeholder="A React framework for the web..." />
+                  <Textarea
+                    {...field}
+                    placeholder="A React framework for the web..."
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,5 +104,5 @@ export function TechnologyAddForm({ onSuccess }: Props) {
         </div>
       </form>
     </Form>
-  )
+  );
 }
