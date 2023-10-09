@@ -1,7 +1,7 @@
-import { type InferModel, relations } from "drizzle-orm"
-import { technologies } from "./technologies"
-import { projects } from "./project"
-import { integer, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core"
+import { type InferModel, relations } from "drizzle-orm";
+import { technologies } from "./technologies";
+import { projects } from "./project";
+import { integer, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core";
 
 export const projectTech = pgTable(
   "project_technologies",
@@ -17,7 +17,7 @@ export const projectTech = pgTable(
   (schema) => ({
     id: primaryKey(schema.projectId, schema.techId),
   }),
-)
+);
 
 export const projectTechRelations = relations(projectTech, ({ one }) => ({
   tech: one(technologies, {
@@ -28,7 +28,7 @@ export const projectTechRelations = relations(projectTech, ({ one }) => ({
     fields: [projectTech.projectId],
     references: [projects.id],
   }),
-}))
+}));
 
-export type ProjectTech = InferModel<typeof projectTech>
-export type NewProjectTech = InferModel<typeof projectTech, "insert">
+export type ProjectTech = InferModel<typeof projectTech>;
+export type NewProjectTech = InferModel<typeof projectTech, "insert">;

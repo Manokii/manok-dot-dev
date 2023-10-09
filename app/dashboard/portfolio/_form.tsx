@@ -1,14 +1,14 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import type { GetPortfolio } from "@/queries"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { updatePortfolio } from "@/server/server-actions"
-import { updatePortfolioSchema } from "@/lib/validators"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { IconDeviceFloppy, IconLoader2 } from "@tabler/icons-react"
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import type { GetPortfolio } from "@/queries";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { updatePortfolio } from "@/server/server-actions";
+import { updatePortfolioSchema } from "@/lib/validators";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { IconDeviceFloppy, IconLoader2 } from "@tabler/icons-react";
 import {
   Form,
   FormControl,
@@ -16,15 +16,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { useTransition } from "react"
+} from "@/components/ui/form";
+import { useTransition } from "react";
 
 export interface PortfolioFormProps {
-  portfolio: NonNullable<GetPortfolio>
+  portfolio: NonNullable<GetPortfolio>;
 }
 
 export function PortfolioForm({ portfolio }: PortfolioFormProps) {
-  const [pending, startTransition] = useTransition()
+  const [pending, startTransition] = useTransition();
   const form = useForm({
     resolver: zodResolver(updatePortfolioSchema),
     defaultValues: {
@@ -41,13 +41,13 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
         website: portfolio.socialLinks.website ?? "",
       },
     },
-  })
+  });
 
   const submit = form.handleSubmit(async (data) => {
     startTransition(async () => {
-      await updatePortfolio(data)
-    })
-  }, console.error)
+      await updatePortfolio(data);
+    });
+  }, console.error);
 
   return (
     <Form {...form}>
@@ -204,7 +204,12 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
               </div>
             </CardContent>
           </Card>
-          <Button size="sm" className="self-end" type="submit" disabled={pending}>
+          <Button
+            size="sm"
+            className="self-end"
+            type="submit"
+            disabled={pending}
+          >
             {pending ? (
               <IconLoader2 className="animate-spin mr-2 h-5 w-5" />
             ) : (
@@ -215,5 +220,5 @@ export function PortfolioForm({ portfolio }: PortfolioFormProps) {
         </div>
       </form>
     </Form>
-  )
+  );
 }

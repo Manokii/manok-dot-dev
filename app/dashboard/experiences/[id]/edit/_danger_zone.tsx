@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   AlertDialog,
@@ -9,29 +9,35 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { deleteExperience } from "@/server/server-actions"
-import { IconLoader2, IconTrash, IconTrashFilled } from "@tabler/icons-react"
-import { useRouter } from "next/navigation"
-import { useState, useTransition } from "react"
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { deleteExperience } from "@/server/server-actions";
+import { IconLoader2, IconTrash, IconTrashFilled } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 
 interface Props {
-  experienceId: number
+  experienceId: number;
 }
 export default function ExperienceEditDangerZone({ experienceId }: Props) {
-  const router = useRouter()
-  const [pending, startTransition] = useTransition()
-  const [opened, setOpened] = useState(false)
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [opened, setOpened] = useState(false);
 
   const onAction = () => {
     startTransition(async () => {
-      await deleteExperience(experienceId)
-      setOpened(false)
-      router.push("/dashboard/experiences")
-    })
-  }
+      await deleteExperience(experienceId);
+      setOpened(false);
+      router.push("/dashboard/experiences");
+    });
+  };
 
   return (
     <Card>
@@ -50,11 +56,17 @@ export default function ExperienceEditDangerZone({ experienceId }: Props) {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Delete Experience?</AlertDialogTitle>
-              <AlertDialogDescription>This action cannot be undone</AlertDialogDescription>
+              <AlertDialogDescription>
+                This action cannot be undone
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
-              <Button variant="destructive" disabled={pending} onClick={onAction}>
+              <Button
+                variant="destructive"
+                disabled={pending}
+                onClick={onAction}
+              >
                 {pending ? (
                   <IconLoader2 className="animate-spin w-4 h-4 mr-2" />
                 ) : (
@@ -67,5 +79,5 @@ export default function ExperienceEditDangerZone({ experienceId }: Props) {
         </AlertDialog>
       </CardFooter>
     </Card>
-  )
+  );
 }

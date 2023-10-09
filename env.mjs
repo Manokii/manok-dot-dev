@@ -1,8 +1,8 @@
-import dotenv from "dotenv"
-import { createEnv } from "@t3-oss/env-nextjs"
-import { z } from "zod"
+import dotenv from "dotenv";
+import { createEnv } from "@t3-oss/env-nextjs";
+import { z } from "zod";
 
-dotenv.config({ path: ".env" })
+dotenv.config({ path: ".env" });
 
 export const env = createEnv({
   server: {
@@ -53,4 +53,4 @@ export const env = createEnv({
     NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
-})
+});

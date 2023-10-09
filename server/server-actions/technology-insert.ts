@@ -1,25 +1,30 @@
-"use server"
-import { insertTechnologiesSchema, type InsertTechnologiesSchema } from "@/lib/validators"
-import { db } from "@/db/client"
-import { technologies } from "@/db/schema"
-import { eq } from "drizzle-orm"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../auth-options"
+"use server";
+import {
+  insertTechnologiesSchema,
+  type InsertTechnologiesSchema,
+} from "@/lib/validators";
+import { db } from "@/db/client";
+import { technologies } from "@/db/schema";
+import { eq } from "drizzle-orm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth-options";
 
 export async function insertTechnology(formData: InsertTechnologiesSchema) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    throw new Error("Unauthenticated")
+    throw new Error("Unauthenticated");
   }
-  const { id: _, ...data } = await insertTechnologiesSchema.parseAsync(formData)
+  const { id: _, ...data } = await insertTechnologiesSchema.parseAsync(
+    formData,
+  );
 
   return await db.transaction(async (tx) => {
     const exists = await tx.query.technologies.findFirst({
       where: eq(technologies.slug, data.slug),
-    })
+    });
 
     if (exists) {
-      return exists
+      return exists;
     }
 
     const tech = await tx
@@ -34,14 +39,14 @@ export async function insertTechnology(formData: InsertTechnologiesSchema) {
         },
       ])
       .returning()
-      .then((res) => res.at(0))
+      .then((res) => res.at(0));
 
     if (!tech) {
-      throw new Error("Unable to create technology")
+      throw new Error("Unable to create technology");
     }
 
-    return tech
-  })
+    return tech;
+  });
 }
 
-export type InsertTechnology = Awaited<ReturnType<typeof insertTechnology>>
+export type InsertTechnology = Awaited<ReturnType<typeof insertTechnology>>;

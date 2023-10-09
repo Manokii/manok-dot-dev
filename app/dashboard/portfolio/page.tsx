@@ -1,19 +1,19 @@
-import { PortfolioForm } from "./_form"
-import { authOptions } from "@/server/auth-options"
-import { getPortfolio } from "@/queries"
-import { getServerSession } from "next-auth/next"
-import { redirect } from "next/navigation"
-import { PortfolioDangerZone } from "./_danger_zone"
+import { PortfolioForm } from "./_form";
+import { authOptions } from "@/server/auth-options";
+import { getPortfolio } from "@/queries";
+import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
+import { PortfolioDangerZone } from "./_danger_zone";
 
 export default async function PortfolioDashboard() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
-  const portfolio = await getPortfolio(session.user.id)
+  const portfolio = await getPortfolio(session.user.id);
   if (!portfolio) {
-    redirect("/")
+    redirect("/");
   }
 
   return (
@@ -21,5 +21,5 @@ export default async function PortfolioDashboard() {
       <PortfolioForm portfolio={portfolio} />
       <PortfolioDangerZone />
     </div>
-  )
+  );
 }

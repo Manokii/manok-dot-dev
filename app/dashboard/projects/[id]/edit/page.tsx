@@ -1,32 +1,35 @@
-import { getServerSession } from "next-auth"
-import { ProjectForm } from "../../_form"
-import { authOptions } from "@/server/auth-options"
-import { notFound, redirect } from "next/navigation"
-import { getAllTech, getProject } from "@/queries"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { LinkButton } from "@/components/ui/button"
-import { IconArrowLeft } from "@tabler/icons-react"
-import ProjectEditDangerZone from "./_danger_zone"
+import { getServerSession } from "next-auth";
+import { ProjectForm } from "../../_form";
+import { authOptions } from "@/server/auth-options";
+import { notFound, redirect } from "next/navigation";
+import { getAllTech, getProject } from "@/queries";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LinkButton } from "@/components/ui/button";
+import { IconArrowLeft } from "@tabler/icons-react";
+import ProjectEditDangerZone from "./_danger_zone";
 
 interface Props {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default async function ProjectEditPage({ params: { id } }: Props) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
-  const techPromise = getAllTech()
-  const projectPromise = getProject(parseInt(id))
-  const portfolioId = session.user.portfolioId
+  const techPromise = getAllTech();
+  const projectPromise = getProject(parseInt(id));
+  const portfolioId = session.user.portfolioId;
 
-  const [technologies, project] = await Promise.all([techPromise, projectPromise])
+  const [technologies, project] = await Promise.all([
+    techPromise,
+    projectPromise,
+  ]);
   if (project?.portfolioId !== portfolioId || !project) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -42,10 +45,14 @@ export default async function ProjectEditPage({ params: { id } }: Props) {
           <CardTitle>Edit Project</CardTitle>
         </CardHeader>
         <CardContent>
-          <ProjectForm project={project} technologies={technologies} portfolioId={portfolioId} />
+          <ProjectForm
+            project={project}
+            technologies={technologies}
+            portfolioId={portfolioId}
+          />
         </CardContent>
       </Card>
       <ProjectEditDangerZone projectId={project.id} />
     </div>
-  )
+  );
 }

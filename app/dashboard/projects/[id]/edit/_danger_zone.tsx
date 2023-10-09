@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   AlertDialog,
@@ -9,29 +9,35 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { deleteProject } from "@/server/server-actions/project-delete"
-import { IconLoader2, IconTrash, IconTrashFilled } from "@tabler/icons-react"
-import { useRouter } from "next/navigation"
-import { useState, useTransition } from "react"
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { deleteProject } from "@/server/server-actions/project-delete";
+import { IconLoader2, IconTrash, IconTrashFilled } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 
 interface Props {
-  projectId: number
+  projectId: number;
 }
 export default function ProjectEditDangerZone({ projectId }: Props) {
-  const router = useRouter()
-  const [pending, startTransition] = useTransition()
-  const [opened, setOpened] = useState(false)
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [opened, setOpened] = useState(false);
 
   const onAction = () => {
     startTransition(async () => {
-      await deleteProject(projectId)
-      setOpened(false)
-      router.push("/dashboard/projects")
-    })
-  }
+      await deleteProject(projectId);
+      setOpened(false);
+      router.push("/dashboard/projects");
+    });
+  };
 
   return (
     <Card>
@@ -50,11 +56,17 @@ export default function ProjectEditDangerZone({ projectId }: Props) {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Delete Project?</AlertDialogTitle>
-              <AlertDialogDescription>This action cannot be undone</AlertDialogDescription>
+              <AlertDialogDescription>
+                This action cannot be undone
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
-              <Button variant="destructive" disabled={pending} onClick={onAction}>
+              <Button
+                variant="destructive"
+                disabled={pending}
+                onClick={onAction}
+              >
                 {pending ? (
                   <IconLoader2 className="animate-spin w-4 h-4 mr-2" />
                 ) : (
@@ -67,5 +79,5 @@ export default function ProjectEditDangerZone({ projectId }: Props) {
         </AlertDialog>
       </CardFooter>
     </Card>
-  )
+  );
 }

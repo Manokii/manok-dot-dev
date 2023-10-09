@@ -1,7 +1,15 @@
-import { portfolios } from "./portfolio"
-import { type InferModel, relations } from "drizzle-orm"
-import { projectTech } from "./project-technologies"
-import { date, integer, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core"
+import { portfolios } from "./portfolio";
+import { type InferModel, relations } from "drizzle-orm";
+import { projectTech } from "./project-technologies";
+import {
+  date,
+  integer,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const projects = pgTable("projects", {
   id: serial("id").primaryKey().notNull(),
@@ -17,7 +25,7 @@ export const projects = pgTable("projects", {
   portfolioId: integer("portfolio_id")
     .notNull()
     .references(() => portfolios.id, { onDelete: "cascade" }),
-})
+});
 
 export const projectsRelations = relations(projects, ({ one, many }) => ({
   portfolio: one(portfolios, {
@@ -25,7 +33,7 @@ export const projectsRelations = relations(projects, ({ one, many }) => ({
     references: [portfolios.id],
   }),
   stack: many(projectTech),
-}))
+}));
 
-export type Project = InferModel<typeof projects>
-export type NewProject = InferModel<typeof projects, "insert">
+export type Project = InferModel<typeof projects>;
+export type NewProject = InferModel<typeof projects, "insert">;

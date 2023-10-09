@@ -1,4 +1,4 @@
-import { InputSkeleton, TextareaSkeleton } from "@/components/ui/skeleton"
+import { InputSkeleton, TextareaSkeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
@@ -9,5 +9,5 @@ export default function Loading() {
       <InputSkeleton className="col-span-full" />
       <TextareaSkeleton className="col-span-full" />
     </div>
-  )
+  );
 }

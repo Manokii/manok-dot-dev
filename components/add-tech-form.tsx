@@ -1,20 +1,33 @@
-import { insertTechnologiesSchema } from "@/lib/validators"
-import { type InsertTechnology, insertTechnology } from "@/server/server-actions"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useTransition } from "react"
-import { useForm } from "react-hook-form"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Button } from "./ui/button"
-import { IconDeviceFloppy, IconLoader2 } from "@tabler/icons-react"
-import { Input } from "./ui/input"
-import { Textarea } from "./ui/textarea"
+import "@uploadthing/react/styles.css";
+import { insertTechnologiesSchema } from "@/lib/validators";
+import {
+  type InsertTechnology,
+  insertTechnology,
+} from "@/server/server-actions";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import { Button } from "./ui/button";
+import { IconDeviceFloppy, IconLoader2, IconTrash } from "@tabler/icons-react";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { UploadDropzone } from "@uploadthing/react";
+import { type UploadRouter } from "@/app/api/uploadthing/core";
 
 interface Props {
-  onSuccess: (newTech: InsertTechnology) => void
+  onSuccess: (newTech: InsertTechnology) => void;
 }
 
 export function TechnologyAddForm({ onSuccess }: Props) {
-  const [pending, startTransition] = useTransition()
+  const [pending, startTransition] = useTransition();
 
   const form = useForm({
     resolver: zodResolver(insertTechnologiesSchema),
@@ -24,18 +37,20 @@ export function TechnologyAddForm({ onSuccess }: Props) {
       description: "",
       icon: "",
     },
-  })
+  });
+
+  const icon = form.watch("icon");
 
   const submit = form.handleSubmit((data) => {
     startTransition(async () => {
       try {
-        const result = await insertTechnology(data)
-        onSuccess(result)
+        const result = await insertTechnology(data);
+        onSuccess(result);
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    })
-  }, console.error)
+    });
+  }, console.error);
 
   return (
     <Form {...form}>
@@ -46,7 +61,7 @@ export function TechnologyAddForm({ onSuccess }: Props) {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Technology Name</FormLabel>
+                <FormLabel>Technology Name *</FormLabel>
                 <FormControl>
                   <Input {...field} placeholder="NextJs..." />
                 </FormControl>
@@ -59,7 +74,7 @@ export function TechnologyAddForm({ onSuccess }: Props) {
             name="slug"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Slug</FormLabel>
+                <FormLabel>Slug *</FormLabel>
                 <FormControl>
                   <Input {...field} placeholder="nextjs" />
                 </FormControl>
@@ -74,7 +89,49 @@ export function TechnologyAddForm({ onSuccess }: Props) {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea {...field} placeholder="A React framework for the web..." />
+                  <Textarea
+                    {...field}
+                    placeholder="A React framework for the web..."
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="icon"
+            render={() => (
+              <FormItem>
+                <FormLabel>Icon</FormLabel>
+                <FormControl>
+                  <div className="flex flex-col gap-2 items-center ring-1 ring-muted p-8">
+                    {icon && (
+                      <div className="relative p-4 bg-card/30 rounded-md w-full">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="absolute top-2 right-2"
+                          onClick={() => form.setValue("icon", "")}
+                        >
+                          <IconTrash className="h-4 w-4" />
+                        </Button>
+                        <div
+                          className="bg-contain w-full h-40 bg-center bg-no-repeat"
+                          style={{ backgroundImage: `url("${icon}")` }}
+                        />
+                      </div>
+                    )}
+                    <UploadDropzone<UploadRouter>
+                      endpoint="imageUploader"
+                      onClientUploadComplete={(res = []) => {
+                        const file = res.at(0);
+                        if (file) {
+                          form.setValue("icon", file.fileUrl);
+                        }
+                      }}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,5 +148,5 @@ export function TechnologyAddForm({ onSuccess }: Props) {
         </div>
       </form>
     </Form>
-  )
+  );
 }

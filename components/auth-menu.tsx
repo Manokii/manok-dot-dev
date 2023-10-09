@@ -1,6 +1,6 @@
-"use client"
-import { User } from "next-auth"
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+"use client";
+import { User } from "next-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,41 +9,49 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu"
-import { IconBrandTabler, IconLogout, IconUser } from "@tabler/icons-react"
-import { signOut } from "next-auth/react"
-import NextLink from "next/link"
-import type { GetPortfolio } from "@/queries"
-import { useRouter } from "next/navigation"
+} from "./ui/dropdown-menu";
+import { IconBrandTabler, IconLogout, IconUser } from "@tabler/icons-react";
+import { signOut } from "next-auth/react";
+import NextLink from "next/link";
+import type { GetPortfolio } from "@/queries";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  user: User
+  user: User;
 }
 
 export function AuthMenu({ user }: Props) {
-  const router = useRouter()
+  const router = useRouter();
   const navigateToPortfolio = async () => {
     try {
-      const result = await fetch(`/api/profile/${user.id}`)
-      const newPortfolio: GetPortfolio = await result.json()
-      router.push(`/${newPortfolio.slug}`)
+      const result = await fetch(`/api/profile/${user.id}`);
+      const newPortfolio: GetPortfolio = await result.json();
+      router.push(`/${newPortfolio.slug}`);
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
-  }
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage className="m-0" src={user.image ?? ""} alt={user.name ?? ""} />
+          <AvatarImage
+            className="m-0"
+            src={user.image ?? ""}
+            alt={user.name ?? ""}
+          />
           <AvatarFallback>{(user.name ?? "")[0] ?? ""}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-card/90" align="end">
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none text-foreground">{user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+            <p className="text-sm font-medium leading-none text-foreground">
+              {user.name}
+            </p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {user.email}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -65,5 +73,5 @@ export function AuthMenu({ user }: Props) {
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import { type InferModel, relations } from "drizzle-orm"
-import { technologies } from "./technologies"
-import { experiences } from "./experience"
-import { integer, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core"
+import { type InferModel, relations } from "drizzle-orm";
+import { technologies } from "./technologies";
+import { experiences } from "./experience";
+import { integer, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core";
 
 /**
  * This is a join table for "experience" and "technologies" (Many to Many)
@@ -20,7 +20,7 @@ export const experienceTech = pgTable(
   (schema) => ({
     id: primaryKey(schema.experienceId, schema.techId),
   }),
-)
+);
 
 export const experienceTechRelations = relations(experienceTech, ({ one }) => ({
   tech: one(technologies, {
@@ -31,7 +31,7 @@ export const experienceTechRelations = relations(experienceTech, ({ one }) => ({
     fields: [experienceTech.experienceId],
     references: [experiences.id],
   }),
-}))
+}));
 
-export type ExperienceTech = InferModel<typeof experienceTech>
-export type NewExperienceTech = InferModel<typeof experienceTech, "insert">
+export type ExperienceTech = InferModel<typeof experienceTech>;
+export type NewExperienceTech = InferModel<typeof experienceTech, "insert">;

@@ -1,9 +1,9 @@
-import { NextAuthOptions } from "next-auth"
-import DiscordProvider from "next-auth/providers/discord"
-import GithubProvider from "next-auth/providers/github"
+import { NextAuthOptions } from "next-auth";
+import DiscordProvider from "next-auth/providers/discord";
+import GithubProvider from "next-auth/providers/github";
 
-import { drizzleAdapter } from "./next-auth-adapter/drizzle-adapter"
-import { env } from "@/env.mjs"
+import { drizzleAdapter } from "./next-auth-adapter/drizzle-adapter";
+import { env } from "@/env.mjs";
 
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
@@ -40,4 +40,4 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
-}
+};

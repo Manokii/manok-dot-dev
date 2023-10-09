@@ -1,16 +1,20 @@
-"use client"
-import { TypographyH2, TypographyH4, TypographySmall } from "@/components/ui/typography"
-import { env } from "@/env.mjs"
-import { cn } from "@/lib/utils"
-import type { GetPortfolioWithRelations } from "@/queries"
-import { IconArrowUpRight } from "@tabler/icons-react"
-import { format } from "date-fns/esm"
-import NextImage from "next/image"
-import NextLink from "next/link"
+"use client";
+import {
+  TypographyH2,
+  TypographyH4,
+  TypographySmall,
+} from "@/components/ui/typography";
+import { env } from "@/env.mjs";
+import { cn } from "@/lib/utils";
+import type { GetPortfolioWithRelations } from "@/queries";
+import { IconArrowUpRight } from "@tabler/icons-react";
+import { format } from "date-fns/esm";
+import NextImage from "next/image";
+import NextLink from "next/link";
 
 interface Props {
-  posts: GetPortfolioWithRelations["posts"]
-  authorName: string
+  posts: GetPortfolioWithRelations["posts"];
+  authorName: string;
 }
 
 export function PostList({ posts = [], authorName }: Props) {
@@ -52,11 +56,13 @@ export function PostList({ posts = [], authorName }: Props) {
                 {post.title}
                 <IconArrowUpRight className="w-4 h-4 ml-1 inline text-muted-foreground group-hover:text-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </TypographyH4>
-              <TypographySmall className="leading-none">{post.excerpt}</TypographySmall>
+              <TypographySmall className="leading-none">
+                {post.excerpt}
+              </TypographySmall>
             </div>
           </NextLink>
         ))}
       </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { env } from "./env.mjs"
+import { env } from "./env.mjs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -16,6 +16,6 @@ const nextConfig = {
       },
     ],
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
