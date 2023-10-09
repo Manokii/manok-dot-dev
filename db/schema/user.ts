@@ -7,6 +7,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+import { uploads } from "./upload";
 
 // --- Next Auth Table ---
 export const userRole = pgEnum("user_role", ["admin", "default"]);
@@ -22,11 +23,12 @@ export const users = pgTable("users", {
   portfolioId: integer("portfolio_id"),
 });
 
-export const usersRelations = relations(users, ({ one }) => ({
+export const usersRelations = relations(users, ({ one, many }) => ({
   portfolio: one(portfolios, {
     fields: [users.portfolioId],
     references: [portfolios.id],
   }),
+  uploads: many(uploads),
 }));
 
 export type User = InferModel<typeof users>;

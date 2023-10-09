@@ -9,3 +9,4 @@ export * from "./session";
 export * from "./user";
 export * from "./verification-token";
 export * from "./posts";
+export * from "./upload";
