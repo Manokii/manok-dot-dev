@@ -34,7 +34,7 @@ export function ProjectList({ projects = [] }: Props) {
               {project.shortDescription && (
                 <MarkdownNoHeadings
                   components={{
-                    p: ({ node, ...props }) => (
+                    p: ({ node, ref, ...props }) => (
                       <TypographyP className="mb-4" {...props} />
                     ),
                   }}

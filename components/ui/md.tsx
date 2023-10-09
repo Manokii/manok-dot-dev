@@ -11,7 +11,7 @@ import { ComponentProps } from "react";
 export const commonMdComponents: Components = {
   p: ({ node, ...props }) => <p className="mt-4" {...props} />,
   a: ({ node, ...props }) => <a className="text-blue-400" {...props} />,
-  li: ({ node, ordered, ...props }) => <li className="mb-2" {...props} />,
+  li: ({ node, ...props }) => <li className="mb-2" {...props} />,
   pre: ({ node, ...props }) => (
     <pre {...props} className="!bg-card/30 border border-muted shadow" />
   ),
@@ -31,10 +31,10 @@ export function Markdown({ content, ...props }: MarkdownProps) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm, ...(props.remarkPlugins ?? [])]}
       components={{
-        h1: ({ node, ...props }) => <TypographyH1 {...props} />,
-        h2: ({ node, ...props }) => <TypographyH2 {...props} />,
-        h3: ({ node, ...props }) => <TypographyH3 {...props} />,
-        h4: ({ node, ...props }) => <TypographyH4 {...props} />,
+        h1: ({ node, ref, ...props }) => <TypographyH1 {...props} />,
+        h2: ({ node, ref, ...props }) => <TypographyH2 {...props} />,
+        h3: ({ node, ref, ...props }) => <TypographyH3 {...props} />,
+        h4: ({ node, ref, ...props }) => <TypographyH4 {...props} />,
         ...commonMdComponents,
         ...props.components,
       }}
