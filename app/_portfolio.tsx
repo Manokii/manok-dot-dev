@@ -1,20 +1,20 @@
-"use client"
-import { Markdown, MarkdownNoHeadings } from "@/components/ui/md"
+"use client";
+import { Markdown, MarkdownNoHeadings } from "@/components/ui/md";
 import {
   TypographyH1,
   TypographyH2,
   TypographyH4,
   TypographyLarge,
-} from "@/components/ui/typography"
-import type { GetPortfolioWithRelations } from "@/queries"
-import { ExperienceList } from "./_experiences"
-import { SocialLinks } from "./_social-links"
-import NextLink from "next/link"
-import { ProjectList } from "./_projects"
-import { PostList } from "./_posts"
+} from "@/components/ui/typography";
+import type { GetPortfolioWithRelations } from "@/queries";
+import { ExperienceList } from "./_experiences";
+import { SocialLinks } from "./_social-links";
+import NextLink from "next/link";
+import { ProjectList } from "./_projects";
+import { PostList } from "./_posts";
 
 interface PortfolioPageProps {
-  portfolio: GetPortfolioWithRelations
+  portfolio: GetPortfolioWithRelations;
 }
 
 export function PortfolioPage({ portfolio }: PortfolioPageProps) {
@@ -74,24 +74,34 @@ export function PortfolioPage({ portfolio }: PortfolioPageProps) {
               </ul>
             </nav>
           </div>
-          <SocialLinks {...portfolio.socialLinks} publicEmail={portfolio.publicEmail} />
+          <SocialLinks
+            {...portfolio.socialLinks}
+            publicEmail={portfolio.publicEmail}
+          />
         </header>
-        <main className="pt-8 lg:pt-24 lg:w-1/2 lg:py-24 flex flex-col gap-20" id="about">
+        <main
+          className="pt-8 lg:pt-24 lg:w-1/2 lg:py-24 flex flex-col gap-20"
+          id="about"
+        >
           {portfolio.about && (
             <div className="flex flex-col gap-2 snap-mt-6 scroll-m-8">
-              <TypographyH2 className="border-none flex lg:hidden pt-6">About</TypographyH2>
+              <TypographyH2 className="border-none flex lg:hidden pt-6">
+                About
+              </TypographyH2>
               <Markdown content={portfolio.about ?? ""} />
             </div>
           )}
           {portfolio.experiences.length > 0 && (
             <ExperienceList experiences={portfolio.experiences} />
           )}
-          {portfolio.projects.length > 0 && <ProjectList projects={portfolio.projects} />}
+          {portfolio.projects.length > 0 && (
+            <ProjectList projects={portfolio.projects} />
+          )}
           {portfolio.posts.length > 0 && (
             <PostList posts={portfolio.posts} authorName={portfolio.name} />
           )}
         </main>
       </div>
     </div>
-  )
+  );
 }

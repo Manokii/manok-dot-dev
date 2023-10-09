@@ -1,5 +1,5 @@
-import type { InferModel } from "drizzle-orm"
-import { pgTable, primaryKey, timestamp, varchar } from "drizzle-orm/pg-core"
+import type { InferModel } from "drizzle-orm";
+import { pgTable, primaryKey, timestamp, varchar } from "drizzle-orm/pg-core";
 
 // --- Next Auth Table ---
 export const verificationTokens = pgTable(
@@ -12,7 +12,10 @@ export const verificationTokens = pgTable(
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),
   }),
-)
+);
 
-export type VerificationToken = InferModel<typeof verificationTokens>
-export type NewVerificationToken = InferModel<typeof verificationTokens, "insert">
+export type VerificationToken = InferModel<typeof verificationTokens>;
+export type NewVerificationToken = InferModel<
+  typeof verificationTokens,
+  "insert"
+>;

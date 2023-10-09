@@ -1,11 +1,19 @@
-"use client"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism"
-import ReactMarkdown from "react-markdown"
-import { useTheme } from "next-themes"
-import { MarkdownProps, commonMdComponents } from "./md"
-import remarkGfm from "remark-gfm"
-import { TypographyH1, TypographyH2, TypographyH3, TypographyH4 } from "./typography"
+"use client";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  oneDark,
+  oneLight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
+import ReactMarkdown from "react-markdown";
+import { useTheme } from "next-themes";
+import { MarkdownProps, commonMdComponents } from "./md";
+import remarkGfm from "remark-gfm";
+import {
+  TypographyH1,
+  TypographyH2,
+  TypographyH3,
+  TypographyH4,
+} from "./typography";
 
 export function MarkdownWithCode({ content, ...props }: MarkdownProps) {
   return (
@@ -19,8 +27,8 @@ export function MarkdownWithCode({ content, ...props }: MarkdownProps) {
         ...commonMdComponents,
         ...props.components,
         code: ({ node, inline, className, children, ...props }) => {
-          const { theme } = useTheme()
-          const match = /language-(\w+)/.exec(className || "")
+          const { theme } = useTheme();
+          const match = /language-(\w+)/.exec(className || "");
           return !inline && match ? (
             <SyntaxHighlighter
               {...props}
@@ -34,11 +42,11 @@ export function MarkdownWithCode({ content, ...props }: MarkdownProps) {
             <code {...props} className={className}>
               {children}
             </code>
-          )
+          );
         },
       }}
     >
       {content}
     </ReactMarkdown>
-  )
+  );
 }

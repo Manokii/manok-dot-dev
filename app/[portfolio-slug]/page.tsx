@@ -1,36 +1,37 @@
-import { getPortfolioWithRelations, getPortfolios } from "@/queries"
-import { PortfolioPage } from "../_portfolio"
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { sanitizeMarkdown } from "@/lib/sanitize-md"
-import { env } from "@/env.mjs"
-import { portfolioOgParams } from "@/lib/og-params"
+import { getPortfolioWithRelations, getPortfolios } from "@/queries";
+import { PortfolioPage } from "../_portfolio";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { sanitizeMarkdown } from "@/lib/sanitize-md";
+import { env } from "@/env.mjs";
+import { portfolioOgParams } from "@/lib/og-params";
 
-export const revalidate = 30
+export const revalidate = 30;
 
 type Props = {
   params: {
-    "portfolio-slug": string
-  }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+    "portfolio-slug": string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export async function generateStaticParams() {
-  const portfolios = await getPortfolios()
+  const portfolios = await getPortfolios();
 
   return portfolios.map((portfolio) => {
     return {
       "portfolio-slug": portfolio.slug,
-    }
-  })
+    };
+  });
 }
 
 export async function generateMetadata({
   params: { "portfolio-slug": portfolioSlug = "" },
 }: Props): Promise<Metadata> {
-  const portfolio = await getPortfolioWithRelations(portfolioSlug)
-  const title = `${portfolio?.name || "Portfolio"} — Portfolio`
-  const description = sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website"
+  const portfolio = await getPortfolioWithRelations(portfolioSlug);
+  const title = `${portfolio?.name || "Portfolio"} — Portfolio`;
+  const description =
+    sanitizeMarkdown(portfolio?.headline) || "A full-stack portfolio website";
 
   const url = `${env.NEXT_PUBLIC_URL}/og/portfolio?${portfolioOgParams({
     name: portfolio?.name || "",
@@ -40,7 +41,7 @@ export async function generateMetadata({
     linkedin: portfolio?.socialLinks?.linkedin || "",
     twitter: portfolio?.socialLinks?.twitter || "",
     website: portfolio?.socialLinks?.website || "",
-  })}`
+  })}`;
 
   return {
     title,
@@ -59,17 +60,17 @@ export async function generateMetadata({
       description,
       site: `${env.NEXT_PUBLIC_URL}/${portfolioSlug}`,
     },
-  }
+  };
 }
 
 export default async function PortfolioIndividualPage({
   params: { "portfolio-slug": portofolioSlug = "" },
 }: Props) {
-  const portfolio = await getPortfolioWithRelations(portofolioSlug)
+  const portfolio = await getPortfolioWithRelations(portofolioSlug);
 
   if (!portfolio) {
-    notFound()
+    notFound();
   }
 
-  return <PortfolioPage portfolio={portfolio} />
+  return <PortfolioPage portfolio={portfolio} />;
 }

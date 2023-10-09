@@ -3,5 +3,5 @@ export function sanitizeMarkdown(str = "") {
     .replaceAll("**", "")
     .replaceAll("__", "")
     .replaceAll("~~", "")
-    .replaceAll(/\[(.*)\]\(.*\)/g, "$1")
+    .replaceAll(/\[(.*)\]\(.*\)/g, "$1");
 }

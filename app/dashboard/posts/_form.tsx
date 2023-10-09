@@ -1,5 +1,5 @@
-"use client"
-import { Button } from "@/components/ui/button"
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,36 +8,36 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { TypographySmall } from "@/components/ui/typography"
-import type { Post } from "@/db/schema"
-import { insertPostSchema } from "@/lib/validators"
-import type { GetPost } from "@/queries"
-import { upsertPost } from "@/server/server-actions"
-import { setPostStatus } from "@/server/server-actions/post-actions"
-import { zodResolver } from "@hookform/resolvers/zod"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { TypographySmall } from "@/components/ui/typography";
+import type { Post } from "@/db/schema";
+import { insertPostSchema } from "@/lib/validators";
+import type { GetPost } from "@/queries";
+import { upsertPost } from "@/server/server-actions";
+import { setPostStatus } from "@/server/server-actions/post-actions";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   IconDeviceFloppy,
   IconGitPullRequestDraft,
   IconLoader2,
   IconSend,
-} from "@tabler/icons-react"
-import { format } from "date-fns/esm"
-import { useRouter } from "next/navigation"
-import { useTransition } from "react"
-import { useForm } from "react-hook-form"
-import NextLink from "next/link"
+} from "@tabler/icons-react";
+import { format } from "date-fns/esm";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import NextLink from "next/link";
 
 interface Props {
-  post?: GetPost
-  portfolioId: number
+  post?: GetPost;
+  portfolioId: number;
 }
 
 export function PostForm({ post, portfolioId }: Props) {
-  const router = useRouter()
-  const [pending, startTransition] = useTransition()
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
   const postForm = useForm({
     resolver: zodResolver(insertPostSchema),
     defaultValues: {
@@ -50,14 +50,14 @@ export function PostForm({ post, portfolioId }: Props) {
       thumbnail: post?.thumbnail ?? "",
       status: post?.status ?? "draft",
     },
-  })
+  });
 
-  const status = postForm.watch("status")
+  const status = postForm.watch("status");
 
-  const isEdit = Boolean(post)
+  const isEdit = Boolean(post);
   const saveAsDraft = postForm.handleSubmit((values) => {
     startTransition(async () => {
-      const newPost = await upsertPost(values)
+      const newPost = await upsertPost(values);
       postForm.reset({
         id: newPost.id,
         authorId: portfolioId,
@@ -67,18 +67,18 @@ export function PostForm({ post, portfolioId }: Props) {
         slug: newPost.slug,
         thumbnail: newPost.thumbnail ?? "",
         status: newPost.status,
-      })
+      });
 
       if (!isEdit) {
-        router.push(`/dashboard/posts/${newPost.id}/edit`)
+        router.push(`/dashboard/posts/${newPost.id}/edit`);
       }
-    })
-  }, console.error)
+    });
+  }, console.error);
 
   const updateStatus = (status: Post["status"]) =>
     postForm.handleSubmit((post) => {
       startTransition(async () => {
-        const newPost = await setPostStatus(post, status)
+        const newPost = await setPostStatus(post, status);
         postForm.reset({
           id: newPost.id,
           authorId: portfolioId,
@@ -88,9 +88,9 @@ export function PostForm({ post, portfolioId }: Props) {
           slug: newPost.slug,
           thumbnail: newPost.thumbnail ?? "",
           status: newPost.status,
-        })
-      })
-    })
+        });
+      });
+    });
 
   return (
     <Form {...postForm}>
@@ -178,7 +178,9 @@ export function PostForm({ post, portfolioId }: Props) {
           {isEdit && (
             <Button
               disabled={pending}
-              onClick={updateStatus(status === "published" ? "draft" : "published")}
+              onClick={updateStatus(
+                status === "published" ? "draft" : "published",
+              )}
             >
               {pending ? (
                 <IconLoader2 className="animate-spin mr-2 w-5 h-5" />
@@ -193,5 +195,5 @@ export function PostForm({ post, portfolioId }: Props) {
         </div>
       </div>
     </Form>
-  )
+  );
 }

@@ -1,25 +1,25 @@
-import { ImageResponse, type NextRequest } from "next/server"
-import { GithubIcon } from "./_github_icon"
-import { LinkedinIcon } from "./_linkedin_icon"
-import { TwitterIcon } from "./_twitter_icon"
-import { LinkIcon } from "./_link_icon"
+import { ImageResponse, type NextRequest } from "next/server";
+import { GithubIcon } from "./_github_icon";
+import { LinkedinIcon } from "./_linkedin_icon";
+import { TwitterIcon } from "./_twitter_icon";
+import { LinkIcon } from "./_link_icon";
 
-export const runtime = "edge"
+export const runtime = "edge";
 
-const interBold = fetch(new URL("../../../assets/Inter-Bold.ttf", import.meta.url)).then((res) =>
-  res.arrayBuffer(),
-)
+const interBold = fetch(
+  new URL("../../../assets/Inter-Bold.ttf", import.meta.url),
+).then((res) => res.arrayBuffer());
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.nextUrl)
+  const { searchParams } = new URL(req.nextUrl);
 
-  const name = searchParams.get("name") ?? ""
-  const url = searchParams.get("url") ?? ""
-  const headline = searchParams.get("headline") ?? ""
-  const github = searchParams.get("github") ?? ""
-  const linkedin = searchParams.get("linkedin") ?? ""
-  const twitter = searchParams.get("twitter") ?? ""
-  const website = searchParams.get("website") ?? ""
+  const name = searchParams.get("name") ?? "";
+  const url = searchParams.get("url") ?? "";
+  const headline = searchParams.get("headline") ?? "";
+  const github = searchParams.get("github") ?? "";
+  const linkedin = searchParams.get("linkedin") ?? "";
+  const twitter = searchParams.get("twitter") ?? "";
+  const website = searchParams.get("website") ?? "";
 
   return new ImageResponse(
     (
@@ -94,7 +94,9 @@ export async function GET(req: NextRequest) {
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <LinkedinIcon />
               <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)" }}>
-                {linkedin.replace(new RegExp(/.*\.com\//), "").replace(/\/$/g, "")}
+                {linkedin
+                  .replace(new RegExp(/.*\.com\//), "")
+                  .replace(/\/$/g, "")}
               </div>
             </div>
           )}
@@ -103,7 +105,9 @@ export async function GET(req: NextRequest) {
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <TwitterIcon />
               <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)" }}>
-                {twitter.replace(new RegExp(/.*\.com\//), "").replace(/\/$/g, "")}
+                {twitter
+                  .replace(new RegExp(/.*\.com\//), "")
+                  .replace(/\/$/g, "")}
               </div>
             </div>
           )}
@@ -111,7 +115,9 @@ export async function GET(req: NextRequest) {
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <LinkIcon />
               <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)" }}>
-                {website.replace(new RegExp(/https:\/\//), "").replace(/\/$/g, "")}
+                {website
+                  .replace(new RegExp(/https:\/\//), "")
+                  .replace(/\/$/g, "")}
               </div>
             </div>
           )}
@@ -129,5 +135,5 @@ export async function GET(req: NextRequest) {
         },
       ],
     },
-  )
+  );
 }

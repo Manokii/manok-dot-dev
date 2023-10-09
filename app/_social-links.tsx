@@ -1,4 +1,4 @@
-import { LinkButton } from "@/components/ui/button"
+import { LinkButton } from "@/components/ui/button";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
@@ -6,16 +6,16 @@ import {
   IconBrandTwitter,
   IconMail,
   IconWorldWww,
-} from "@tabler/icons-react"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Separator } from "@/components/ui/separator"
+} from "@tabler/icons-react";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Separator } from "@/components/ui/separator";
 
 interface Props {
-  github?: string
-  linkedin?: string
-  twitter?: string
-  website?: string
-  publicEmail?: string | null
+  github?: string;
+  linkedin?: string;
+  twitter?: string;
+  website?: string;
+  publicEmail?: string | null;
 }
 
 export function SocialLinks(props: Props) {
@@ -42,7 +42,11 @@ export function SocialLinks(props: Props) {
         </LinkButton>
       )}
       {props.publicEmail && (
-        <LinkButton href={`mailto:${props.publicEmail}`} variant="ghost" size="icon">
+        <LinkButton
+          href={`mailto:${props.publicEmail}`}
+          variant="ghost"
+          size="icon"
+        >
           <IconMail />
         </LinkButton>
       )}
@@ -52,5 +56,5 @@ export function SocialLinks(props: Props) {
         <IconBrandTabler />
       </LinkButton>
     </div>
-  )
+  );
 }

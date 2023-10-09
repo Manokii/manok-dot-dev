@@ -1,2 +1,2 @@
-import Loading from "../_list-loading"
-export default Loading
+import Loading from "../_list-loading";
+export default Loading;

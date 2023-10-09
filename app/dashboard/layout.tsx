@@ -1,22 +1,22 @@
-import { ReactNode } from "react"
-import { AuthMenu } from "@/components/auth-menu"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/server/auth-options"
-import { redirect } from "next/navigation"
-import { preloadGetPortfolio } from "@/queries"
-import DashboardTabs from "./_tabs"
+import { ReactNode } from "react";
+import { AuthMenu } from "@/components/auth-menu";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/server/auth-options";
+import { redirect } from "next/navigation";
+import { preloadGetPortfolio } from "@/queries";
+import DashboardTabs from "./_tabs";
 
 interface Props {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export default async function DashboardLayout({ children }: Props) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
-  preloadGetPortfolio(session.user.id)
+  preloadGetPortfolio(session.user.id);
 
   return (
     <div className="container p-4 md:p-8">
@@ -30,5 +30,5 @@ export default async function DashboardLayout({ children }: Props) {
         </main>
       </div>
     </div>
-  )
+  );
 }

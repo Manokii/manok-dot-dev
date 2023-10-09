@@ -1,43 +1,43 @@
-import "@/styles/github-markdown.css"
-import { getPublicPost, getPublicPosts } from "@/queries"
-import { notFound } from "next/navigation"
-import { sanitizeMarkdown } from "@/lib/sanitize-md"
-import type { Metadata } from "next"
-import { env } from "@/env.mjs"
-import { siteConfig } from "@/config/site"
-import { PostPageContent } from "../_post"
-import { postOgParams } from "@/lib/og-params"
+import "@/styles/github-markdown.css";
+import { getPublicPost, getPublicPosts } from "@/queries";
+import { notFound } from "next/navigation";
+import { sanitizeMarkdown } from "@/lib/sanitize-md";
+import type { Metadata } from "next";
+import { env } from "@/env.mjs";
+import { siteConfig } from "@/config/site";
+import { PostPageContent } from "../_post";
+import { postOgParams } from "@/lib/og-params";
 
-export const revalidate = 30
+export const revalidate = 30;
 
 type Props = {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export async function generateStaticParams() {
-  const portfolios = await getPublicPosts()
+  const portfolios = await getPublicPosts();
 
   return portfolios.map((portfolio) => {
     return {
       slug: portfolio.slug,
-    }
-  })
+    };
+  });
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = await getPublicPost(params.slug)
-  const title = `${post?.title || "Blog"} — ${siteConfig.name}`
-  const description = sanitizeMarkdown(post?.excerpt || "")
+  const post = await getPublicPost(params.slug);
+  const title = `${post?.title || "Blog"} — ${siteConfig.name}`;
+  const description = sanitizeMarkdown(post?.excerpt || "");
 
   const relativeUrl = `/og/post?${postOgParams({
     title: post?.title || "",
     slug: post?.slug || "",
     author: post?.author.name || "",
     excerpt: post?.excerpt || "",
-  })}`
+  })}`;
 
-  const url = `${env.NEXT_PUBLIC_URL}${relativeUrl}`
+  const url = `${env.NEXT_PUBLIC_URL}${relativeUrl}`;
 
   return {
     title,
@@ -56,13 +56,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       site: `${env.NEXT_PUBLIC_URL}/posts/${params.slug}`,
     },
-  }
+  };
 }
 export default async function PostPage({ params }: Props) {
-  const post = await getPublicPost(params.slug)
+  const post = await getPublicPost(params.slug);
   if (!post) {
-    notFound()
+    notFound();
   }
 
-  return <PostPageContent post={post} />
+  return <PostPageContent post={post} />;
 }

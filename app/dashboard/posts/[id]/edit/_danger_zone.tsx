@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -8,29 +8,35 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { deletePost } from "@/server/server-actions"
-import { IconLoader2, IconTrash, IconTrashFilled } from "@tabler/icons-react"
-import { useRouter } from "next/navigation"
-import { useState, useTransition } from "react"
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { deletePost } from "@/server/server-actions";
+import { IconLoader2, IconTrash, IconTrashFilled } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 
 interface Props {
-  postId: number
+  postId: number;
 }
 export default function PostEditDangerZone({ postId }: Props) {
-  const router = useRouter()
-  const [pending, startTransition] = useTransition()
-  const [opened, setOpened] = useState(false)
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [opened, setOpened] = useState(false);
 
   const onAction = () => {
     startTransition(async () => {
-      await deletePost(postId)
-      setOpened(false)
-      router.push("/dashboard/posts")
-    })
-  }
+      await deletePost(postId);
+      setOpened(false);
+      router.push("/dashboard/posts");
+    });
+  };
 
   return (
     <Card>
@@ -49,11 +55,17 @@ export default function PostEditDangerZone({ postId }: Props) {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Delete Post?</AlertDialogTitle>
-              <AlertDialogDescription>This action cannot be undone</AlertDialogDescription>
+              <AlertDialogDescription>
+                This action cannot be undone
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
-              <Button variant="destructive" disabled={pending} onClick={onAction}>
+              <Button
+                variant="destructive"
+                disabled={pending}
+                onClick={onAction}
+              >
                 {pending ? (
                   <IconLoader2 className="animate-spin w-4 h-4 mr-2" />
                 ) : (
@@ -66,5 +78,5 @@ export default function PostEditDangerZone({ postId }: Props) {
         </AlertDialog>
       </CardFooter>
     </Card>
-  )
+  );
 }

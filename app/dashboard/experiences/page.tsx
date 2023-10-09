@@ -5,29 +5,32 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { TypographyH3 } from "@/components/ui/typography"
-import { authOptions } from "@/server/auth-options"
-import { getExpsByPortfolioId } from "@/queries"
-import { getServerSession } from "next-auth/next"
-import { redirect } from "next/navigation"
-import NextLink from "next/link"
-import { IconCirclePlus } from "@tabler/icons-react"
-import { Badge } from "@/components/ui/badge"
-import { format } from "date-fns/esm"
+} from "@/components/ui/card";
+import { TypographyH3 } from "@/components/ui/typography";
+import { authOptions } from "@/server/auth-options";
+import { getExpsByPortfolioId } from "@/queries";
+import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
+import NextLink from "next/link";
+import { IconCirclePlus } from "@tabler/icons-react";
+import { Badge } from "@/components/ui/badge";
+import { format } from "date-fns/esm";
 
 export default async function ExperienceDashboard() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
-  const experiences = await getExpsByPortfolioId(session.user.portfolioId)
+  const experiences = await getExpsByPortfolioId(session.user.portfolioId);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {experiences.map((experience) => (
-        <NextLink key={experience.id} href={`/dashboard/experiences/${experience.id}/edit`}>
+        <NextLink
+          key={experience.id}
+          href={`/dashboard/experiences/${experience.id}/edit`}
+        >
           <Card className="min-h-[200px] flex flex-col h-full cursor-pointer border border-muted hover:border-muted-foreground/30 transition">
             <CardHeader>
               <CardTitle>{experience.companyName}</CardTitle>
@@ -46,7 +49,9 @@ export default async function ExperienceDashboard() {
             </CardContent>
             <CardFooter>
               {format(experience.startedAt, "MMMM yyyy")} —{" "}
-              {experience.endedAt ? format(experience.endedAt, "MMMM yyyy") : "Present"}
+              {experience.endedAt
+                ? format(experience.endedAt, "MMMM yyyy")
+                : "Present"}
             </CardFooter>
           </Card>
         </NextLink>
@@ -61,5 +66,5 @@ export default async function ExperienceDashboard() {
         </Card>
       </NextLink>
     </div>
-  )
+  );
 }

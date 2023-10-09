@@ -1,31 +1,34 @@
-import { getServerSession } from "next-auth"
-import { ExperienceForm } from "../../_form"
-import { authOptions } from "@/server/auth-options"
-import { notFound, redirect } from "next/navigation"
-import { getAllTech, getExp } from "@/queries"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { LinkButton } from "@/components/ui/button"
-import { IconArrowLeft } from "@tabler/icons-react"
-import ExperienceEditDangerZone from "./_danger_zone"
+import { getServerSession } from "next-auth";
+import { ExperienceForm } from "../../_form";
+import { authOptions } from "@/server/auth-options";
+import { notFound, redirect } from "next/navigation";
+import { getAllTech, getExp } from "@/queries";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LinkButton } from "@/components/ui/button";
+import { IconArrowLeft } from "@tabler/icons-react";
+import ExperienceEditDangerZone from "./_danger_zone";
 
 interface Props {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default async function ExperienceEditPage({ params: { id } }: Props) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
-  const portfolioId = session.user.portfolioId
-  const techPromise = getAllTech()
-  const experiencePromise = getExp(parseInt(id))
+  const portfolioId = session.user.portfolioId;
+  const techPromise = getAllTech();
+  const experiencePromise = getExp(parseInt(id));
 
-  const [technologies, experience] = await Promise.all([techPromise, experiencePromise])
+  const [technologies, experience] = await Promise.all([
+    techPromise,
+    experiencePromise,
+  ]);
   if (experience?.portfolioId !== portfolioId || !experience) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -50,5 +53,5 @@ export default async function ExperienceEditPage({ params: { id } }: Props) {
       </Card>
       <ExperienceEditDangerZone experienceId={experience.id} />
     </div>
-  )
+  );
 }
