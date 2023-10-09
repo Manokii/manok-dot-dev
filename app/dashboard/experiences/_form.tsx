@@ -1,4 +1,5 @@
 "use client";
+import "@uploadthing/react/styles.css";
 import { insertExperienceSchema } from "@/lib/validators";
 import type { GetExp, GetAllTech } from "@/queries";
 import {
@@ -25,6 +26,7 @@ import {
   IconCalendar,
   IconDeviceFloppy,
   IconLoader2,
+  IconTrash,
   IconX,
 } from "@tabler/icons-react";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +39,8 @@ import {
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
+import { UploadDropzone } from "@uploadthing/react";
+import type { UploadRouter } from "@/app/api/uploadthing/core";
 
 interface Props {
   experience?: GetExp;
@@ -58,8 +62,9 @@ export function ExperienceForm({
       id: experience?.id,
       portfolioId,
       companyName: experience?.companyName ?? "",
-      jobTitle: experience?.jobTitle ?? "",
       companyWebsite: experience?.companyWebsite ?? "",
+      companyLogo: experience?.companyLogo ?? "",
+      jobTitle: experience?.jobTitle ?? "",
       jobDescription: experience?.jobDescription ?? "",
       startedAt: experience?.startedAt ?? new Date(),
       endedAt: experience?.endedAt,
@@ -67,7 +72,7 @@ export function ExperienceForm({
     },
   });
 
-  const experienceId = form.watch("id");
+  const [experienceId, companyLogo] = form.watch(["id", "companyLogo"]);
   const submit = form.handleSubmit(async (data) => {
     startTransition(async () => {
       const newExp = await upsertExperience(data);
@@ -80,6 +85,7 @@ export function ExperienceForm({
         companyName: newExp.companyName ?? "",
         jobTitle: newExp.jobTitle ?? "",
         companyWebsite: newExp.companyWebsite ?? "",
+        companyLogo: newExp.companyLogo ?? "",
         jobDescription: newExp.jobDescription ?? "",
         startedAt: newExp.startedAt ?? new Date(),
         endedAt: newExp.endedAt,
@@ -167,7 +173,51 @@ export function ExperienceForm({
                 <FormItem>
                   <FormLabel>Job Description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="I code..." {...field} />
+                    <Textarea
+                      placeholder="I code..."
+                      {...field}
+                      className="min-h-[200px]"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="companyLogo"
+              render={() => (
+                <FormItem>
+                  <FormLabel>Icon</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col gap-2 items-center ring-1 ring-muted p-8">
+                      {companyLogo && (
+                        <div className="relative p-4 bg-card/30 rounded-md w-full">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute top-2 right-2"
+                            onClick={() => form.setValue("companyLogo", "")}
+                          >
+                            <IconTrash className="h-4 w-4" />
+                          </Button>
+                          <div
+                            className="bg-contain w-full h-40 bg-center bg-no-repeat"
+                            style={{ backgroundImage: `url("${companyLogo}")` }}
+                          />
+                        </div>
+                      )}
+                      <UploadDropzone<UploadRouter>
+                        endpoint="imageUploader"
+                        onClientUploadComplete={(res = []) => {
+                          const file = res.at(0);
+                          if (file) {
+                            form.setValue("companyLogo", file.fileUrl);
+                          }
+                        }}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -37,6 +37,7 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
           portfolioId: exp.portfolioId,
           companyName: exp.companyName,
           companyWebsite: exp.companyWebsite,
+          companyLogo: exp.companyLogo,
           jobTitle: exp.jobTitle,
           startedAt: exp.startedAt,
           endedAt: exp.endedAt,

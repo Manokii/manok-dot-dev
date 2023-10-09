@@ -40,6 +40,7 @@ export const insertExperienceSchema = createInsertSchema(experiences, {
   jobTitle: (schema) => schema.jobTitle.min(3).max(255),
   jobDescription: (schema) => schema.jobDescription.max(2048),
   companyWebsite: (schema) => schema.companyWebsite.url().or(emptyString),
+  companyLogo: (schema) => schema.companyLogo.url().or(emptyString),
 }).extend({
   stack: z.array(z.number().positive()),
 });
