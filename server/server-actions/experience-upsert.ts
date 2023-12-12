@@ -12,6 +12,7 @@ import { authOptions } from "../auth-options";
 
 export async function upsertExperience(formData: InsertExperienceSchema) {
   const session = await getServerSession(authOptions);
+
   if (!session?.user) {
     throw new Error("Unauthenticated");
   }
@@ -21,6 +22,10 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
   const isSameAsSession = exp.portfolioId === session.user.portfolioId;
   const isAdmin = session.user.role === "admin";
   const canUpdate = isSameAsSession || isAdmin;
+
+  if (exp.endedAt && exp.startedAt <= exp.endedAt) {
+    throw new Error("Start date must be before end date");
+  }
 
   if (exp.id && !canUpdate) {
     throw new Error("Unauthorized");
