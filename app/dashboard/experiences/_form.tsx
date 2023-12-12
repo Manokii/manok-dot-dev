@@ -118,8 +118,6 @@ export function ExperienceForm({
     technologies[tech.id] = tech;
   };
 
-  const startedAt = form.watch("startedAt");
-
   return (
     <Form {...form}>
       <div className="flex flex-col gap-4">
@@ -296,9 +294,7 @@ export function ExperienceForm({
                           mode="single"
                           selected={field.value ?? undefined}
                           onSelect={(date) => field.onChange(date)}
-                          disabled={(date) =>
-                            date > startedAt || date < new Date("1900-01-01")
-                          }
+                          disabled={(date) => date < new Date("1900-01-01")}
                           initialFocus
                         />
                       </PopoverContent>
