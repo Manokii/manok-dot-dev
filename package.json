@@ -48,7 +48,7 @@
     "drizzle-orm": "0.27.2",
     "drizzle-zod": "0.4.4",
     "next": "13.4.9",
-    "next-auth": "4.22.1",
+    "next-auth": "4.24.5",
     "next-themes": "0.2.1",
     "postgres": "3.3.5",
     "react": "18.2.0",
