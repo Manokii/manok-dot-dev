@@ -23,7 +23,7 @@ export async function upsertExperience(formData: InsertExperienceSchema) {
   const isAdmin = session.user.role === "admin";
   const canUpdate = isSameAsSession || isAdmin;
 
-  if (exp.endedAt && exp.startedAt <= exp.endedAt) {
+  if (exp.endedAt && exp.startedAt >= exp.endedAt) {
     throw new Error("Start date must be before end date");
   }
 
